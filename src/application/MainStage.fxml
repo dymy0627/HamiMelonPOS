@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:controller="application.MainController" 
+    	  xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="20">
+    	  
+	<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+	
+	<VBox spacing="100" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+		  GridPane.columnIndex="0" GridPane.rowIndex="0">
+   		<children>
+     		<Button prefHeight="30.0" prefWidth="200.0" fx:id="order" text="點餐" onAction="#OrderButtonAction"/>
+			
+			<Button prefHeight="30.0" prefWidth="200.0" fx:id="purchase" text="進出貨" onAction="#PurchaseButtonAction"/>
+			
+			<Button prefHeight="30.0" prefWidth="200.0" fx:id="daily" text="日報" onAction="#DailyButtonAction"/>
+			
+			<Button prefHeight="30.0" prefWidth="200.0" fx:id="monthly" text="月報" onAction="#MonthlyButtonAction"/>
+   		</children>
+	</VBox>
+	
+
+</GridPane>
+
