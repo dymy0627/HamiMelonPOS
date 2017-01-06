@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:controller="application.MenuController" 
+    	  xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="100">
+    	  
+	<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+	
+	<HBox spacing="100" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+		  GridPane.columnIndex="0" GridPane.rowIndex="0">
+   		<children>
+     		<Label prefHeight="30.0" prefWidth="200.0" fx:id="order" text="用餐型態" />
+			
+			<ComboBox fx:id="PeopleCombo" layoutX="15.0" layoutY="33.0" prefWidth="200.0" promptText="人數"/>
+			
+			<Button prefHeight="30.0" prefWidth="200.0" fx:id="p_page" text="上一頁" onAction="#PreviousPageButtonAction"/>
+			
+   		</children>
+	</HBox>
+	
+	<GridPane xmlns:fx="http://javafx.com/fxml" 
+			  GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="center" hgap="400" vgap="80">
+		
+		<padding>
+        	<Insets top="10" bottom="10" left="10" right="10" />
+    	</padding>
+    	
+    	<children>
+    		<CheckBox GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="meal1" text="殺豬公" />
+    		<CheckBox GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="meal2" text="殺豬母" />
+    		<CheckBox GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="meal3" text="殺小豬" />
+    		<CheckBox GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="meal4" text="嫂子" />
+    		<CheckBox GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="meal5" text="餃子" />
+    		
+    		<CheckBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="meal6" text="取豬鞭" />
+    		<CheckBox GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="meal7" text="吃西瓜" />
+    		<CheckBox GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="meal8" text="屋嚕嚕" />
+    		<CheckBox GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="meal9" text="包" />
+    		<CheckBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="meal10" text="好吃耶" />
+		</children>
+   		
+	</GridPane>
+
+</GridPane>
+
