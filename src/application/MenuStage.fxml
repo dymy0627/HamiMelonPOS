@@ -15,9 +15,12 @@
 	<HBox spacing="100" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
 		  GridPane.columnIndex="0" GridPane.rowIndex="0">
    		<children>
-     		<Label prefHeight="30.0" prefWidth="200.0" fx:id="order" text="用餐型態" />
+
+     		<Label prefHeight="30.0" prefWidth="200.0" fx:id="order" text="用餐型態" alignment="center_right" />
 			
 			<ComboBox fx:id="PeopleCombo" layoutX="15.0" layoutY="33.0" prefWidth="200.0" promptText="人數"/>
+			
+			<Label prefHeight="30.0" prefWidth="200.0" fx:id="order_time" text="Time" alignment="center" />
 			
 			<Button prefHeight="30.0" prefWidth="200.0" fx:id="p_page" text="上一頁" onAction="#PreviousPageButtonAction"/>
 			
@@ -46,6 +49,8 @@
 		</children>
    		
 	</GridPane>
+	
+	<Button GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="30.0" prefWidth="200.0" fx:id="n_page" text="下一頁" onAction="#NextPageButtonAction"/>
 
 </GridPane>
 

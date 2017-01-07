@@ -36,15 +36,17 @@ public class MainScene extends Application
 		
 		//mainstage and orderstage fxml load
 		Parent mainstage = FXMLLoader.load(getClass().getResource("/application/MainStage.fxml"));
-		Parent orderstage = FXMLLoader.load(getClass().getResource("/application/OrderStage.fxml"));
-		Parent menustage = FXMLLoader.load(getClass().getResource("/application/MenuStage.fxml"));
+		//Parent orderstage = FXMLLoader.load(getClass().getResource("/application/OrderStage.fxml"));
+		//Parent menustage = FXMLLoader.load(getClass().getResource("/application/MenuStage.fxml"));
+		//Parent liststage = FXMLLoader.load(getClass().getResource("/application/ListStage.fxml"));
 		
-		// Adding VBox to the scene
 		Scene main_scene = new Scene(mainstage,1024,720);
 		
-		Scene order_scene = new Scene(orderstage,1024,720);
+		//Scene order_scene = new Scene(orderstage,1024,720);
 		
-		Scene menu_scene = new Scene(menustage,1024,720);
+		//Scene menu_scene = new Scene(menustage,1024,720);
+		
+		//Scene list_scene = new Scene(liststage,1024,720);
 		
 		primaryStage.setScene(main_scene);
 		//give stage switch tmp object
