@@ -14,9 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 public class MenuController implements Initializable
 {
@@ -62,7 +60,7 @@ public class MenuController implements Initializable
 	{
 		try 
 		{
-			orderstage = FXMLLoader.load(getClass().getResource("/application/OrderStage.fxml"));
+			orderstage = FXMLLoader.load(getClass().getResource("/fxml/OrderStage.fxml"));
 		} 
 		catch (IOException e)
 		{

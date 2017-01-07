@@ -19,7 +19,7 @@ public class MainScene extends Application {
 		primaryStage.setTitle("HamiMelonPOS");
 
 		// mainstage fxml load
-		Parent mainstage = FXMLLoader.load(getClass().getResource("/application/MainStage.fxml"));
+		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 
 		Scene main_scene = new Scene(mainstage, 1024, 720);
 

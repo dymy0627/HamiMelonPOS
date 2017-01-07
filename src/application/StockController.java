@@ -22,7 +22,7 @@ public class StockController {
 	@FXML
 	protected void LeaveButtonAction(ActionEvent event) throws IOException {
 		// def fxml loader
-		Parent stockStage = FXMLLoader.load(getClass().getResource("/application/MainStage.fxml"));
+		Parent stockStage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 
 		// ref fxml to stage
 		Scene scene = new Scene(stockStage, 1024, 720);

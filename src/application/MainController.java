@@ -11,10 +11,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class MainController {
-	@FXML
-	private Button order;
-	@FXML
-	private Button purchase;
+
 	@FXML
 	private Button daily;
 	@FXML
@@ -26,12 +23,12 @@ public class MainController {
 	@FXML
 	protected void OrderButtonAction(ActionEvent event) throws IOException {
 		// def fxml loader
-		Parent orderstage = FXMLLoader.load(getClass().getResource("/application/OrderStage.fxml"));
+		Parent orderstage = FXMLLoader.load(getClass().getResource("/fxml/OrderStage.fxml"));
 
 		// ref fxml to stage
 		scene = new Scene(orderstage, 1024, 720);
 		stage = MainScene.stage_tmp;
-		
+
 		// change scene to main scene
 		stage.setScene(scene);
 		stage.show();
@@ -40,13 +37,13 @@ public class MainController {
 	@FXML
 	protected void PurchaseButtonAction(ActionEvent event) throws IOException {
 		// def fxml loader
-		Parent stockStage = FXMLLoader.load(getClass().getResource("/application/StockStage.fxml"));
+		Parent stockStage = FXMLLoader.load(getClass().getResource("/fxml/StockStage.fxml"));
 
 		// ref fxml to stage
 		scene = new Scene(stockStage, 1024, 720);
 		stage = MainScene.stage_tmp;
+
 		// change scene to main scene
-		
 		stage.setScene(scene);
 		stage.show();
 	}
