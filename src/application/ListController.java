@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.security.auth.callback.Callback;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -45,19 +47,12 @@ public class ListController implements Initializable
 	@FXML private Label total_money;
 	
 	@FXML private ListView<String> menulist;
-	ArrayList<String> passing_list;
+	ListProperty<String> listProperty = new SimpleListProperty<>();
+	List<String> passing_list = new ArrayList<>();
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{	
-		//menulist = new ListView<String>();
-		//ObservableList observableList = FXCollections.observableArrayList();
-		//observableList.setAll(passing_list);
-		//menulist.setItems(FXCollections.observableList(passing_list));
-	
-		
-
-		
 		// populate the fruit combo box with item choices.
 		DiscountCombo.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 
@@ -148,7 +143,7 @@ public class ListController implements Initializable
 	
 	public void setMoney(int money)
 	{
-		total_money.setText(Integer.toString(money));
+		total_money.setText("Á`»ù " + Integer.toString(money));
 	}
 	
 	public void setPeople(int people)
@@ -159,11 +154,17 @@ public class ListController implements Initializable
 	public void setMenuList(ArrayList<String> passing_menu)
 	{
 		int cursor = 0;
+		System.out.println(passing_menu.size());
 		while(cursor != passing_menu.size())
 		{
 			System.out.print(passing_menu.get(cursor));
 			passing_list.add(passing_menu.get(cursor++));
 		}
+
+		menulist.itemsProperty().bind(listProperty);
+		//ObservableList observableList = FXCollections.observableArrayList();
+		//observableList.setAll(passing_list);
+		listProperty.set(FXCollections.observableArrayList(passing_list));
 			
 	}
 	
