@@ -1,4 +1,4 @@
-package application;
+package application.order;
 
 public class OrderFrame {
 
