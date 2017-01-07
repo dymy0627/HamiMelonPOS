@@ -3,8 +3,6 @@ package application.order;
 import java.util.Date;
 import java.util.TimerTask;
 
-import application.MenuController;
-
 public class OrderTimeTask extends TimerTask {
 	Date now_date = new Date();
 	static String time = "66";

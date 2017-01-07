@@ -185,11 +185,11 @@ public class ListController implements Initializable {
 		num_people.setText(Integer.toString(people));
 	}
 
-	public void setMenuList(ArrayList<String> passing_menu) {
+	public void setMenuList(List<String> passing_menu) {
 		int cursor = 0;
-		System.out.println(passing_menu.size());
+		System.out.println("passing_menu.size() = " + passing_menu.size());
 		while (cursor != passing_menu.size()) {
-			System.out.print(passing_menu.get(cursor));
+			System.out.println(passing_menu.get(cursor));
 			passing_list.add(passing_menu.get(cursor++));
 		}
 
@@ -197,7 +197,6 @@ public class ListController implements Initializable {
 		// ObservableList observableList = FXCollections.observableArrayList();
 		// observableList.setAll(passing_list);
 		listProperty.set(FXCollections.observableArrayList(passing_list));
-
 	}
 
 }
