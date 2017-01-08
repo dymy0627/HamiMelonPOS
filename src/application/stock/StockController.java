@@ -2,23 +2,29 @@ package application.stock;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.MainScene;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class StockController implements Initializable {
 
 	@FXML
-	private ListView<String> stockListView;
+	private ListView<StockBean> stockListView;
 
 	@FXML
 	private TextField manufacturerTextField;
@@ -27,16 +33,49 @@ public class StockController implements Initializable {
 	@FXML
 	private TextField amountTextField;
 
+	private List<StockBean> stockList = new ArrayList<StockBean>();
+
+	private ObservableList<StockBean> stockObservableList = FXCollections.observableArrayList();
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		stockListView.setItems(stockObservableList);
+		stockListView.setCellFactory(new Callback<ListView<StockBean>, ListCell<StockBean>>() {
+			@Override
+			public ListCell<StockBean> call(ListView<StockBean> parms) {
+				return new StockListViewCell();
+			}
+		});
+	}
+
 	@FXML
 	protected void AddButtonAction(ActionEvent event) {
 		String manufacturerText = manufacturerTextField.getText();
 		String stockNameText = stockNameTextField.getText();
 		String amountText = amountTextField.getText();
 		if (!manufacturerText.isEmpty() && !stockNameText.isEmpty() && !amountText.isEmpty()) {
-			stockListView.getItems().add(manufacturerText + ", " + stockNameText + ", " + amountText);
-			manufacturerTextField.setText("");
-			stockNameTextField.setText("");
-			amountTextField.setText("");
+			StockBean stock = new StockBean();
+			stock.setManufacturer(manufacturerText);
+			stock.setName(stockNameText);
+			stock.setAmount(amountText);
+			stockList.add(stock);
+			stockObservableList.add(stock);
+			clearTextField();
+		}
+	}
+
+	private void clearTextField() {
+		manufacturerTextField.setText("");
+		stockNameTextField.setText("");
+		amountTextField.setText("");
+	}
+
+	@FXML
+	protected void SendButtonAction(ActionEvent event) {
+		stockListView.getItems().clear();
+		clearTextField();
+		for (StockBean stock : stockList) {
+			System.out.println(stock.getManufacturer() + ", " + stock.getName() + ", " + stock.getAmount());
 		}
 	}
 
@@ -52,9 +91,5 @@ public class StockController implements Initializable {
 
 		stage.setScene(scene);
 		stage.show();
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
 	}
 }
