@@ -39,7 +39,7 @@ public class StockListViewCell extends ListCell<StockBean> {
 			}
 			manufacturerLabel.setText(stock.getManufacturer());
 			nameLabel.setText(stock.getName());
-			amountLabel.setText(stock.getAmount());
+			amountLabel.setText(String.valueOf(stock.getAmount()));
 			setText(null);
 			setGraphic(stockItem);
 		}

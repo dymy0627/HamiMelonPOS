@@ -4,7 +4,7 @@ public class StockBean {
 
 	private String manufacturer;
 	private String name;
-	private String amount;
+	private int amount;
 
 	public String getManufacturer() {
 		return manufacturer;
@@ -22,11 +22,11 @@ public class StockBean {
 		this.name = name;
 	}
 
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
