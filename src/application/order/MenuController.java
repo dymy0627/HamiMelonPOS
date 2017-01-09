@@ -22,6 +22,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.PreparedStatement; 
+import java.sql.ResultSet; 
+import java.sql.SQLException; 
+import java.sql.Statement; 
 public class MenuController implements Initializable {
 
 	@FXML
@@ -65,6 +71,7 @@ public class MenuController implements Initializable {
 	private List<String> passing_menu = new ArrayList<String>();
 	private List<CheckBox> checkBoxGroup = new ArrayList<CheckBox>();
 
+	private String Consumption_type="¤º¥Î";
 	private int num_people;
 	private int money;
 	private int pork;
@@ -143,7 +150,6 @@ public class MenuController implements Initializable {
 		controller.setMoney(6666);
 		controller.setPeople(num_people);
 		controller.setMenuList(passing_menu);
-
 		scene = new Scene(root, 1024, 720);
 		stage = MainScene.stage_tmp;
 		// change scene to main scene

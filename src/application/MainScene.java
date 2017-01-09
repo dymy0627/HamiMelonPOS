@@ -6,13 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-public class MainScene extends Application {
-
+import java.util.Calendar;  
+import java.util.Date;  
+import java.util.Timer;  
+public class MainScene extends Application { 
 	public static Stage stage_tmp;
 
 	public static void main(String[] args) {
+
+		new TimerManager();
 		Application.launch(args);
+		
 	}
 
 	@Override
@@ -35,5 +39,5 @@ public class MainScene extends Application {
 		super.stop();
 		MenuController.pause = true;
 	}
-
 }
+

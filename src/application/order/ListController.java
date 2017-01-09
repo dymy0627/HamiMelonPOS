@@ -184,6 +184,9 @@ public class ListController implements Initializable {
 	public void setPeople(int people) {
 		num_people.setText(Integer.toString(people));
 	}
+	
+	
+	
 
 	public void setMenuList(List<String> passing_menu) {
 		int cursor = 0;
