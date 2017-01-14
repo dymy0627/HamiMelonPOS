@@ -148,7 +148,6 @@ public class MenuController implements Initializable {
 					
 					if(now_people >= num_people)
 					{
-						checkbox.setSelected(false);
 						now_people = now_people-Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
 						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
 						System.out.println("虫计 " + num_people +" 翴计" + now_people);
@@ -158,7 +157,9 @@ public class MenuController implements Initializable {
 							beef--;
 							System.out.println("beef number " + beef);;
 						}
-						passing_menu.remove(passing_menu.indexOf(checkbox.getText()));
+						if(passing_menu.contains(checkbox.getText()))
+							passing_menu.remove(passing_menu.indexOf(checkbox.getText()));
+						checkbox.setSelected(false);
 					}
 					else if(now_people < num_people){
 						if (isSelected) {
@@ -206,9 +207,10 @@ public class MenuController implements Initializable {
 			    	else if((now_people < num_people )){
 			    		LabelGroup.get(PButtonGroup.indexOf(btn)).setText(String.valueOf(Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText())+1));
 			    		now_people++;
+			    		passing_menu.add(checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText());
 			    		System.out.println("虫计 " + num_people +" 翴计" + now_people);
 			    		}	
-		    		peopleComboBox.setPromptText(String.valueOf(num_people));
+		    		
 			    }
 			});
 		}
