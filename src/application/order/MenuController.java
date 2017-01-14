@@ -27,57 +27,60 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.sql.Connection; 
-import java.sql.DriverManager; 
-import java.sql.PreparedStatement; 
-import java.sql.ResultSet; 
-import java.sql.SQLException; 
-import java.sql.Statement; 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class MenuController implements Initializable {
 
 	@FXML
 	private Label order_time;
 
 	@FXML
-	private CheckBox meal1,meal2,meal3,meal4,meal5,meal6,meal7,meal8,meal9,meal10,meal11,meal12,meal13,meal14,meal15
-					,meal16,meal17,meal18,meal19,meal20,meal21,meal22,meal23,meal24,meal25,meal26,meal27,meal28,meal29
-					,meal30,meal31,meal32,meal33,meal34,meal35,meal36,meal37,meal38,meal39,meal40,meal41,meal42,meal43
-					,meal44,meal45,meal46,meal47,meal48,meal49,meal50,meal51,meal52,meal53,meal54,meal55,meal56,meal57
-					,meal58,meal59,meal60,meal61,meal62,meal63,meal64,meal65,meal66,meal67,meal68,meal69,meal70,meal71
-					,meal72,meal73,meal74;
+	private CheckBox meal1, meal2, meal3, meal4, meal5, meal6, meal7, meal8, meal9, meal10, meal11, meal12, meal13,
+			meal14, meal15, meal16, meal17, meal18, meal19, meal20, meal21, meal22, meal23, meal24, meal25, meal26,
+			meal27, meal28, meal29, meal30, meal31, meal32, meal33, meal34, meal35, meal36, meal37, meal38, meal39,
+			meal40, meal41, meal42, meal43, meal44, meal45, meal46, meal47, meal48, meal49, meal50, meal51, meal52,
+			meal53, meal54, meal55, meal56, meal57, meal58, meal59, meal60, meal61, meal62, meal63, meal64, meal65,
+			meal66, meal67, meal68, meal69, meal70, meal71, meal72, meal73, meal74;
 
 	@FXML
-	private Button 	 pbtn_meal1,pbtn_meal2,pbtn_meal3,pbtn_meal4,pbtn_meal5,pbtn_meal6,pbtn_meal7,pbtn_meal8,pbtn_meal9,pbtn_meal10
-					,pbtn_meal11,pbtn_meal12,pbtn_meal13,pbtn_meal14,pbtn_meal15,pbtn_meal16,pbtn_meal17,pbtn_meal18,pbtn_meal19
-					,pbtn_meal20,pbtn_meal21,pbtn_meal22,pbtn_meal23,pbtn_meal24,pbtn_meal25,pbtn_meal26,pbtn_meal27,pbtn_meal28
-					,pbtn_meal29,pbtn_meal30,pbtn_meal31,pbtn_meal32,pbtn_meal33,pbtn_meal34,pbtn_meal35,pbtn_meal36,pbtn_meal37
-					,pbtn_meal38,pbtn_meal39,pbtn_meal40,pbtn_meal41,pbtn_meal42,pbtn_meal43,pbtn_meal44,pbtn_meal45,pbtn_meal46
-					,pbtn_meal47,pbtn_meal48,pbtn_meal49,pbtn_meal50,pbtn_meal51,pbtn_meal52,pbtn_meal53,pbtn_meal54,pbtn_meal55
-					,pbtn_meal56,pbtn_meal57,pbtn_meal58,pbtn_meal59,pbtn_meal60,pbtn_meal61,pbtn_meal62,pbtn_meal63,pbtn_meal64
-					,pbtn_meal65,pbtn_meal66,pbtn_meal67,pbtn_meal68,pbtn_meal69,pbtn_meal70,pbtn_meal71,pbtn_meal72,pbtn_meal73
-					,pbtn_meal74;
-	
-	@FXML
-	private Button	 mbtn_meal1,mbtn_meal2,mbtn_meal3,mbtn_meal4,mbtn_meal5,mbtn_meal6,mbtn_meal7,mbtn_meal8,mbtn_meal9,mbtn_meal10
-					,mbtn_meal11,mbtn_meal12,mbtn_meal13,mbtn_meal14,mbtn_meal15,mbtn_meal16,mbtn_meal17,mbtn_meal18,mbtn_meal19
-					,mbtn_meal20,mbtn_meal21,mbtn_meal22,mbtn_meal23,mbtn_meal24,mbtn_meal25,mbtn_meal26,mbtn_meal27,mbtn_meal28
-					,mbtn_meal29,mbtn_meal30,mbtn_meal31,mbtn_meal32,mbtn_meal33,mbtn_meal34,mbtn_meal35,mbtn_meal36,mbtn_meal37
-					,mbtn_meal38,mbtn_meal39,mbtn_meal40,mbtn_meal41,mbtn_meal42,mbtn_meal43,mbtn_meal44,mbtn_meal45,mbtn_meal46
-					,mbtn_meal47,mbtn_meal48,mbtn_meal49,mbtn_meal50,mbtn_meal51,mbtn_meal52,mbtn_meal53,mbtn_meal54,mbtn_meal55
-					,mbtn_meal56,mbtn_meal57,mbtn_meal58,mbtn_meal59,mbtn_meal60,mbtn_meal61,mbtn_meal62,mbtn_meal63,mbtn_meal64
-					,mbtn_meal65,mbtn_meal66,mbtn_meal67,mbtn_meal68,mbtn_meal69,mbtn_meal70,mbtn_meal71,mbtn_meal72,mbtn_meal73
-					,mbtn_meal74;
-	
-	@FXML
-	private Label	 num_meal1,num_meal2,num_meal3,num_meal4,num_meal5,num_meal6,num_meal7,num_meal8,num_meal9,num_meal10
-					,num_meal11,num_meal12,num_meal13,num_meal14,num_meal15,num_meal16,num_meal17,num_meal18,num_meal19,num_meal20
-					,num_meal21,num_meal22,num_meal23,num_meal24,num_meal25,num_meal26,num_meal27,num_meal28,num_meal29
-					,num_meal30,num_meal31,num_meal32,num_meal33,num_meal34,num_meal35,num_meal36,num_meal37,num_meal38,num_meal39
-					,num_meal40,num_meal41,num_meal42,num_meal43,num_meal44,num_meal45,num_meal46,num_meal47,num_meal48,num_meal49
-					,num_meal50,num_meal51,num_meal52,num_meal53,num_meal54,num_meal55,num_meal56,num_meal57,num_meal58,num_meal59
-					,num_meal60,num_meal61,num_meal62,num_meal63,num_meal64,num_meal65,num_meal66,num_meal67,num_meal68,num_meal69
-					,num_meal70,num_meal71,num_meal72,num_meal73,num_meal74;
+	private Button pbtn_meal1, pbtn_meal2, pbtn_meal3, pbtn_meal4, pbtn_meal5, pbtn_meal6, pbtn_meal7, pbtn_meal8,
+			pbtn_meal9, pbtn_meal10, pbtn_meal11, pbtn_meal12, pbtn_meal13, pbtn_meal14, pbtn_meal15, pbtn_meal16,
+			pbtn_meal17, pbtn_meal18, pbtn_meal19, pbtn_meal20, pbtn_meal21, pbtn_meal22, pbtn_meal23, pbtn_meal24,
+			pbtn_meal25, pbtn_meal26, pbtn_meal27, pbtn_meal28, pbtn_meal29, pbtn_meal30, pbtn_meal31, pbtn_meal32,
+			pbtn_meal33, pbtn_meal34, pbtn_meal35, pbtn_meal36, pbtn_meal37, pbtn_meal38, pbtn_meal39, pbtn_meal40,
+			pbtn_meal41, pbtn_meal42, pbtn_meal43, pbtn_meal44, pbtn_meal45, pbtn_meal46, pbtn_meal47, pbtn_meal48,
+			pbtn_meal49, pbtn_meal50, pbtn_meal51, pbtn_meal52, pbtn_meal53, pbtn_meal54, pbtn_meal55, pbtn_meal56,
+			pbtn_meal57, pbtn_meal58, pbtn_meal59, pbtn_meal60, pbtn_meal61, pbtn_meal62, pbtn_meal63, pbtn_meal64,
+			pbtn_meal65, pbtn_meal66, pbtn_meal67, pbtn_meal68, pbtn_meal69, pbtn_meal70, pbtn_meal71, pbtn_meal72,
+			pbtn_meal73, pbtn_meal74;
 
+	@FXML
+	private Button mbtn_meal1, mbtn_meal2, mbtn_meal3, mbtn_meal4, mbtn_meal5, mbtn_meal6, mbtn_meal7, mbtn_meal8,
+			mbtn_meal9, mbtn_meal10, mbtn_meal11, mbtn_meal12, mbtn_meal13, mbtn_meal14, mbtn_meal15, mbtn_meal16,
+			mbtn_meal17, mbtn_meal18, mbtn_meal19, mbtn_meal20, mbtn_meal21, mbtn_meal22, mbtn_meal23, mbtn_meal24,
+			mbtn_meal25, mbtn_meal26, mbtn_meal27, mbtn_meal28, mbtn_meal29, mbtn_meal30, mbtn_meal31, mbtn_meal32,
+			mbtn_meal33, mbtn_meal34, mbtn_meal35, mbtn_meal36, mbtn_meal37, mbtn_meal38, mbtn_meal39, mbtn_meal40,
+			mbtn_meal41, mbtn_meal42, mbtn_meal43, mbtn_meal44, mbtn_meal45, mbtn_meal46, mbtn_meal47, mbtn_meal48,
+			mbtn_meal49, mbtn_meal50, mbtn_meal51, mbtn_meal52, mbtn_meal53, mbtn_meal54, mbtn_meal55, mbtn_meal56,
+			mbtn_meal57, mbtn_meal58, mbtn_meal59, mbtn_meal60, mbtn_meal61, mbtn_meal62, mbtn_meal63, mbtn_meal64,
+			mbtn_meal65, mbtn_meal66, mbtn_meal67, mbtn_meal68, mbtn_meal69, mbtn_meal70, mbtn_meal71, mbtn_meal72,
+			mbtn_meal73, mbtn_meal74;
+
+	@FXML
+	private Label num_meal1, num_meal2, num_meal3, num_meal4, num_meal5, num_meal6, num_meal7, num_meal8, num_meal9,
+			num_meal10, num_meal11, num_meal12, num_meal13, num_meal14, num_meal15, num_meal16, num_meal17, num_meal18,
+			num_meal19, num_meal20, num_meal21, num_meal22, num_meal23, num_meal24, num_meal25, num_meal26, num_meal27,
+			num_meal28, num_meal29, num_meal30, num_meal31, num_meal32, num_meal33, num_meal34, num_meal35, num_meal36,
+			num_meal37, num_meal38, num_meal39, num_meal40, num_meal41, num_meal42, num_meal43, num_meal44, num_meal45,
+			num_meal46, num_meal47, num_meal48, num_meal49, num_meal50, num_meal51, num_meal52, num_meal53, num_meal54,
+			num_meal55, num_meal56, num_meal57, num_meal58, num_meal59, num_meal60, num_meal61, num_meal62, num_meal63,
+			num_meal64, num_meal65, num_meal66, num_meal67, num_meal68, num_meal69, num_meal70, num_meal71, num_meal72,
+			num_meal73, num_meal74;
 
 	@FXML
 	private ComboBox<String> peopleComboBox;
@@ -86,7 +89,7 @@ public class MenuController implements Initializable {
 	private Button p_page;
 	@FXML
 	private Button n_page;
-	
+
 	@FXML
 	private VBox menu1;
 
@@ -102,10 +105,10 @@ public class MenuController implements Initializable {
 	private List<Button> MButtonGroup = new ArrayList<Button>();
 	private List<Label> LabelGroup = new ArrayList<Label>();
 
-	private String Consumption_type="內用";
+	private String Consumption_type = "內用";
 	private int num_people;
 	private int now_people;
-	
+
 	private int money;
 	private int pork;
 	private int beef;
@@ -114,9 +117,10 @@ public class MenuController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		// populate the fruit combo box with item choices.
-		peopleComboBox.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15");
+		peopleComboBox.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
+				"15");
 
 		// listen for changes to the fruit combo box selection and update the
 		// displayed fruit image accordingly.
@@ -124,121 +128,128 @@ public class MenuController implements Initializable {
 			public void changed(ObservableValue<? extends String> observable, String oldSelected, String newSelected) {
 				num_people = Integer.parseInt(newSelected);
 				System.out.println("num_people: " + num_people);
-				
-				if(num_people < now_people){
-					for (CheckBox inti : checkBoxGroup)
-					{
-						inti.setSelected(false);
-						LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
-				    	
-					}
-					now_people = 0;	
+
+				for (CheckBox inti : checkBoxGroup) {
+					inti.setSelected(false);
+					LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
+					passing_menu.clear();
+
 				}
+				now_people = 0;
 			}
 		});
-	
+
 		menu_content_intialize();
-		
 
 		for (CheckBox checkbox : checkBoxGroup) {
 			checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean wasSelected,
 						Boolean isSelected) {
 					System.out.println(checkbox.getText() + " checked=" + isSelected);
-					
-					if(now_people >= num_people)
-					{
-						now_people = now_people-Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
+
+					if (isSelected) {
+
+						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText(String.valueOf(
+								Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText()) + 1));
+						now_people += 1;
+
+						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
+						if ((checkbox.getText().contains("沙朗") || checkbox.getText().contains("菲力")
+								|| checkbox.getText().contains("肋眼") || checkbox.getText().contains("紐約克")
+								|| checkbox.getText().contains("雪花") || checkbox.getText().contains("牛小排")
+								|| checkbox.getText().contains("牛筋") || checkbox.getText().contains("牛肉片")
+								|| checkbox.getText().contains("牛"))) {
+							beef++;
+							System.out.println("beef number " + beef);
+							;
+						}
+						passing_menu.add(checkbox.getText());
+					} else {
+
+						now_people = now_people
+								- Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
 						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
-						System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
-						if(checkbox.getText().contains("牛") || checkbox.getText().contains("菲力") || checkbox.getText().contains("肋眼")|| 
-						   checkbox.getText().contains("紐約克")|| checkbox.getText().contains("雪花")|| checkbox.getText().contains("牛小排")||
-						   checkbox.getText().contains("牛筋")|| checkbox.getText().contains("牛肉片")||checkbox.getText().contains("沙朗")){
+						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
+						if ((checkbox.getText().contains("牛") || checkbox.getText().contains("菲力")
+								|| checkbox.getText().contains("肋眼") || checkbox.getText().contains("紐約克")
+								|| checkbox.getText().contains("雪花") || checkbox.getText().contains("牛小排")
+								|| checkbox.getText().contains("牛筋") || checkbox.getText().contains("牛肉片")
+								|| checkbox.getText().contains("沙朗")) && beef >0) {
 							beef--;
-							System.out.println("beef number " + beef);;
+							System.out.println("beef number " + beef);
+							
 						}
 						if(passing_menu.contains(checkbox.getText()))
-							passing_menu.remove(passing_menu.indexOf(checkbox.getText()));
-						checkbox.setSelected(false);
+							passing_menu.remove(checkbox.getText());
 					}
-					else if(now_people < num_people){
-						if (isSelected) {
 
-				    		LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText(String.valueOf(Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText())+1));
-					    	now_people += 1;
-				    		
-				    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
-							if(checkbox.getText().contains("沙朗") || checkbox.getText().contains("菲力") || checkbox.getText().contains("肋眼")|| 
-							   checkbox.getText().contains("紐約克")|| checkbox.getText().contains("雪花")|| checkbox.getText().contains("牛小排")||
-							   checkbox.getText().contains("牛筋")|| checkbox.getText().contains("牛肉片")|| checkbox.getText().contains("牛")){
-								beef++;
-								System.out.println("beef number " + beef);;
-							}
-							passing_menu.add(checkbox.getText());
-						} else {
-							
-							now_people = now_people-Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
-							LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
-				    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
-							if(checkbox.getText().contains("牛") || checkbox.getText().contains("菲力") || checkbox.getText().contains("肋眼")|| 
-							   checkbox.getText().contains("紐約克")|| checkbox.getText().contains("雪花")|| checkbox.getText().contains("牛小排")||
-							   checkbox.getText().contains("牛筋")|| checkbox.getText().contains("牛肉片")||checkbox.getText().contains("沙朗")){
-								beef--;
-								System.out.println("beef number " + beef);;
-							}
-							passing_menu.remove(passing_menu.indexOf(checkbox.getText()));
-						}
-						
-					}
-				
 				}
 			});
 		}
-		
+
 		for (Button btn : PButtonGroup) {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
-			    @Override 
-			    public void handle(ActionEvent e) {
-			    	
-			    	if(Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText()) == 0 && now_people < num_people)
-			    	{
-			    		checkBoxGroup.get(PButtonGroup.indexOf(btn)).setSelected(true);
-			    	}	
-			    	else if((now_people < num_people )){
-			    		LabelGroup.get(PButtonGroup.indexOf(btn)).setText(String.valueOf(Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText())+1));
-			    		now_people++;
-			    		passing_menu.add(checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText());
-			    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
-			    		}	
-		    		
-			    }
+				@Override
+				public void handle(ActionEvent e) {
+
+					if (Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText()) == 0) {
+						checkBoxGroup.get(PButtonGroup.indexOf(btn)).setSelected(true);
+					} else {
+						LabelGroup.get(PButtonGroup.indexOf(btn)).setText(String
+								.valueOf(Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText()) + 1));
+						now_people++;
+						passing_menu.add(checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText());
+						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
+						if (checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("菲力")
+								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("肋眼") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("紐約克")
+								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("雪花") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛小排")
+								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛筋") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛肉片")
+								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("沙朗")) {
+							beef++;
+							System.out.println("beef number " + beef);
+							
+						}
+					}
+
+				}
 			});
 		}
-		
+
 		for (Button btn : MButtonGroup) {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
-			    @Override 
-			    public void handle(ActionEvent e) {
-			    	
-			    	if(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) > 0){
-			    		LabelGroup.get(MButtonGroup.indexOf(btn)).setText(String.valueOf(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText())-1));
-			    		now_people--;
-			    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
-				    	if(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) == 0)
-				    		checkBoxGroup.get(MButtonGroup.indexOf(btn)).setSelected(false);
-			    	}
+				@Override
+				public void handle(ActionEvent e) {
 
-			    	
-			    }
+					if (Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) > 0) {
+						LabelGroup.get(MButtonGroup.indexOf(btn)).setText(String
+								.valueOf(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) - 1));
+						now_people--;
+						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
+						if (checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("菲力")
+								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("肋眼") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("紐約克")
+								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("雪花") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛小排")
+								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛筋") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛肉片")
+								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("沙朗")) {
+							beef--;
+							System.out.println("beef number " + beef);
+							
+						}
+						if(passing_menu.contains(checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText()))
+							passing_menu.remove(checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText());
+						if (Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) == 0)
+							checkBoxGroup.get(MButtonGroup.indexOf(btn)).setSelected(false);
+					}
+
+				}
 			});
 		}
-		
+
 	}
 
 	private void menu_content_intialize() {
 		num_people = 1;
 		now_people = 0;
-		
+
 		checkBoxGroup.add(meal1);
 		checkBoxGroup.add(meal2);
 		checkBoxGroup.add(meal3);
@@ -268,7 +279,7 @@ public class MenuController implements Initializable {
 		checkBoxGroup.add(meal27);
 		checkBoxGroup.add(meal28);
 		checkBoxGroup.add(meal29);
-		checkBoxGroup.add(meal30);	
+		checkBoxGroup.add(meal30);
 		checkBoxGroup.add(meal31);
 		checkBoxGroup.add(meal32);
 		checkBoxGroup.add(meal33);
@@ -313,7 +324,7 @@ public class MenuController implements Initializable {
 		checkBoxGroup.add(meal72);
 		checkBoxGroup.add(meal73);
 		checkBoxGroup.add(meal74);
-		
+
 		PButtonGroup.add(pbtn_meal1);
 		PButtonGroup.add(pbtn_meal2);
 		PButtonGroup.add(pbtn_meal3);
@@ -388,7 +399,7 @@ public class MenuController implements Initializable {
 		PButtonGroup.add(pbtn_meal72);
 		PButtonGroup.add(pbtn_meal73);
 		PButtonGroup.add(pbtn_meal74);
-		
+
 		MButtonGroup.add(mbtn_meal1);
 		MButtonGroup.add(mbtn_meal2);
 		MButtonGroup.add(mbtn_meal3);
@@ -463,7 +474,7 @@ public class MenuController implements Initializable {
 		MButtonGroup.add(mbtn_meal72);
 		MButtonGroup.add(mbtn_meal73);
 		MButtonGroup.add(mbtn_meal74);
-		
+
 		LabelGroup.add(num_meal1);
 		LabelGroup.add(num_meal2);
 		LabelGroup.add(num_meal3);
