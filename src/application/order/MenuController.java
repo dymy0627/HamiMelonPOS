@@ -116,7 +116,7 @@ public class MenuController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		// populate the fruit combo box with item choices.
-		peopleComboBox.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+		peopleComboBox.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15");
 
 		// listen for changes to the fruit combo box selection and update the
 		// displayed fruit image accordingly.
@@ -124,6 +124,16 @@ public class MenuController implements Initializable {
 			public void changed(ObservableValue<? extends String> observable, String oldSelected, String newSelected) {
 				num_people = Integer.parseInt(newSelected);
 				System.out.println("num_people: " + num_people);
+				
+				if(num_people < now_people){
+					for (CheckBox inti : checkBoxGroup)
+					{
+						inti.setSelected(false);
+						LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
+				    	
+					}
+					now_people = 0;	
+				}
 			}
 		});
 	
@@ -135,15 +145,13 @@ public class MenuController implements Initializable {
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean wasSelected,
 						Boolean isSelected) {
 					System.out.println(checkbox.getText() + " checked=" + isSelected);
-					if (isSelected) {
-						if(checkbox.getText().contains("沙朗") || checkbox.getText().contains("菲力") || checkbox.getText().contains("肋眼")|| 
-						   checkbox.getText().contains("紐約克")|| checkbox.getText().contains("雪花")|| checkbox.getText().contains("牛小排")||
-						   checkbox.getText().contains("牛筋")|| checkbox.getText().contains("牛肉片")|| checkbox.getText().contains("牛")){
-							beef++;
-							System.out.println("beef number " + beef);;
-						}
-						passing_menu.add(checkbox.getText());
-					} else {
+					
+					if(now_people >= num_people)
+					{
+						checkbox.setSelected(false);
+						now_people = now_people-Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
+						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
+						System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
 						if(checkbox.getText().contains("牛") || checkbox.getText().contains("菲力") || checkbox.getText().contains("肋眼")|| 
 						   checkbox.getText().contains("紐約克")|| checkbox.getText().contains("雪花")|| checkbox.getText().contains("牛小排")||
 						   checkbox.getText().contains("牛筋")|| checkbox.getText().contains("牛肉片")||checkbox.getText().contains("沙朗")){
@@ -152,6 +160,36 @@ public class MenuController implements Initializable {
 						}
 						passing_menu.remove(passing_menu.indexOf(checkbox.getText()));
 					}
+					else if(now_people < num_people){
+						if (isSelected) {
+
+				    		LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText(String.valueOf(Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText())+1));
+					    	now_people += 1;
+				    		
+				    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
+							if(checkbox.getText().contains("沙朗") || checkbox.getText().contains("菲力") || checkbox.getText().contains("肋眼")|| 
+							   checkbox.getText().contains("紐約克")|| checkbox.getText().contains("雪花")|| checkbox.getText().contains("牛小排")||
+							   checkbox.getText().contains("牛筋")|| checkbox.getText().contains("牛肉片")|| checkbox.getText().contains("牛")){
+								beef++;
+								System.out.println("beef number " + beef);;
+							}
+							passing_menu.add(checkbox.getText());
+						} else {
+							
+							now_people = now_people-Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
+							LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
+				    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
+							if(checkbox.getText().contains("牛") || checkbox.getText().contains("菲力") || checkbox.getText().contains("肋眼")|| 
+							   checkbox.getText().contains("紐約克")|| checkbox.getText().contains("雪花")|| checkbox.getText().contains("牛小排")||
+							   checkbox.getText().contains("牛筋")|| checkbox.getText().contains("牛肉片")||checkbox.getText().contains("沙朗")){
+								beef--;
+								System.out.println("beef number " + beef);;
+							}
+							passing_menu.remove(passing_menu.indexOf(checkbox.getText()));
+						}
+						
+					}
+				
 				}
 			});
 		}
@@ -161,11 +199,16 @@ public class MenuController implements Initializable {
 			    @Override 
 			    public void handle(ActionEvent e) {
 			    	
-			    	if((now_people < num_people )){
+			    	if(Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText()) == 0 && now_people < num_people)
+			    	{
+			    		checkBoxGroup.get(PButtonGroup.indexOf(btn)).setSelected(true);
+			    	}	
+			    	else if((now_people < num_people )){
 			    		LabelGroup.get(PButtonGroup.indexOf(btn)).setText(String.valueOf(Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText())+1));
 			    		now_people++;
-			    		System.out.println("現在份數:"+now_people );
-			    	}	
+			    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
+			    		}	
+		    		peopleComboBox.setPromptText(String.valueOf(num_people));
 			    }
 			});
 		}
@@ -178,8 +221,11 @@ public class MenuController implements Initializable {
 			    	if(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) > 0){
 			    		LabelGroup.get(MButtonGroup.indexOf(btn)).setText(String.valueOf(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText())-1));
 			    		now_people--;
-			    		System.out.println("現在份數:"+now_people );
+			    		System.out.println("此單人數 " + num_people +" 已點客數" + now_people);
+				    	if(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) == 0)
+				    		checkBoxGroup.get(MButtonGroup.indexOf(btn)).setSelected(false);
 			    	}
+
 			    	
 			    }
 			});
