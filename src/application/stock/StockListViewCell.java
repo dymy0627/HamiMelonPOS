@@ -2,13 +2,19 @@ package application.stock;
 
 import java.io.IOException;
 
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 
 public class StockListViewCell extends ListCell<StockBean> {
+
+	@FXML
+	private HBox stockItem;
 	@FXML
 	private Label manufacturerLabel;
 	@FXML
@@ -16,9 +22,15 @@ public class StockListViewCell extends ListCell<StockBean> {
 	@FXML
 	private Label amountLabel;
 	@FXML
-	private HBox stockItem;
+	private Button deleteButton;
 
 	private FXMLLoader mFXMLLoader;
+
+	private StockListViewListener mListener;
+
+	public StockListViewCell(StockListViewListener listener) {
+		this.mListener = listener;
+	}
 
 	@Override
 	protected void updateItem(StockBean stock, boolean empty) {
@@ -40,9 +52,23 @@ public class StockListViewCell extends ListCell<StockBean> {
 			manufacturerLabel.setText(stock.getManufacturer());
 			nameLabel.setText(stock.getName());
 			amountLabel.setText(String.valueOf(stock.getAmount()));
+
+			deleteButton.setVisible(false);
+			StockBean selectedItem = getListView().getSelectionModel().getSelectedItem();
+			if (selectedItem != null) {
+				ObservableList<StockBean> listItem = getListView().getItems();
+				if (listItem.indexOf(stock) == listItem.indexOf(selectedItem)) {
+					deleteButton.setVisible(true);
+				}
+			}
+
 			setText(null);
 			setGraphic(stockItem);
 		}
 	}
 
+	@FXML
+	protected void itemDeleteAction(ActionEvent event) {
+		mListener.delete();
+	}
 }

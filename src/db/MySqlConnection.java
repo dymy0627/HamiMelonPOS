@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import application.stock.StockBean;
 
 public class MySqlConnection {
 
@@ -19,10 +23,11 @@ public class MySqlConnection {
 
 	public void connectSql() {
 		try {
+			System.out.println("連接MySQL中...");
 			// Connect to MySQL
 			Class.forName(DATABASE_DRIVER);
 			sqlConnection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-			System.out.println("連接成功MySQL");
+			System.out.println("--- 連接成功MySQL ---");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("查無此豬");
@@ -32,7 +37,7 @@ public class MySqlConnection {
 	public void disconnectSql() {
 		try {
 			sqlConnection.close();
-			System.out.println("斷開MySQL");
+			System.out.println("--- 斷開MySQL ---");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,6 +63,65 @@ public class MySqlConnection {
 				System.out.println("Close Exception :" + e.toString());
 			}
 		}
+	}
+
+	public List<String> selectManufacturer() {
+		List<String> manufacturerList = new ArrayList<>();
+		try {
+			stat = sqlConnection.createStatement();
+			rs = stat.executeQuery("select * from shipping");
+			while (rs.next()) {
+				manufacturerList.add(rs.getString("Manufacturers"));
+				System.out.println(rs.getString("Manufacturers"));
+			}
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+					rs = null;
+				}
+				if (stat != null) {
+					stat.close();
+					stat = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return manufacturerList;
+	}
+
+	public List<StockBean> selectAllStock() {
+		List<StockBean> stockList = new ArrayList<>();
+		try {
+			stat = sqlConnection.createStatement();
+			rs = stat.executeQuery("select * from shipping");
+			while (rs.next()) {
+				StockBean stock = new StockBean();
+				stock.setManufacturer(rs.getString("Manufacturers"));
+				stock.setName(rs.getString("Meat"));
+				stock.setAmount(rs.getInt("cost"));
+				stockList.add(stock);
+			}
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+					rs = null;
+				}
+				if (stat != null) {
+					stat.close();
+					stat = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return stockList;
 	}
 
 	public void selectTable() {

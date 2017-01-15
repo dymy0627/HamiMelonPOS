@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <HBox fx:id="stockItem" maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="600.0"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<Label fx:id="manufacturerLabel" prefHeight="60.0" prefWidth="160.0"
+		<Label fx:id="manufacturerLabel" prefHeight="60.0" prefWidth="170.0"
 			text="Label" />
-		<Label fx:id="nameLabel" prefHeight="60.0" prefWidth="280.0"
+		<Label fx:id="nameLabel" prefHeight="60.0" prefWidth="210.0"
 			text="Label" />
-		<Label fx:id="amountLabel" prefHeight="60.0" prefWidth="140.0"
+		<Label fx:id="amountLabel" prefHeight="60.0" prefWidth="120.0"
 			text="Label" />
+		<Button fx:id="deleteButton" mnemonicParsing="false"
+			onAction="#itemDeleteAction" prefHeight="30.0" prefWidth="40.0" text="刪除">
+			<HBox.margin>
+				<Insets left="10.0" top="5.0" />
+			</HBox.margin>
+		</Button>
 	</children>
 </HBox>
