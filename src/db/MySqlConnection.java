@@ -12,21 +12,35 @@ import application.stock.StockBean;
 
 public class MySqlConnection {
 
-	private Connection sqlConnection;
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String DATABASE_URL = "jdbc:mysql://ap-cdbr-azure-southeast-b.cloudapp.net/hamimelon";
-	private static final String USER = "b63738672a9134";
-	private static final String PASSWORD = "555d06ab";
 
-	private Statement stat;
-	private ResultSet rs;
+	// AZURE
+	@SuppressWarnings("unused")
+	private static final String AZURE_DATABASE_URL = "jdbc:mysql://ap-cdbr-azure-southeast-b.cloudapp.net/hamimelon";
+	@SuppressWarnings("unused")
+	private static final String AZURE_USER = "b63738672a9134";
+	@SuppressWarnings("unused")
+	private static final String AZURE_PASSWORD = "555d06ab";
+
+	// AWS
+	private static final String AWS_DATABASE_URL = "jdbc:mysql://hamimelon.cnkthuortelr.us-west-2.rds.amazonaws.com:3306/hamimelon";
+	private static final String AWW_USER = "hamimelon";
+	private static final String AWS_PASSWORD = "hami1qaz2wsx";
+
+	private static final String DATABASE_URL = AWS_DATABASE_URL;
+	private static final String USER = AWW_USER;
+	private static final String PASSWORD = AWS_PASSWORD;
+
+	private Connection mSqlConnection;
+	private Statement mStatement;
+	private ResultSet mResultSet;
 
 	public void connectSql() {
 		try {
 			System.out.println("連接MySQL中...");
 			// Connect to MySQL
 			Class.forName(DATABASE_DRIVER);
-			sqlConnection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+			mSqlConnection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 			System.out.println("--- 連接成功MySQL ---");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -35,20 +49,16 @@ public class MySqlConnection {
 	}
 
 	public Connection getSqlConnection() {
-		if (sqlConnection == null) {
-			try {
-				sqlConnection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		if (mSqlConnection == null) {
+			connectSql(); // connect again
 		}
-		return sqlConnection;
+		return mSqlConnection;
 	}
 
 	public void disconnectSql() {
 		try {
-			sqlConnection.close();
-			sqlConnection = null;
+			mSqlConnection.close();
+			mSqlConnection = null;
 			System.out.println("--- 斷開MySQL ---");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,10 +92,10 @@ public class MySqlConnection {
 
 	public boolean executeSql(String sql) {
 		try {
-			if (sqlConnection == null)
+			if (mSqlConnection == null)
 				return false;
-			stat = sqlConnection.createStatement();
-			stat.execute(sql);
+			mStatement = mSqlConnection.createStatement();
+			mStatement.execute(sql);
 			System.out.println("成功執行" + sql);
 			return true;
 		} catch (SQLException e) {
@@ -94,9 +104,9 @@ public class MySqlConnection {
 			return false;
 		} finally {
 			try {
-				if (stat != null) {
-					stat.close();
-					stat = null;
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
 				}
 			} catch (SQLException e) {
 				System.out.println("Close Exception :" + e.toString());
@@ -107,23 +117,23 @@ public class MySqlConnection {
 	public List<String> selectManufacturer() {
 		List<String> manufacturerList = new ArrayList<>();
 		try {
-			stat = sqlConnection.createStatement();
-			rs = stat.executeQuery("select * from hamimelon.manufacturer");
-			while (rs.next()) {
-				manufacturerList.add(rs.getString("Name"));
-				System.out.println(rs.getString("Name"));
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = mStatement.executeQuery("select * from hamimelon.manufacturer");
+			while (mResultSet.next()) {
+				manufacturerList.add(mResultSet.getString("Name"));
+				System.out.println(mResultSet.getString("Name"));
 			}
 		} catch (SQLException e) {
 			System.out.println("DropDB Exception :" + e.toString());
 		} finally {
 			try {
-				if (rs != null) {
-					rs.close();
-					rs = null;
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
 				}
-				if (stat != null) {
-					stat.close();
-					stat = null;
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
 				}
 			} catch (SQLException e) {
 				System.out.println("Close Exception :" + e.toString());
@@ -135,27 +145,27 @@ public class MySqlConnection {
 	public List<StockBean> selectAllStock() {
 		List<StockBean> stockList = new ArrayList<>();
 		try {
-			stat = sqlConnection.createStatement();
-			rs = stat.executeQuery("select * from shipping");
-			while (rs.next()) {
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = mStatement.executeQuery("select * from shipping");
+			while (mResultSet.next()) {
 				StockBean stock = new StockBean();
-				stock.setId(rs.getInt("id"));
-				stock.setManufacturer(rs.getString("Manufacturers"));
-				stock.setName(rs.getString("Meat"));
-				stock.setAmount(rs.getInt("cost"));
+				stock.setId(mResultSet.getInt("id"));
+				stock.setManufacturer(mResultSet.getString("Manufacturers"));
+				stock.setName(mResultSet.getString("Meat"));
+				stock.setAmount(mResultSet.getInt("cost"));
 				stockList.add(stock);
 			}
 		} catch (SQLException e) {
 			System.out.println("DropDB Exception :" + e.toString());
 		} finally {
 			try {
-				if (rs != null) {
-					rs.close();
-					rs = null;
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
 				}
-				if (stat != null) {
-					stat.close();
-					stat = null;
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
 				}
 			} catch (SQLException e) {
 				System.out.println("Close Exception :" + e.toString());
