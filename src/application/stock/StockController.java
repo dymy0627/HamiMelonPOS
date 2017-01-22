@@ -2,8 +2,8 @@ package application.stock;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import application.MainScene;
@@ -38,9 +38,12 @@ public class StockController implements Initializable, StockListViewListener {
 	@FXML
 	private TextField amountTextField;
 
-	private List<StockBean> stockList = new ArrayList<StockBean>();
-
 	private ObservableList<StockBean> stockObservableList = FXCollections.observableArrayList();
+
+	private Map<Integer, StockBean> mAddHashMap = new HashMap<>();
+	private Map<Integer, StockBean> mDeleteHashMap = new HashMap<>();
+
+	private int tempId = 0;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -63,7 +66,7 @@ public class StockController implements Initializable, StockListViewListener {
 
 		MySqlConnection mySqlConnection = new MySqlConnection();
 		mySqlConnection.connectSql();
-		// stockObservableList.setAll(mySqlConnection.selectAllStock());
+		stockObservableList.setAll(mySqlConnection.selectAllStock());
 		manufacturerComboBox.getItems().setAll(mySqlConnection.selectManufacturer());
 		mySqlConnection.disconnectSql();
 		manufacturerComboBox.getSelectionModel().selectFirst();
@@ -74,20 +77,6 @@ public class StockController implements Initializable, StockListViewListener {
 		stockListView.setItems(stockObservableList);
 	}
 
-	@Override
-	public void delete() {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				StockBean selectedStock = stockListView.getSelectionModel().getSelectedItem();
-				stockListView.getSelectionModel().clearSelection();
-				stockList.remove(selectedStock);
-				stockObservableList.remove(selectedStock);
-				System.out.println("remove " + selectedStock.toString());
-			}
-		});
-	}
-
 	private boolean validAmount(int amountValue) {
 		return amountValue > 0;
 	}
@@ -95,6 +84,12 @@ public class StockController implements Initializable, StockListViewListener {
 	private void clearTextField() {
 		stockNameTextField.setText("");
 		amountTextField.setText("");
+	}
+
+	@Override
+	public void delete() {
+		deleteStockFromList(stockListView.getSelectionModel().getSelectedItem());
+		stockListView.getSelectionModel().clearSelection();
 	}
 
 	@FXML
@@ -110,33 +105,63 @@ public class StockController implements Initializable, StockListViewListener {
 		if (manufacturerText != null && !stockNameText.isEmpty() && validAmount(amountValue)) {
 			clearTextField();
 			StockBean stock = new StockBean();
+			stock.setId(tempId++);
 			stock.setManufacturer(manufacturerText);
 			stock.setName(stockNameText);
 			stock.setAmount(amountValue);
-			stockList.add(stock);
-			stockObservableList.add(stock);
-			System.out.println("add " + stock.toString());
+			addStockToList(stock);
 		}
 	}
 
-	@FXML
-	protected void SendButtonAction(ActionEvent event) {
-		if (!stockList.isEmpty()) {
-			stockListView.getItems().clear();
-			clearTextField();
-
-			MySqlConnection mySqlConnection = new MySqlConnection();
-			mySqlConnection.connectSql();
-			for (StockBean stock : stockList) {
-				mySqlConnection.insertShippingData(//
-						stock.getManufacturer(), // Manufacturer
-						stock.getName(), // Name
-						stock.getAmount() // Amount
-				);
+	private void deleteStockFromList(StockBean stock) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				if (mAddHashMap.containsKey(stock.getId())) {
+					mAddHashMap.remove(stock.getId());
+				} else {
+					mDeleteHashMap.put(stock.getId(), stock);
+				}
+				stockObservableList.remove(stock);
+				System.out.println("remove from List =" + stock.getId());
 			}
-			mySqlConnection.disconnectSql();
-			stockList.clear();
+		});
+	}
+
+	private void addStockToList(StockBean stock) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				mAddHashMap.put(stock.getId(), stock);
+				stockObservableList.add(stock);
+				System.out.println("add to List =" + stock.getId());
+			}
+		});
+	}
+
+	@FXML
+	protected void SaveButtonAction(ActionEvent event) {
+		MySqlConnection mySqlConnection = new MySqlConnection();
+		mySqlConnection.connectSql();
+		for (Map.Entry<Integer, StockBean> entry : mAddHashMap.entrySet()) {
+			addToDb(mySqlConnection, entry.getValue());
 		}
+		for (Map.Entry<Integer, StockBean> entry : mDeleteHashMap.entrySet()) {
+			deleteFromDb(mySqlConnection, entry.getValue());
+		}
+		mySqlConnection.disconnectSql();
+	}
+
+	private boolean deleteFromDb(MySqlConnection mySqlConnection, StockBean stock) {
+		boolean deleteResult = mySqlConnection.deleteShippingDate(stock);
+		System.out.println("刪除一筆" + (deleteResult ? "成功" : "失敗"));
+		return deleteResult;
+	}
+
+	private boolean addToDb(MySqlConnection mySqlConnection, StockBean stock) {
+		boolean addResult = mySqlConnection.insertShippingData(stock);
+		System.out.println("新增一筆" + (addResult ? "成功" : "失敗"));
+		return addResult;
 	}
 
 	@FXML

@@ -75,8 +75,8 @@
 					onAction="#LeaveButtonAction" prefHeight="36.0" prefWidth="64.0"
 					text="離開" />
 				<Button layoutX="426.0" layoutY="7.0" mnemonicParsing="false"
-					onAction="#SendButtonAction" prefHeight="36.0" prefWidth="64.0"
-					text="送出" />
+					onAction="#SaveButtonAction" prefHeight="36.0" prefWidth="64.0"
+					text="儲存" />
 			</children>
 		</Pane>
 	</bottom>

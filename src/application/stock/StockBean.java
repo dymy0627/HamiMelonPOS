@@ -2,9 +2,18 @@ package application.stock;
 
 public class StockBean {
 
+	private int id;
 	private String manufacturer;
 	private String name;
 	private int amount;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getManufacturer() {
 		return manufacturer;

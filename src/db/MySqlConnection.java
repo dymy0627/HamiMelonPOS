@@ -34,25 +34,64 @@ public class MySqlConnection {
 		}
 	}
 
+	public Connection getSqlConnection() {
+		if (sqlConnection == null) {
+			try {
+				sqlConnection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return sqlConnection;
+	}
+
 	public void disconnectSql() {
 		try {
 			sqlConnection.close();
+			sqlConnection = null;
 			System.out.println("--- 斷開MySQL ---");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void insertShippingData(String facturer, String name, int cost) {
+	public boolean deleteShippingDate(StockBean stock) {
+		return deleteShippingDate(stock.getId());
+	}
+
+	public boolean deleteShippingDate(int id) {
+		String sql = new String("DELETE FROM hamimelon.shipping WHERE id='" + id + "'");
+		return executeSql(sql);
+	}
+
+	public boolean deleteShippingDate(int id, String facturer, String name, int cost) {
+		String sql = new String("DELETE FROM hamimelon.shipping WHERE id='" + id + "' Manufacturers='" + facturer
+				+ "' and Meat='" + name + "' and cost='" + cost + "'");
+		return executeSql(sql);
+	}
+
+	public boolean insertShippingData(StockBean stock) {
+		return insertShippingData(stock.getManufacturer(), stock.getName(), stock.getAmount());
+	}
+
+	public boolean insertShippingData(String facturer, String name, int cost) {
 		String sql = new String("insert into hamimelon.shipping(Manufacturers,cost,Meat)values('" + facturer + "',"
 				+ cost + ",'" + name + "')");
+		return executeSql(sql);
+	}
+
+	public boolean executeSql(String sql) {
 		try {
+			if (sqlConnection == null)
+				return false;
 			stat = sqlConnection.createStatement();
 			stat.execute(sql);
-			System.out.println("成功新增一筆" + sql);
+			System.out.println("成功執行" + sql);
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("查無此諸");
+			return false;
 		} finally {
 			try {
 				if (stat != null) {
@@ -69,10 +108,10 @@ public class MySqlConnection {
 		List<String> manufacturerList = new ArrayList<>();
 		try {
 			stat = sqlConnection.createStatement();
-			rs = stat.executeQuery("select * from shipping");
+			rs = stat.executeQuery("select * from hamimelon.manufacturer");
 			while (rs.next()) {
-				manufacturerList.add(rs.getString("Manufacturers"));
-				System.out.println(rs.getString("Manufacturers"));
+				manufacturerList.add(rs.getString("Name"));
+				System.out.println(rs.getString("Name"));
 			}
 		} catch (SQLException e) {
 			System.out.println("DropDB Exception :" + e.toString());
@@ -100,6 +139,7 @@ public class MySqlConnection {
 			rs = stat.executeQuery("select * from shipping");
 			while (rs.next()) {
 				StockBean stock = new StockBean();
+				stock.setId(rs.getInt("id"));
 				stock.setManufacturer(rs.getString("Manufacturers"));
 				stock.setName(rs.getString("Meat"));
 				stock.setAmount(rs.getInt("cost"));
@@ -122,36 +162,6 @@ public class MySqlConnection {
 			}
 		}
 		return stockList;
-	}
-
-	public void selectTable() {
-		try {
-			stat = sqlConnection.createStatement();
-			// rs = stat.executeQuery(
-			// "select COLUMN_NAME from information_schema.columns where
-			// table_name = 'shipping' and table_schema = 'hamimelon'");
-			rs = stat.executeQuery("select * from shipping");
-			System.out.println("Manufacturers\tMeat\t\tcost");
-			while (rs.next()) {
-				System.out.println(
-						rs.getString("Manufacturers") + "\t\t" + rs.getString("Meat") + "\t\t" + rs.getString("cost"));
-			}
-		} catch (SQLException e) {
-			System.out.println("DropDB Exception :" + e.toString());
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-					rs = null;
-				}
-				if (stat != null) {
-					stat.close();
-					stat = null;
-				}
-			} catch (SQLException e) {
-				System.out.println("Close Exception :" + e.toString());
-			}
-		}
 	}
 
 }
