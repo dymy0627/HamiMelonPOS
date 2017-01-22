@@ -13,15 +13,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -29,14 +32,16 @@ import javafx.util.Callback;
 public class StockController implements Initializable, StockListViewListener {
 	@FXML
 	private ListView<StockBean> stockListView;
-
 	@FXML
 	private ComboBox<String> manufacturerComboBox;
-
 	@FXML
 	private TextField stockNameTextField;
 	@FXML
 	private TextField amountTextField;
+	@FXML
+	private ProgressIndicator myProgressIndicator;
+	@FXML
+	private Button saveButton;
 
 	private ObservableList<StockBean> stockObservableList = FXCollections.observableArrayList();
 
@@ -64,12 +69,34 @@ public class StockController implements Initializable, StockListViewListener {
 			}
 		});
 
-		MySqlConnection mySqlConnection = new MySqlConnection();
-		mySqlConnection.connectSql();
-		stockObservableList.setAll(mySqlConnection.selectAllStock());
-		manufacturerComboBox.getItems().setAll(mySqlConnection.selectManufacturer());
-		mySqlConnection.disconnectSql();
-		manufacturerComboBox.getSelectionModel().selectFirst();
+		myProgressIndicator.setVisible(false);
+		new Thread(new Task<Boolean>() {
+			@Override
+			protected Boolean call() throws Exception {
+				myProgressIndicator.setVisible(true);
+				MySqlConnection mySqlConnection = new MySqlConnection();
+				mySqlConnection.connectSql();
+				stockObservableList.setAll(mySqlConnection.selectAllStock());
+				manufacturerComboBox.getItems().setAll(mySqlConnection.selectManufacturer());
+				mySqlConnection.disconnectSql();
+				return true;
+			}
+
+			@Override
+			protected void succeeded() {
+				super.succeeded();
+				manufacturerComboBox.getSelectionModel().selectFirst();
+				myProgressIndicator.setVisible(false);
+				System.out.println("Load from DB Done!");
+			}
+
+			@Override
+			protected void failed() {
+				super.failed();
+				myProgressIndicator.setVisible(false);
+				System.out.println("Load from DB Failed!");
+			}
+		}).start();
 	}
 
 	private void updateListView() {
@@ -141,15 +168,45 @@ public class StockController implements Initializable, StockListViewListener {
 
 	@FXML
 	protected void SaveButtonAction(ActionEvent event) {
-		MySqlConnection mySqlConnection = new MySqlConnection();
-		mySqlConnection.connectSql();
-		for (Map.Entry<Integer, StockBean> entry : mAddHashMap.entrySet()) {
-			addToDb(mySqlConnection, entry.getValue());
-		}
-		for (Map.Entry<Integer, StockBean> entry : mDeleteHashMap.entrySet()) {
-			deleteFromDb(mySqlConnection, entry.getValue());
-		}
-		mySqlConnection.disconnectSql();
+		if (mAddHashMap.isEmpty() && mDeleteHashMap.isEmpty())
+			return;
+		new Thread(new Task<Boolean>() {
+
+			@Override
+			protected Boolean call() throws Exception {
+				myProgressIndicator.setVisible(true);
+				saveButton.setDisable(true);
+				MySqlConnection mySqlConnection = new MySqlConnection();
+				mySqlConnection.connectSql();
+				for (Map.Entry<Integer, StockBean> entry : mAddHashMap.entrySet()) {
+					addToDb(mySqlConnection, entry.getValue());
+				}
+				for (Map.Entry<Integer, StockBean> entry : mDeleteHashMap.entrySet()) {
+					deleteFromDb(mySqlConnection, entry.getValue());
+				}
+				stockObservableList.setAll(mySqlConnection.selectAllStock());
+				mySqlConnection.disconnectSql();
+				return true;
+			}
+
+			@Override
+			protected void succeeded() {
+				super.succeeded();
+				myProgressIndicator.setVisible(false);
+				saveButton.setDisable(false);
+				mAddHashMap.clear();
+				mDeleteHashMap.clear();
+				System.out.println("Save Done!");
+			}
+
+			@Override
+			protected void failed() {
+				super.failed();
+				myProgressIndicator.setVisible(false);
+				saveButton.setDisable(false);
+				System.out.println("Save Failed!");
+			}
+		}).start();
 	}
 
 	private boolean deleteFromDb(MySqlConnection mySqlConnection, StockBean stock) {

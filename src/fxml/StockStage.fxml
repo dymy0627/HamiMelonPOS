@@ -8,97 +8,107 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
 	prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="application.stock.StockController">
-	<top>
-		<HBox prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-			<children>
-				<Label prefHeight="23.0" prefWidth="39.0" text="廠商">
-					<HBox.margin>
-						<Insets top="30.0" />
-					</HBox.margin>
-					<padding>
-						<Insets left="10.0" right="5.0" />
-					</padding>
-				</Label>
-				<ComboBox prefHeight="23.0" prefWidth="110.0"
-					fx:id="manufacturerComboBox">
-					<HBox.margin>
-						<Insets top="30.0" />
-					</HBox.margin>
-				</ComboBox>
-				<Label prefHeight="23.0" prefWidth="39.0" text="品名">
-					<HBox.margin>
-						<Insets top="30.0" />
-					</HBox.margin>
-					<padding>
-						<Insets left="10.0" right="5.0" />
-					</padding>
-				</Label>
-				<TextField fx:id="stockNameTextField" prefHeight="23.0"
-					prefWidth="150.0">
-					<HBox.margin>
-						<Insets top="30.0" />
-					</HBox.margin>
-				</TextField>
-				<Label prefHeight="23.0" prefWidth="39.0" text="金額">
-					<HBox.margin>
-						<Insets top="30.0" />
-					</HBox.margin>
-					<padding>
-						<Insets left="10.0" right="5.0" />
-					</padding>
-				</Label>
-				<TextField fx:id="amountTextField" maxWidth="60.0">
-					<HBox.margin>
-						<Insets top="30.0" />
-					</HBox.margin>
-				</TextField>
-				<Button mnemonicParsing="false" onAction="#AddButtonAction"
-					prefHeight="35.0" prefWidth="69.0" text="新增">
-					<HBox.margin>
-						<Insets left="40.0" top="25.0" />
-					</HBox.margin>
-				</Button>
-			</children>
-			<padding>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-			</padding>
-		</HBox>
-	</top>
-	<bottom>
-		<Pane prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-			<children>
-				<Button layoutX="506.0" layoutY="7.0" mnemonicParsing="false"
-					onAction="#LeaveButtonAction" prefHeight="36.0" prefWidth="64.0"
-					text="離開" />
-				<Button layoutX="426.0" layoutY="7.0" mnemonicParsing="false"
-					onAction="#SaveButtonAction" prefHeight="36.0" prefWidth="64.0"
-					text="儲存" />
-			</children>
-		</Pane>
-	</bottom>
-	<center>
-		<BorderPane prefHeight="200.0" prefWidth="200.0"
-			BorderPane.alignment="CENTER">
+	<children>
+		<BorderPane AnchorPane.topAnchor="0.0"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0">
 			<top>
-				<HBox prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+				<HBox prefHeight="100.0" prefWidth="600.0"
+					BorderPane.alignment="CENTER">
 					<children>
-						<Label prefHeight="60.0" prefWidth="160.0" text="廠商" />
-						<Label prefHeight="60.0" prefWidth="280.0" text="品名" />
-						<Label prefHeight="60.0" prefWidth="140.0" text="金額" />
+						<Label prefHeight="23.0" prefWidth="39.0" text="廠商">
+							<HBox.margin>
+								<Insets top="30.0" />
+							</HBox.margin>
+							<padding>
+								<Insets left="10.0" right="5.0" />
+							</padding>
+						</Label>
+						<ComboBox fx:id="manufacturerComboBox" prefHeight="23.0"
+							prefWidth="110.0">
+							<HBox.margin>
+								<Insets top="30.0" />
+							</HBox.margin>
+						</ComboBox>
+						<Label prefHeight="23.0" prefWidth="39.0" text="品名">
+							<HBox.margin>
+								<Insets top="30.0" />
+							</HBox.margin>
+							<padding>
+								<Insets left="10.0" right="5.0" />
+							</padding>
+						</Label>
+						<TextField fx:id="stockNameTextField" prefHeight="23.0"
+							prefWidth="150.0">
+							<HBox.margin>
+								<Insets top="30.0" />
+							</HBox.margin>
+						</TextField>
+						<Label prefHeight="23.0" prefWidth="39.0" text="金額">
+							<HBox.margin>
+								<Insets top="30.0" />
+							</HBox.margin>
+							<padding>
+								<Insets left="10.0" right="5.0" />
+							</padding>
+						</Label>
+						<TextField fx:id="amountTextField" maxWidth="60.0">
+							<HBox.margin>
+								<Insets top="30.0" />
+							</HBox.margin>
+						</TextField>
+						<Button mnemonicParsing="false" onAction="#AddButtonAction"
+							prefHeight="35.0" prefWidth="69.0" text="新增">
+							<HBox.margin>
+								<Insets left="40.0" top="25.0" />
+							</HBox.margin>
+						</Button>
 					</children>
 					<padding>
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</padding>
 				</HBox>
 			</top>
+			<bottom>
+				<Pane prefHeight="49.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+					<children>
+						<Button layoutX="506.0" layoutY="7.0" mnemonicParsing="false"
+							onAction="#LeaveButtonAction" prefHeight="36.0" prefWidth="64.0"
+							text="離開" />
+						<Button fx:id="saveButton" layoutX="426.0" layoutY="7.0"
+							mnemonicParsing="false" onAction="#SaveButtonAction" prefHeight="36.0"
+							prefWidth="64.0" text="儲存" />
+					</children>
+				</Pane>
+			</bottom>
 			<center>
-				<ListView fx:id="stockListView" prefHeight="373.0"
-					prefWidth="600.0" BorderPane.alignment="CENTER" />
+				<BorderPane prefHeight="200.0" prefWidth="200.0"
+					BorderPane.alignment="CENTER">
+					<top>
+						<HBox prefHeight="40.0" prefWidth="600.0"
+							BorderPane.alignment="CENTER">
+							<children>
+								<Label prefHeight="60.0" prefWidth="160.0" text="廠商" />
+								<Label prefHeight="60.0" prefWidth="280.0" text="品名" />
+								<Label prefHeight="60.0" prefWidth="140.0" text="金額" />
+							</children>
+							<padding>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+							</padding>
+						</HBox>
+					</top>
+					<center>
+						<ListView fx:id="stockListView" focusTraversable="false"
+							prefHeight="373.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+					</center>
+				</BorderPane>
 			</center>
 		</BorderPane>
-	</center>
-</BorderPane>
+		<ProgressIndicator fx:id="myProgressIndicator"
+			layoutX="500" layoutY="350" prefHeight="50.0" prefWidth="50.0" />
+	</children>
+</AnchorPane>
