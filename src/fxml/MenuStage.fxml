@@ -13,13 +13,18 @@
 	<padding>
 		<Insets top="5" right="5" bottom="5" left="5" />
 	</padding>
-
+	
+	<Label prefHeight="30.0" prefWidth="200.0" fx:id="type" text="用餐型態"
+				alignment="center_left" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+				
 	<HBox spacing="100" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-		GridPane.columnIndex="0" GridPane.rowIndex="0">
+		GridPane.columnIndex="0" GridPane.rowIndex="1">
 		<children>
-
-			<Label prefHeight="30.0" prefWidth="200.0" fx:id="order" text="用餐型態"
-				alignment="center_right" />
+			<HBox>
+				<ToggleButton mnemonicParsing="false" fx:id ="btn_type1" prefHeight="31.0" prefWidth="85.0" text="內用" toggleGroup="$TypeGroup" />
+	    		<ToggleButton mnemonicParsing="false" fx:id ="btn_type2" prefHeight="31.0" prefWidth="85.0" text="外帶" toggleGroup="$TypeGroup" />
+				<ToggleButton mnemonicParsing="false" fx:id ="btn_type3" prefHeight="31.0" prefWidth="85.0" text="外送" toggleGroup="$TypeGroup"/>
+			</HBox>
 
 			<ComboBox fx:id="peopleComboBox" layoutX="15.0" layoutY="33.0"
 				prefWidth="200.0" promptText="1" />
@@ -32,7 +37,7 @@
 	
 	
 	<GridPane xmlns:fx="http://javafx.com/fxml"
-				GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="center"
+				GridPane.columnIndex="0" GridPane.rowIndex="2" alignment="center"
 				hgap="20" vgap="0">
 
 	<children>
@@ -423,7 +428,7 @@
 			</GridPane>
 
 
-	<Button GridPane.columnIndex="0" GridPane.rowIndex="2"
+	<Button GridPane.columnIndex="0" GridPane.rowIndex="3"
 		prefHeight="30.0" prefWidth="200.0" fx:id="n_page" text="下一頁" alignment="bottom_center"
 		onAction="#NextPageButtonAction" />
 
