@@ -18,7 +18,7 @@
 		GridPane.columnIndex="0" GridPane.rowIndex="0">
 		<children>
 
-			<Label prefHeight="30.0" prefWidth="200.0" fx:id="order" text="用餐型態"
+			<Label prefHeight="30.0" prefWidth="200.0" fx:id="type" text="用餐型態"
 				alignment="center_right" />
 
 			<Label prefHeight="30.0" prefWidth="200.0" fx:id="num_people"
@@ -28,7 +28,7 @@
 				prefWidth="200.0" promptText="折扣選擇" />
 
 			<Button prefHeight="30.0" prefWidth="200.0" fx:id="p_page"
-				text="上一頁" onAction="#PreviousPageButtonAction" />
+				text="關閉" onAction="#PreviousPageButtonAction" />
 
 		</children>
 	</HBox>
@@ -53,7 +53,7 @@
 				text="總價" />
 
 			<Button prefHeight="30.0" prefWidth="200.0" fx:id="n_page"
-				text="下一頁" onAction="#NextPageButtonAction" />
+				text="列印" onAction="#NextPageButtonAction" />
 		</children>
 	</HBox>
 </GridPane>
