@@ -37,12 +37,7 @@ public class ListController implements Initializable {
 	Parent liststage;
 
 	@FXML
-	Label order_time;
-	Date now_time;
-	Timer timer;
-
-	@FXML
-	private ComboBox<String> DiscountCombo; // fx:id="fruitCombo"
+	private ComboBox<String> DiscountCombo; 
 
 	@FXML
 	private Button p_page;
@@ -58,6 +53,9 @@ public class ListController implements Initializable {
 	private ListView<String> menulist;
 	ListProperty<String> listProperty = new SimpleListProperty<>();
 	List<String> passing_list = new ArrayList<>();
+	
+	@FXML
+	private Label type;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -143,7 +141,8 @@ public class ListController implements Initializable {
 	}
 
 	@FXML
-	protected void PreviousPageButtonAction(ActionEvent event) {
+	protected void PreviousPageButtonAction(ActionEvent event) throws IOException {
+		/*
 		try {
 			menustage = FXMLLoader.load(getClass().getResource("/fxml/MenuStage.fxml"));
 		} catch (IOException e) {
@@ -159,10 +158,16 @@ public class ListController implements Initializable {
 		// change scene to main scene
 		stage.setScene(scene);
 		stage.show();
+		*/
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MenuStage.fxml"));
+		Parent root = (Parent) fxmlLoader.load();
+		MenuController controller = fxmlLoader.<MenuController>getController();
+		controller.setClosePop(true);
 	}
 
 	@FXML
 	protected void NextPageButtonAction(ActionEvent event) {
+		/*
 		try {
 			liststage = FXMLLoader.load(getClass().getResource("/fxml/ListStage.fxml"));
 		} catch (IOException e) {
@@ -175,6 +180,8 @@ public class ListController implements Initializable {
 		// change scene to main scene
 		stage.setScene(scene);
 		stage.show();
+		*/
+		System.out.println("print work");
 	}
 
 	public void setMoney(int money) {
@@ -200,6 +207,11 @@ public class ListController implements Initializable {
 		// ObservableList observableList = FXCollections.observableArrayList();
 		// observableList.setAll(passing_list);
 		listProperty.set(FXCollections.observableArrayList(passing_list));
+	}
+
+	public void setType(String consumption_type) {
+		type.setText(consumption_type);
+		
 	}
 
 }
