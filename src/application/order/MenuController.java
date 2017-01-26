@@ -24,8 +24,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,9 +40,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MenuController implements Initializable {
-
-	@FXML
-	private Label order_time;
 
 	@FXML
 	private CheckBox meal1, meal2, meal3, meal4, meal5, meal6, meal7, meal8, meal9, meal10, meal11, meal12, meal13,
@@ -82,6 +84,12 @@ public class MenuController implements Initializable {
 			num_meal64, num_meal65, num_meal66, num_meal67, num_meal68, num_meal69, num_meal70, num_meal71, num_meal72,
 			num_meal73, num_meal74;
 
+	private Stage stage;
+	static Stage Pop_Stage;
+	private Scene scene;
+
+	public static boolean pause;
+	
 	@FXML
 	private ComboBox<String> peopleComboBox;
 
@@ -92,12 +100,13 @@ public class MenuController implements Initializable {
 
 	@FXML
 	private VBox menu1;
-
-	private Stage stage;
-	private Scene scene;
-	private Timer timer;
-
-	public static boolean pause;
+	
+	@FXML
+	private Label type;
+	
+	@FXML
+	private ToggleButton btn_type1,btn_type2,btn_type3;
+	ToggleGroup TypeGroup;
 
 	private List<String> passing_menu = new ArrayList<String>();
 	private List<CheckBox> checkBoxGroup = new ArrayList<CheckBox>();
@@ -117,6 +126,59 @@ public class MenuController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		//togglebutton listener 
+		TypeGroup = new ToggleGroup();
+		btn_type1.setToggleGroup(TypeGroup);
+		btn_type2.setToggleGroup(TypeGroup);
+		btn_type3.setToggleGroup(TypeGroup);
+		TypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+		      public void changed(ObservableValue<? extends Toggle> ov, Toggle old_select,Toggle new_select) {
+		    	  
+		    	  if(!btn_type1.isSelected() && old_select == btn_type1 && new_select == null)
+		    		  btn_type1.setSelected(true);
+		    	  if(!btn_type2.isSelected() && old_select == btn_type2 && new_select == null)
+		    		  btn_type2.setSelected(true);
+		    	  if(!btn_type3.isSelected() && old_select == btn_type3 && new_select == null)
+		    		  btn_type3.setSelected(true);
+		    	  
+		    	  //System.out.println(old_select.toString() + " " + new_select.toString());
+		    	  
+		    	  for (CheckBox inti : checkBoxGroup) {
+							inti.setSelected(false);
+							LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
+							passing_menu.clear();
+
+						}
+		    	  now_people = 0;
+			    	  
+			      if(TypeGroup.getToggles().get(0).isSelected()){
+			    		 TypeGroup.getToggles().get(1).setSelected(false);
+			    		 TypeGroup.getToggles().get(2).setSelected(false);
+			    		 Consumption_type = "內用";
+			    		 type.setText(Consumption_type);
+			    		 peopleComboBox.setDisable(false);
+			    		 peopleComboBox.setValue("1");
+
+			      }
+			      else if(TypeGroup.getToggles().get(1).isSelected()){
+			    		 	 TypeGroup.getToggles().get(0).setSelected(false);
+				    		 TypeGroup.getToggles().get(2).setSelected(false);
+				    		 Consumption_type = "外帶";
+				    		 type.setText(Consumption_type);
+				    		 peopleComboBox.setDisable(true); 
+				    		 peopleComboBox.setValue("1");
+			      }
+			      else if(TypeGroup.getToggles().get(2).isSelected()){
+					    		 TypeGroup.getToggles().get(0).setSelected(false);
+					    		 TypeGroup.getToggles().get(1).setSelected(false);
+					    		 Consumption_type = "外送";
+					    		 type.setText(Consumption_type);
+					    		 peopleComboBox.setDisable(true);
+					    		 peopleComboBox.setValue("1");
+			      }
+		      }
+		    });
 
 		// populate the fruit combo box with item choices.
 		peopleComboBox.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
@@ -136,6 +198,7 @@ public class MenuController implements Initializable {
 
 				}
 				now_people = 0;
+
 			}
 		});
 
@@ -168,17 +231,17 @@ public class MenuController implements Initializable {
 
 						now_people = now_people
 								- Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
-						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
 						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
 						if ((checkbox.getText().contains("牛") || checkbox.getText().contains("菲力")
 								|| checkbox.getText().contains("肋眼") || checkbox.getText().contains("紐約克")
 								|| checkbox.getText().contains("雪花") || checkbox.getText().contains("牛小排")
 								|| checkbox.getText().contains("牛筋") || checkbox.getText().contains("牛肉片")
 								|| checkbox.getText().contains("沙朗")) && beef >0) {
-							beef--;
-							System.out.println("beef number " + beef);
+							beef = beef - Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
+							System.out.println("beef number2 " + beef );
 							
 						}
+						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
 						if(passing_menu.contains(checkbox.getText()))
 							passing_menu.remove(checkbox.getText());
 					}
@@ -554,11 +617,11 @@ public class MenuController implements Initializable {
 	@FXML
 	protected void PreviousPageButtonAction(ActionEvent event) throws IOException {
 		// def fxml loader
-		Parent orderstage = FXMLLoader.load(getClass().getResource("/fxml/OrderStage.fxml"));
+		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 
 		// ref fxml to stage
 		stage = MainScene.stage_tmp;
-		scene = new Scene(orderstage, 1024, 720);
+		scene = new Scene(mainstage, 1024, 720);
 
 		// change scene to main scene
 		stage.setScene(scene);
@@ -574,11 +637,26 @@ public class MenuController implements Initializable {
 		ListController controller = fxmlLoader.<ListController>getController();
 		controller.setMoney(6666);
 		controller.setPeople(num_people);
+		controller.setType(Consumption_type);
 		controller.setMenuList(passing_menu);
-		scene = new Scene(root, 1024, 720);
-		stage = MainScene.stage_tmp;
+		scene = new Scene(root, 800, 600);
+		//Pop_Stage = MainScene.stage_tmp;
+		
 		// change scene to main scene
-		stage.setScene(scene);
-		stage.show();
+		Pop_Stage = new Stage();
+		Pop_Stage.setScene(scene);
+		Pop_Stage.initModality(Modality.APPLICATION_MODAL);
+		Pop_Stage.setTitle("清單");
+		Pop_Stage.showAndWait();
+		
+		//Pop_Stage.setOnHide(event -> Platform.exit());
+		//stage.show();
 	}
+
+	public void setClosePop(boolean b) {
+
+		Pop_Stage.close();
+		
+	}
+	
 }
