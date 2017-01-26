@@ -23,11 +23,11 @@ public class MainController {
 	protected void OrderButtonAction(ActionEvent event) throws IOException {
 
 		// def fxml loader
-		Parent orderStage = FXMLLoader.load(getClass().getResource("/fxml/OrderStage.fxml"));
+		Parent menuStage = FXMLLoader.load(getClass().getResource("/fxml/MenuStage.fxml"));
 
 		// ref fxml to stage
 		stage = MainScene.stage_tmp;
-		scene = new Scene(orderStage, 1024, 720);
+		scene = new Scene(menuStage, 1024, 720);
 
 		// change scene to main scene
 		stage.setScene(scene);
