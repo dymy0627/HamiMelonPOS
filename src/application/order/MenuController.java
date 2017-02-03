@@ -461,7 +461,7 @@ public class MenuController implements Initializable {
 		PButtonGroup.add(pbtn_meal71);
 		PButtonGroup.add(pbtn_meal72);
 		PButtonGroup.add(pbtn_meal73);
-		PButtonGroup.add(pbtn_meal74);
+		PButtonGroup.add(pbtn_meal74);   
 
 		MButtonGroup.add(mbtn_meal1);
 		MButtonGroup.add(mbtn_meal2);
