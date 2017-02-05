@@ -141,7 +141,7 @@ public class ListController implements Initializable {
 	}
 
 	public void setMoney(int money) {
-		total_money.setText("Á`»ù " + Integer.toString(money));
+		total_money.setText("ç¸½åƒ¹ " + Integer.toString(money));
 	}
 
 	public void setPeople(int people) {

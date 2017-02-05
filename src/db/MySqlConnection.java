@@ -37,14 +37,14 @@ public class MySqlConnection {
 
 	public void connectSql() {
 		try {
-			System.out.println("³s±µMySQL¤¤...");
+			System.out.println("é€£æ¥MySQLä¸­...");
 			// Connect to MySQL
 			Class.forName(DATABASE_DRIVER);
 			mSqlConnection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-			System.out.println("--- ³s±µ¦¨¥\MySQL ---");
+			System.out.println("--- é€£æ¥æˆåŠŸMySQL ---");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("¬dµL¦¹½Ş");
+			System.out.println("æŸ¥ç„¡æ­¤è±¬");
 		}
 	}
 
@@ -59,7 +59,7 @@ public class MySqlConnection {
 		try {
 			mSqlConnection.close();
 			mSqlConnection = null;
-			System.out.println("--- Â_¶}MySQL ---");
+			System.out.println("--- æ–·é–‹MySQL ---");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -96,11 +96,11 @@ public class MySqlConnection {
 				return false;
 			mStatement = mSqlConnection.createStatement();
 			mStatement.execute(sql);
-			System.out.println("¦¨¥\°õ¦æ" + sql);
+			System.out.println("æˆåŠŸåŸ·è¡Œ" + sql);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("¬dµL¦¹½Ñ");
+			System.out.println("æŸ¥ç„¡æ­¤è«¸");
 			return false;
 		} finally {
 			try {

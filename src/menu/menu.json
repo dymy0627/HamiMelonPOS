@@ -1,422 +1,502 @@
 {
-  "menu":
-  [
-    { 
-      "id": "meal1",
-      "set": "老饕雙享餐",
-      "name": "翼板",
-      "price": 720 
-    },
-    { "id": "meal2",
-      "set": "老饕雙享餐",
-      "name": "松板",
-      "price": 720
-    },
-    { "id": "meal3",
-      "set": "雙人麻吉餐",
-      "name": "翼板",
-      "price": 620
-    },
-    { "id": "meal4",
-      "set": "雙人麻吉餐",
-      "name": "松板",
-      "price": 620
-    },
-    { "id": "meal5",
-      "set": "雙人情侶餐",
-      "name": "朗心",
-      "price": 520
-    },
-    { "id": "meal6",
-      "set": "雙人情侶餐",
-      "name": "豬排",
-      "price": 520
-    },
-    { "id": "meal7",
-      "set": "雙人A餐",
-      "name": "牛肉",
-      "price": 420
-    },
-    { "id": "meal8",
-      "set": "雙人A餐",
-      "name": "羊肉",
-      "price": 420
-    },
-    { "id": "meal9",
-      "set": "雙人A餐",
-      "name": "豬肉",
-      "price": 420
-    },
-    { "id": "meal10",
-      "set": "雙人B餐",
-      "name": "雞腿",
-      "price": 480
-    },
-    { "id": "meal11",
-      "set": "雙人B餐",
-      "name": "沙朗",
-      "price": 480
-    },
-    { "id": "meal12",
-      "set": "雙人B餐",
-      "name": "豬排",
-      "price": 480
-    },
-    { "id": "meal13",
-      "set": "風雨餐",
-      "name": "風雨",
-      "price": 399
-    },
-    { "id": "meal14",
-      "set": "主廚套餐",
-      "name": "主廚",
-      "price": 350
-    },
-    { "id": "meal15",
-      "set": "多蝦蟹餐",
-      "name": "蝦蟹",
-      "price": 350
-    },
-    { "id": "meal16",
-      "set": "海鮮大餐",
-      "name": "海大",
-      "price": 300
-    },
-    { "id": "meal17",
-      "set": "靈魂昇華餐",
-      "name": "靈魂",
-      "price": 280
-    },
-    { "id": "meal18",
-      "set": "潛能解放餐",
-      "name": "潛能",
-      "price": 260
-    },
-    { "id": "meal19",
-      "set": "海陸A餐",
-      "name": "牛肉",
-      "price": 200
-    },
-    { "id": "meal20",
-      "set": "海陸A餐",
-      "name": "羊肉",
-      "price": 200
-    },
-    { "id": "meal21",
-      "set": "海陸A餐",
-      "name": "豬肉",
-      "price": 200
-    },
-    { "id": "meal22",
-      "set": "海陸B餐",
-      "name": "雞腿",
-      "price": 230
-    },
-    { "id": "meal23",
-      "set": "海陸B餐",
-      "name": "沙朗",
-      "price": 230
-    },
-    { "id": "meal24",
-      "set": "海陸B餐",
-      "name": "豬排",
-      "price": 230
-    },
-    { "id": "meal25",
-      "set": "呷霸特餐",
-      "name": "牛筋",
-      "price": 170
-    },
-    { "id": "meal26",
-      "set": "呷霸特餐",
-      "name": "雞柳",
-      "price": 170
-    },
-    { "id": "meal27",
-      "set": "呷霸特餐",
-      "name": "豬排",
-      "price": 170
-    },
-    { "id": "meal25",
-      "set": "呷霸特餐",
-      "name": "牛筋",
-      "price": 170
-    },
-    { "id": "meal26",
-      "set": "精緻特餐",
-      "name": "肋眼",
-      "price": 490
-    },
-    { "id": "meal27",
-      "set": "精緻特餐",
-      "name": "紐約",
-      "price": 450
-    },
-    { "id": "meal28",
-      "set": "精緻特餐",
-      "name": "菲力",
-      "price": 350
-    },
-    { "id": "meal29",
-      "set": "精緻特餐",
-      "name": "雪花",
-      "price": 350
-    },
-    { "id": "meal30",
-      "set": "精緻特餐",
-      "name": "翼板",
-      "price": 300
-    },
-    { "id": "meal31",
-      "set": "精緻特餐",
-      "name": "牛小",
-      "price": 280
-    },
-    { "id": "meal32",
-      "set": "精緻特餐",
-      "name": "朗心",
-      "price": 200
-    },
-    { "id": "meal33",
-      "set": "精緻特餐",
-      "name": "松阪",
-      "price": 250
-    },
-    { "id": "meal34",
-      "set": "精緻特餐",
-      "name": "豬排",
-      "price": 200
-    },
-    { "id": "meal35",
-      "set": "精緻特餐",
-      "name": "泰雞",
-      "price": 180
-    },
-    { "id": "meal36",
-      "set": "精緻特餐",
-      "name": "蜜雞",
-      "price": 180
-    },
-    { "id": "meal37",
-      "set": "精緻特餐",
-      "name": "起雞",
-      "price": 180
-    },
-    { "id": "meal38",
-      "set": "精緻特餐",
-      "name": "蒜雞",
-      "price": 150
-    },
-    { "id": "meal39",
-      "set": "精緻特餐",
-      "name": "黑雞",
-      "price": 150
-    },
-    { "id": "meal40",
-      "set": "精緻特餐",
-      "name": "和魷",
-      "price": 180
-    },
-    { "id": "meal41",
-      "set": "精緻特餐",
-      "name": "泰魷",
-      "price": 180
-    },
-    { "id": "meal42",
-      "set": "精緻特餐",
-      "name": "鮭魚",
-      "price": 180
-    },
-    { "id": "meal43",
-      "set": "精緻特餐",
-      "name": "泰魚",
-      "price": 180
-    },
-    { "id": "meal44",
-      "set": "精緻特餐",
-      "name": "鯖魚",
-      "price": 180
-    },
-    { "id": "meal45",
-      "set": "精緻特餐",
-      "name": "鯛魚",
-      "price": 180
-    },
-    { "id": "meal46",
-      "set": "精緻特餐",
-      "name": "鱈魚",
-      "price": 150
-    },
-    { "id": "meal47",
-      "set": "精緻特餐",
-      "name": "海總",
-      "price": 180
-    },
-    { "id": "meal48",
-      "set": "精緻特餐",
-      "name": "蟹肉",
-      "price": 180
-    },
-    { "id": "meal49",
-      "set": "精緻特餐",
-      "name": "鮮蚵",
-      "price": 150
-    },
-    { "id": "meal50",
-      "set": "精緻特餐",
-      "name": "花蝦",
-      "price": 150
-    },
-    { "id": "meal51",
-      "set": "精緻特餐",
-      "name": "豬排",
-      "price": 140
-    },
-    { "id": "meal52",
-      "set": "精緻特餐",
-      "name": "牛肉",
-      "price": 120
-    },
-    { "id": "meal53",
-      "set": "精緻特餐",
-      "name": "羊肉",
-      "price": 120
-    },
-    { "id": "meal54",
-      "set": "精緻特餐",
-      "name": "豬肉",
-      "price": 120
-    },
-    { "id": "meal55",
-      "set": "精緻特餐",
-      "name": "蔬肉",
-      "price": 150
-    },
-    { "id": "meal56",
-      "set": "精緻特餐",
-      "name": "肋眼",
-      "price": 490
-    },
-    { "id": "meal57",
-      "set": "單點",
-      "name": "荷包",
-      "price": 10
-    },
-    { "id": "meal58",
-      "set": "單點",
-      "name": "蔥蛋",
-      "price": 20
-    },
-    { "id": "meal59",
-      "set": "單點",
-      "name": "塔蛋",
-      "price": 30
-    },
-    { "id": "meal60",
-      "set": "單點",
-      "name": "脯蛋",
-      "price": 50
-    },
-    { "id": "meal61",
-      "set": "單點",
-      "name": "起捲",
-      "price": 50
-    },
-    { "id": "meal62",
-      "set": "單點",
-      "name": "繽捲",
-      "price": 60
-    },
-    { "id": "meal63",
-      "set": "單點",
-      "name": "時蔬",
-      "price": 50
-    },
-    { "id": "meal64",
-      "set": "單點",
-      "name": "豆腐",
-      "price": 40
-    },
-    { "id": "meal65",
-      "set": "單點",
-      "name": "蒜菇",
-      "price": 60
-    },
-    { "id": "meal66",
-      "set": "單點",
-      "name": "起菇",
-      "price": 80
-    },
-    { "id": "meal67",
-      "set": "單點",
-      "name": "阪燒",
-      "price": 60
-    },
-    { "id": "meal68",
-      "set": "單點",
-      "name": "鮮蝦",
-      "price": 50
-    },
-    { "id": "meal69",
-      "set": "單點",
-      "name": "NG",
-      "price": 100
-    },
-    { "id": "meal70",
-      "set": "單點",
-      "name": "蒸蝦",
-      "price": 150
-    },
-    { "id": "meal71",
-      "set": "單點",
-      "name": "蝦球",
-      "price": 120
-    },
-    { "id": "meal72",
-      "set": "單點",
-      "name": "蝦蛋",
-      "price": 99
-    },
-    { "id": "meal73",
-      "set": "單點",
-      "name": "蝦飯",
-      "price": 99
-    },
-    { "id": "meal74",
-      "set": "單點",
-      "name": "焗蝦",
-      "price": 99
-    },
-    { "id": "meal75",
-      "set": "雙豪特餐",
-      "name": "肋眼",
-      "price": 1280
-    },
-    { "id": "meal76",
-      "set": "雙豪特餐",
-      "name": "紐約克",
-      "price": 1280
-    },
-    { "id": "meal77",
-      "set": "雙豪特餐",
-      "name": "羊肩",
-      "price": 1280
-    },
-    { "id": "meal78",
-      "set": "單豪特餐",
-      "name": "肋眼",
-      "price": 690
-    },
-    { "id": "meal79",
-      "set": "單豪特餐",
-      "name": "紐約克",
-      "price": 690
-    },
-    { "id": "meal80",
-      "set": "單豪特餐",
-      "name": "羊肩",
-      "price": 690
-    }
-  ]
-  
+	"menu": [
+		{
+			"id": "meal1",
+			"set": "老饕雙享餐",
+			"name": "翼板",
+			"price": 720
+		},
+		{
+			"id": "meal2",
+			"set": "老饕雙享餐",
+			"name": "松板",
+			"price": 720
+		},
+		{
+			"id": "meal3",
+			"set": "雙人麻吉餐",
+			"name": "翼板",
+			"price": 620
+		},
+		{
+			"id": "meal4",
+			"set": "雙人麻吉餐",
+			"name": "松板",
+			"price": 620
+		},
+		{
+			"id": "meal5",
+			"set": "雙人情侶餐",
+			"name": "朗心",
+			"price": 520
+		},
+		{
+			"id": "meal6",
+			"set": "雙人情侶餐",
+			"name": "豬排",
+			"price": 520
+		},
+		{
+			"id": "meal7",
+			"set": "雙人A餐",
+			"name": "牛肉",
+			"price": 420
+		},
+		{
+			"id": "meal8",
+			"set": "雙人A餐",
+			"name": "羊肉",
+			"price": 420
+		},
+		{
+			"id": "meal9",
+			"set": "雙人A餐",
+			"name": "豬肉",
+			"price": 420
+		},
+		{
+			"id": "meal10",
+			"set": "雙人B餐",
+			"name": "雞腿",
+			"price": 480
+		},
+		{
+			"id": "meal11",
+			"set": "雙人B餐",
+			"name": "沙朗",
+			"price": 480
+		},
+		{
+			"id": "meal12",
+			"set": "雙人B餐",
+			"name": "豬排",
+			"price": 480
+		},
+		{
+			"id": "meal13",
+			"set": "風雨餐",
+			"name": "風雨",
+			"price": 399
+		},
+		{
+			"id": "meal14",
+			"set": "主廚套餐",
+			"name": "主廚",
+			"price": 350
+		},
+		{
+			"id": "meal15",
+			"set": "多蝦蟹餐",
+			"name": "蝦蟹",
+			"price": 350
+		},
+		{
+			"id": "meal16",
+			"set": "海鮮大餐",
+			"name": "海大",
+			"price": 300
+		},
+		{
+			"id": "meal17",
+			"set": "靈魂昇華餐",
+			"name": "靈魂",
+			"price": 280
+		},
+		{
+			"id": "meal18",
+			"set": "潛能解放餐",
+			"name": "潛能",
+			"price": 260
+		},
+		{
+			"id": "meal19",
+			"set": "海陸A餐",
+			"name": "牛肉",
+			"price": 200
+		},
+		{
+			"id": "meal20",
+			"set": "海陸A餐",
+			"name": "羊肉",
+			"price": 200
+		},
+		{
+			"id": "meal21",
+			"set": "海陸A餐",
+			"name": "豬肉",
+			"price": 200
+		},
+		{
+			"id": "meal22",
+			"set": "海陸B餐",
+			"name": "雞腿",
+			"price": 230
+		},
+		{
+			"id": "meal23",
+			"set": "海陸B餐",
+			"name": "沙朗",
+			"price": 230
+		},
+		{
+			"id": "meal24",
+			"set": "海陸B餐",
+			"name": "豬排",
+			"price": 230
+		},
+		{
+			"id": "meal25",
+			"set": "呷霸特餐",
+			"name": "牛筋",
+			"price": 170
+		},
+		{
+			"id": "meal26",
+			"set": "呷霸特餐",
+			"name": "雞柳",
+			"price": 170
+		},
+		{
+			"id": "meal27",
+			"set": "呷霸特餐",
+			"name": "豬排",
+			"price": 170
+		},
+		{
+			"id": "meal25",
+			"set": "呷霸特餐",
+			"name": "牛筋",
+			"price": 170
+		},
+		{
+			"id": "meal26",
+			"set": "精緻特餐",
+			"name": "肋眼",
+			"price": 490
+		},
+		{
+			"id": "meal27",
+			"set": "精緻特餐",
+			"name": "紐約",
+			"price": 450
+		},
+		{
+			"id": "meal28",
+			"set": "精緻特餐",
+			"name": "菲力",
+			"price": 350
+		},
+		{
+			"id": "meal29",
+			"set": "精緻特餐",
+			"name": "雪花",
+			"price": 350
+		},
+		{
+			"id": "meal30",
+			"set": "精緻特餐",
+			"name": "翼板",
+			"price": 300
+		},
+		{
+			"id": "meal31",
+			"set": "精緻特餐",
+			"name": "牛小",
+			"price": 280
+		},
+		{
+			"id": "meal32",
+			"set": "精緻特餐",
+			"name": "朗心",
+			"price": 200
+		},
+		{
+			"id": "meal33",
+			"set": "精緻特餐",
+			"name": "松阪",
+			"price": 250
+		},
+		{
+			"id": "meal34",
+			"set": "精緻特餐",
+			"name": "豬排",
+			"price": 200
+		},
+		{
+			"id": "meal35",
+			"set": "精緻特餐",
+			"name": "泰雞",
+			"price": 180
+		},
+		{
+			"id": "meal36",
+			"set": "精緻特餐",
+			"name": "蜜雞",
+			"price": 180
+		},
+		{
+			"id": "meal37",
+			"set": "精緻特餐",
+			"name": "起雞",
+			"price": 180
+		},
+		{
+			"id": "meal38",
+			"set": "精緻特餐",
+			"name": "蒜雞",
+			"price": 150
+		},
+		{
+			"id": "meal39",
+			"set": "精緻特餐",
+			"name": "黑雞",
+			"price": 150
+		},
+		{
+			"id": "meal40",
+			"set": "精緻特餐",
+			"name": "和魷",
+			"price": 180
+		},
+		{
+			"id": "meal41",
+			"set": "精緻特餐",
+			"name": "泰魷",
+			"price": 180
+		},
+		{
+			"id": "meal42",
+			"set": "精緻特餐",
+			"name": "鮭魚",
+			"price": 180
+		},
+		{
+			"id": "meal43",
+			"set": "精緻特餐",
+			"name": "泰魚",
+			"price": 180
+		},
+		{
+			"id": "meal44",
+			"set": "精緻特餐",
+			"name": "鯖魚",
+			"price": 180
+		},
+		{
+			"id": "meal45",
+			"set": "精緻特餐",
+			"name": "鯛魚",
+			"price": 180
+		},
+		{
+			"id": "meal46",
+			"set": "精緻特餐",
+			"name": "鱈魚",
+			"price": 150
+		},
+		{
+			"id": "meal47",
+			"set": "精緻特餐",
+			"name": "海總",
+			"price": 180
+		},
+		{
+			"id": "meal48",
+			"set": "精緻特餐",
+			"name": "蟹肉",
+			"price": 180
+		},
+		{
+			"id": "meal49",
+			"set": "精緻特餐",
+			"name": "鮮蚵",
+			"price": 150
+		},
+		{
+			"id": "meal50",
+			"set": "精緻特餐",
+			"name": "花蝦",
+			"price": 150
+		},
+		{
+			"id": "meal51",
+			"set": "精緻特餐",
+			"name": "豬排",
+			"price": 140
+		},
+		{
+			"id": "meal52",
+			"set": "精緻特餐",
+			"name": "牛肉",
+			"price": 120
+		},
+		{
+			"id": "meal53",
+			"set": "精緻特餐",
+			"name": "羊肉",
+			"price": 120
+		},
+		{
+			"id": "meal54",
+			"set": "精緻特餐",
+			"name": "豬肉",
+			"price": 120
+		},
+		{
+			"id": "meal55",
+			"set": "精緻特餐",
+			"name": "蔬肉",
+			"price": 150
+		},
+		{
+			"id": "meal56",
+			"set": "精緻特餐",
+			"name": "肋眼",
+			"price": 490
+		},
+		{
+			"id": "meal57",
+			"set": "單點",
+			"name": "荷包",
+			"price": 10
+		},
+		{
+			"id": "meal58",
+			"set": "單點",
+			"name": "蔥蛋",
+			"price": 20
+		},
+		{
+			"id": "meal59",
+			"set": "單點",
+			"name": "塔蛋",
+			"price": 30
+		},
+		{
+			"id": "meal60",
+			"set": "單點",
+			"name": "脯蛋",
+			"price": 50
+		},
+		{
+			"id": "meal61",
+			"set": "單點",
+			"name": "起捲",
+			"price": 50
+		},
+		{
+			"id": "meal62",
+			"set": "單點",
+			"name": "繽捲",
+			"price": 60
+		},
+		{
+			"id": "meal63",
+			"set": "單點",
+			"name": "時蔬",
+			"price": 50
+		},
+		{
+			"id": "meal64",
+			"set": "單點",
+			"name": "豆腐",
+			"price": 40
+		},
+		{
+			"id": "meal65",
+			"set": "單點",
+			"name": "蒜菇",
+			"price": 60
+		},
+		{
+			"id": "meal66",
+			"set": "單點",
+			"name": "起菇",
+			"price": 80
+		},
+		{
+			"id": "meal67",
+			"set": "單點",
+			"name": "阪燒",
+			"price": 60
+		},
+		{
+			"id": "meal68",
+			"set": "單點",
+			"name": "鮮蝦",
+			"price": 50
+		},
+		{
+			"id": "meal69",
+			"set": "單點",
+			"name": "NG",
+			"price": 100
+		},
+		{
+			"id": "meal70",
+			"set": "單點",
+			"name": "蒸蝦",
+			"price": 150
+		},
+		{
+			"id": "meal71",
+			"set": "單點",
+			"name": "蝦球",
+			"price": 120
+		},
+		{
+			"id": "meal72",
+			"set": "單點",
+			"name": "蝦蛋",
+			"price": 99
+		},
+		{
+			"id": "meal73",
+			"set": "單點",
+			"name": "蝦飯",
+			"price": 99
+		},
+		{
+			"id": "meal74",
+			"set": "單點",
+			"name": "焗蝦",
+			"price": 99
+		},
+		{
+			"id": "meal75",
+			"set": "雙豪特餐",
+			"name": "肋眼",
+			"price": 1280
+		},
+		{
+			"id": "meal76",
+			"set": "雙豪特餐",
+			"name": "紐約克",
+			"price": 1280
+		},
+		{
+			"id": "meal77",
+			"set": "雙豪特餐",
+			"name": "羊肩",
+			"price": 1280
+		},
+		{
+			"id": "meal78",
+			"set": "單豪特餐",
+			"name": "肋眼",
+			"price": 690
+		},
+		{
+			"id": "meal79",
+			"set": "單豪特餐",
+			"name": "紐約克",
+			"price": 690
+		},
+		{
+			"id": "meal80",
+			"set": "單豪特餐",
+			"name": "羊肩",
+			"price": 690
+		}
+	]
 }

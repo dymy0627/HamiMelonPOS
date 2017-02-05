@@ -74,18 +74,6 @@ public class MenuController implements Initializable {
 			num_meal64, num_meal65, num_meal66, num_meal67, num_meal68, num_meal69, num_meal70, num_meal71, num_meal72,
 			num_meal73, num_meal74;
 
-	private int price_meal1, price_meal2, price_meal3, price_meal4, price_meal5, price_meal6, price_meal7, price_meal8,
-			price_meal9, price_meal10, price_meal11, price_meal12, price_meal13, price_meal14, price_meal15,
-			price_meal16, price_meal17, price_meal18, price_meal19, price_meal20, price_meal21, price_meal22,
-			price_meal23, price_meal24, price_meal25, price_meal26, price_meal27, price_meal28, price_meal29,
-			price_meal30, price_meal31, price_meal32, price_meal33, price_meal34, price_meal35, price_meal36,
-			price_meal37, price_meal38, price_meal39, price_meal40, price_meal41, price_meal42, price_meal43,
-			price_meal44, price_meal45, price_meal46, price_meal47, price_meal48, price_meal49, price_meal50,
-			price_meal51, price_meal52, price_meal53, price_meal54, price_meal55, price_meal56, price_meal57,
-			price_meal58, price_meal59, price_meal60, price_meal61, price_meal62, price_meal63, price_meal64,
-			price_meal65, price_meal66, price_meal67, price_meal68, price_meal69, price_meal70, price_meal71,
-			price_meal72, price_meal73, price_meal74;
-
 	@FXML
 	private ComboBox<String> peopleComboBox;
 
@@ -108,15 +96,14 @@ public class MenuController implements Initializable {
 	public static boolean pause;
 	private ToggleGroup mTypeGroup;
 
-	private Map<String, ListItem> mealMap = new HashMap<>();
+	private Map<String, ListItem> listItemMap = new HashMap<>();
 
 	private List<CheckBox> checkBoxGroup = new ArrayList<CheckBox>();
 	private List<Button> plusButtonGroup = new ArrayList<Button>();
 	private List<Button> minusButtonGroup = new ArrayList<Button>();
 	private List<Label> LabelGroup = new ArrayList<Label>();
-	private List<Integer> PriceGroup = new ArrayList<Integer>();
 
-	private String Consumption_type = "§∫•Œ";
+	private String Consumption_type = "ÂÖßÁî®";
 	private int num_people;
 
 	private int money = 0;;
@@ -129,7 +116,6 @@ public class MenuController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		assign_price();
 		// Toggle button listener
 		mTypeGroup = new ToggleGroup();
 		mTypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
@@ -146,14 +132,14 @@ public class MenuController implements Initializable {
 				}
 
 				if (new_select == typeHereButton) {
-					Consumption_type = "§∫•Œ";
+					Consumption_type = "ÂÖßÁî®";
 					peopleComboBox.setValue("1");
 					peopleComboBox.setDisable(false);
 				} else if (new_select == typeTakeOutButton) {
-					Consumption_type = "•~±a";
+					Consumption_type = "Â§ñÂ∏∂";
 					peopleComboBox.setDisable(true);
 				} else if (new_select == typeDeliverButton) {
-					Consumption_type = "•~∞e";
+					Consumption_type = "Â§ñÈÄÅ";
 					peopleComboBox.setDisable(true);
 				}
 
@@ -163,7 +149,7 @@ public class MenuController implements Initializable {
 					inti.setSelected(false);
 					LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
 				}
-				mealMap.clear();
+				listItemMap.clear();
 
 			}
 		});
@@ -189,7 +175,7 @@ public class MenuController implements Initializable {
 					LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
 				}
 
-				mealMap.clear();
+				listItemMap.clear();
 				money = 0;
 
 			}
@@ -201,29 +187,34 @@ public class MenuController implements Initializable {
 			checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean wasSelected,
 						Boolean isSelected) {
+
 					int currentIndex = checkBoxGroup.indexOf(checkbox);
 					Label currentNumLabel = LabelGroup.get(currentIndex);
-					String currentMealId = currentNumLabel.getId();
+					String currentMealId = checkbox.getId();
 					System.out.println(currentMealId + " checked = " + isSelected);
 
-					if (isSelected) {
+					Meal currentMeal = MenuBuilder.getMealById(currentMealId);
 
+					if (isSelected) {
 						currentNumLabel.setText(String.valueOf(1));
-						Meal meal = new Meal(currentMealId);
-						ListItem listItem = new ListItem(meal);
-						mealMap.put(listItem.getId(), listItem);
-						money += PriceGroup.get(currentIndex);
-						System.out.println("+™˜√B = " + PriceGroup.get(currentIndex));
+
+						money += currentMeal.getPrice();
+						System.out.println("+ÈáëÈ°ç = " + currentMeal.getPrice());
+
+						listItemMap.put(currentMealId, new ListItem(currentMeal));
+
 					} else {
 						currentNumLabel.setText(String.valueOf(0));
-						if (mealMap.containsKey(currentMealId)) {
-							int listItemNum = mealMap.get(currentMealId).getNumber();
-							money -= PriceGroup.get(currentIndex) * listItemNum;
-							System.out.println("-™˜√B = " + PriceGroup.get(currentIndex) * listItemNum);
-							mealMap.remove(currentMealId);
+
+						int listItemNum = listItemMap.get(currentMealId).getNumber();
+						money -= currentMeal.getPrice() * listItemNum;
+						System.out.println("-ÈáëÈ°ç = " + currentMeal.getPrice() * listItemNum);
+
+						if (listItemMap.containsKey(currentMealId)) {
+							listItemMap.remove(currentMealId);
 						}
 					}
-					System.out.println("¡`™˜√B = " + money);
+					System.out.println("Á∏ΩÈáëÈ°ç = " + money);
 				}
 			});
 		}
@@ -234,23 +225,24 @@ public class MenuController implements Initializable {
 				public void handle(ActionEvent e) {
 					int currentButtonIndex = plusButtonGroup.indexOf(btn);
 					Label currentNumLabel = LabelGroup.get(currentButtonIndex);
-					String currentMealId = currentNumLabel.getId();
 					CheckBox currentCheckBox = checkBoxGroup.get(currentButtonIndex);
+					String currentMealId = currentCheckBox.getId();
 
 					int currentNum = Integer.parseInt(currentNumLabel.getText());
 					if (currentNum == 0) {
 						currentCheckBox.setSelected(true);
 					} else {
-						currentNum = mealMap.get(currentMealId).getNumber();
+						currentNum = listItemMap.get(currentMealId).getNumber();
 						currentNum++;
 						currentNumLabel.setText(String.valueOf(currentNum));
 
-						ListItem listItem = new ListItem(new Meal(currentMealId));
+						Meal currentMeal = MenuBuilder.getMealById(currentMealId);
+						ListItem listItem = new ListItem(currentMeal);
 						listItem.setNumber(currentNum);
-						mealMap.replace(listItem.getId(), listItem);
-						System.out.println("+™˜√B = " + PriceGroup.get(currentButtonIndex));
-						money += PriceGroup.get(currentButtonIndex);
-						System.out.println("¡`™˜√B= " + money);
+						listItemMap.replace(currentMealId, listItem);
+						System.out.println("+ÈáëÈ°ç = " + currentMeal.getPrice());
+						money += currentMeal.getPrice();
+						System.out.println("Á∏ΩÈáëÈ°ç= " + money);
 					}
 				}
 			});
@@ -262,116 +254,31 @@ public class MenuController implements Initializable {
 				public void handle(ActionEvent e) {
 					int currentButtonIndex = minusButtonGroup.indexOf(btn);
 					Label currentNumLabel = LabelGroup.get(currentButtonIndex);
-					String currentMealId = currentNumLabel.getId();
 					CheckBox currentCheckBox = checkBoxGroup.get(currentButtonIndex);
+					String currentMealId = currentCheckBox.getId();
 
 					int currentNum = Integer.parseInt(currentNumLabel.getText());
 					if (currentNum > 0) {
 						if (currentNum == 1) {
 							currentCheckBox.setSelected(false);
 						} else {
-							currentNum = mealMap.get(currentMealId).getNumber();
+							currentNum = listItemMap.get(currentMealId).getNumber();
 							currentNum--;
 							currentNumLabel.setText(String.valueOf(currentNum));
 
-							ListItem listItem = new ListItem(new Meal(currentMealId));
+							Meal currentMeal = MenuBuilder.getMealById(currentMealId);
+							ListItem listItem = new ListItem(currentMeal);
 							listItem.setNumber(currentNum);
-							mealMap.replace(listItem.getId(), listItem);
-							System.out.println("-™˜√B = " + PriceGroup.get(currentButtonIndex));
-							money -= PriceGroup.get(currentButtonIndex);
-							System.out.println("¡`™˜√B = " + money);
+							listItemMap.replace(currentMealId, listItem);
+							System.out.println("-ÈáëÈ°ç = " + currentMeal.getPrice());
+							money -= currentMeal.getPrice();
+							System.out.println("Á∏ΩÈáëÈ°ç = " + money);
 						}
 					}
 				}
 			});
 		}
 
-	}
-
-	private boolean checkIsBeef(String mealName) {
-		if (mealName.contains("§˚") || mealName.contains("µ·§O") || mealName.contains("¶ÿ≤¥") || mealName.contains("Ø√¨˘ßJ")
-				|| mealName.contains("≥∑™·") || mealName.contains("§˚§p±∆") || mealName.contains("§˚µ¨")
-				|| mealName.contains("§˚¶◊§˘") || mealName.contains("®FÆ‘")) {
-			return true;
-		}
-		return false;
-	}
-
-	private void assign_price() {
-		price_meal1 = 720;
-		price_meal2 = 720;
-		price_meal3 = 620;
-		price_meal4 = 620;
-		price_meal5 = 520;
-		price_meal6 = 520;
-		price_meal7 = 420;
-		price_meal8 = 420;
-		price_meal9 = 420;
-		price_meal10 = 480;
-		price_meal11 = 480;
-		price_meal12 = 480;
-		price_meal13 = 399;
-		price_meal14 = 200;
-		price_meal15 = 200;
-		price_meal16 = 200;
-		price_meal17 = 230;
-		price_meal18 = 230;
-		price_meal19 = 230;
-		price_meal20 = 170;
-		price_meal21 = 170;
-		price_meal22 = 170;
-		price_meal23 = 350;
-		price_meal24 = 350;
-		price_meal25 = 300;
-		price_meal26 = 280;
-		price_meal27 = 260;
-		price_meal28 = 140;
-		price_meal29 = 180;
-		price_meal30 = 180;
-		price_meal31 = 180;
-		price_meal32 = 150;
-		price_meal33 = 150;
-		price_meal34 = 120;
-		price_meal35 = 120;
-		price_meal36 = 120;
-		price_meal37 = 150;
-		price_meal38 = 180;
-		price_meal39 = 180;
-		price_meal40 = 180;
-		price_meal41 = 180;
-		price_meal42 = 180;
-		price_meal43 = 180;
-		price_meal44 = 150;
-		price_meal45 = 150;
-		price_meal46 = 180;
-		price_meal47 = 180;
-		price_meal48 = 150;
-		price_meal49 = 490;
-		price_meal50 = 450;
-		price_meal51 = 350;
-		price_meal52 = 300;
-		price_meal53 = 280;
-		price_meal54 = 200;
-		price_meal55 = 0;
-		price_meal56 = 250;
-		price_meal57 = 200;
-		price_meal58 = 10;
-		price_meal59 = 20;
-		price_meal60 = 30;
-		price_meal61 = 50;
-		price_meal62 = 50;
-		price_meal63 = 60;
-		price_meal64 = 40;
-		price_meal65 = 60;
-		price_meal66 = 80;
-		price_meal67 = 60;
-		price_meal68 = 50;
-		price_meal69 = 99;
-		price_meal70 = 100;
-		price_meal71 = 150;
-		price_meal72 = 99;
-		price_meal73 = 99;
-		// remove ¶œ§p±∆ new ¬A∫ÒÆ…Ω≠ ¬˘§Hª®µÿ ≥Ê§Hª®µÿ ªÒ±˘Ωº≤y
 	}
 
 	private void menu_content_intialize() {
@@ -676,82 +583,6 @@ public class MenuController implements Initializable {
 		LabelGroup.add(num_meal72);
 		LabelGroup.add(num_meal73);
 		// LabelGroup.add(num_meal74);
-
-		PriceGroup.add(price_meal1);
-		PriceGroup.add(price_meal2);
-		PriceGroup.add(price_meal3);
-		PriceGroup.add(price_meal4);
-		PriceGroup.add(price_meal5);
-		PriceGroup.add(price_meal6);
-		PriceGroup.add(price_meal7);
-		PriceGroup.add(price_meal8);
-		PriceGroup.add(price_meal9);
-		PriceGroup.add(price_meal10);
-		PriceGroup.add(price_meal11);
-		PriceGroup.add(price_meal12);
-		PriceGroup.add(price_meal13);
-		PriceGroup.add(price_meal14);
-		PriceGroup.add(price_meal15);
-		PriceGroup.add(price_meal16);
-		PriceGroup.add(price_meal17);
-		PriceGroup.add(price_meal18);
-		PriceGroup.add(price_meal19);
-		PriceGroup.add(price_meal20);
-		PriceGroup.add(price_meal21);
-		PriceGroup.add(price_meal22);
-		PriceGroup.add(price_meal23);
-		PriceGroup.add(price_meal24);
-		PriceGroup.add(price_meal25);
-		PriceGroup.add(price_meal26);
-		PriceGroup.add(price_meal27);
-		PriceGroup.add(price_meal28);
-		PriceGroup.add(price_meal29);
-		PriceGroup.add(price_meal30);
-		PriceGroup.add(price_meal31);
-		PriceGroup.add(price_meal32);
-		PriceGroup.add(price_meal33);
-		PriceGroup.add(price_meal34);
-		PriceGroup.add(price_meal35);
-		PriceGroup.add(price_meal36);
-		PriceGroup.add(price_meal37);
-		PriceGroup.add(price_meal38);
-		PriceGroup.add(price_meal39);
-		PriceGroup.add(price_meal40);
-		PriceGroup.add(price_meal41);
-		PriceGroup.add(price_meal42);
-		PriceGroup.add(price_meal43);
-		PriceGroup.add(price_meal44);
-		PriceGroup.add(price_meal45);
-		PriceGroup.add(price_meal46);
-		PriceGroup.add(price_meal47);
-		PriceGroup.add(price_meal48);
-		PriceGroup.add(price_meal49);
-		PriceGroup.add(price_meal50);
-		PriceGroup.add(price_meal51);
-		PriceGroup.add(price_meal52);
-		PriceGroup.add(price_meal53);
-		PriceGroup.add(price_meal54);
-		PriceGroup.add(price_meal55);
-		PriceGroup.add(price_meal56);
-		PriceGroup.add(price_meal57);
-		PriceGroup.add(price_meal58);
-		PriceGroup.add(price_meal59);
-		PriceGroup.add(price_meal60);
-		PriceGroup.add(price_meal61);
-		PriceGroup.add(price_meal62);
-		PriceGroup.add(price_meal63);
-		PriceGroup.add(price_meal64);
-		PriceGroup.add(price_meal65);
-		PriceGroup.add(price_meal66);
-		PriceGroup.add(price_meal67);
-		PriceGroup.add(price_meal68);
-		PriceGroup.add(price_meal69);
-		PriceGroup.add(price_meal70);
-		PriceGroup.add(price_meal71);
-		PriceGroup.add(price_meal72);
-		PriceGroup.add(price_meal73);
-		// PriceGroup.add(price_meal74);
-
 	}
 
 	@FXML
@@ -768,6 +599,16 @@ public class MenuController implements Initializable {
 		stage.show();
 	}
 
+	private boolean checkIsBeef(String mealName) {
+		System.out.println("checkIsBeef " + mealName);
+		if (mealName.contains("Áâõ") || mealName.contains("Ëè≤Âäõ") || mealName.contains("ËÇãÁúº") || mealName.contains("Á¥êÁ¥ÑÂÖã")
+				|| mealName.contains("Èõ™Ëä±") || mealName.contains("ÁâõÂ∞èÊéí") || mealName.contains("ÁâõÁ≠ã")
+				|| mealName.contains("ÁâõËÇâÁâá") || mealName.contains("Ê≤ôÊúó")) {
+			return true;
+		}
+		return false;
+	}
+
 	@FXML
 	protected void NextPageButtonAction(ActionEvent event) throws IOException {
 		pause = true;
@@ -779,18 +620,17 @@ public class MenuController implements Initializable {
 		controller.setPeople(num_people);
 		controller.setType(Consumption_type);
 		List<Meal> passing_menu = new ArrayList<Meal>();
-		for (String id : mealMap.keySet()) {
-			passing_menu.add(mealMap.get(id).getMeal());
-
-			String mealName = mealMap.get(id).getMeal().getName();
-			if (mealName != null && checkIsBeef(mealName)) {
-				beef += mealMap.get(id).getNumber();
+		for (String id : listItemMap.keySet()) {
+			Meal meal = listItemMap.get(id).getMeal();
+			passing_menu.add(meal);
+			if (checkIsBeef(meal.getName())) {
+				beef += listItemMap.get(id).getNumber();
 			}
 		}
+		controller.setMenuList(passing_menu);
 		System.out.println("money " + money);
 		System.out.println("beef number " + beef);
 
-		controller.setMenuList(passing_menu);
 		scene = new Scene(root, 800, 600);
 		// Pop_Stage = MainScene.stage_tmp;
 
@@ -798,7 +638,7 @@ public class MenuController implements Initializable {
 		Pop_Stage = new Stage();
 		Pop_Stage.setScene(scene);
 		Pop_Stage.initModality(Modality.APPLICATION_MODAL);
-		Pop_Stage.setTitle("≤M≥Ê");
+		Pop_Stage.setTitle("Ê∏ÖÂñÆ");
 		Pop_Stage.showAndWait();
 
 		// Pop_Stage.setOnHide(event -> Platform.exit());

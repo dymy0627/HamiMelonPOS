@@ -2,6 +2,7 @@ package application.order;
 
 public class Meal {
 	private String id;
+	private String set;
 	private String name;
 	private int price;
 
@@ -11,6 +12,14 @@ public class Meal {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getSet() {
+		return set;
+	}
+
+	public void setSet(String set) {
+		this.set = set;
 	}
 
 	public String getName() {

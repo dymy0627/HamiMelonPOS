@@ -211,13 +211,13 @@ public class StockController implements Initializable, StockListViewListener {
 
 	private boolean deleteFromDb(MySqlConnection mySqlConnection, StockBean stock) {
 		boolean deleteResult = mySqlConnection.deleteShippingDate(stock);
-		System.out.println("§R°£¤@µ§" + (deleteResult ? "¦¨¥\" : "¥¢±Ñ"));
+		System.out.println("åˆªé™¤ä¸€ç­†" + (deleteResult ? "æˆåŠŸ" : "å¤±æ•—"));
 		return deleteResult;
 	}
 
 	private boolean addToDb(MySqlConnection mySqlConnection, StockBean stock) {
 		boolean addResult = mySqlConnection.insertShippingData(stock);
-		System.out.println("·s¼W¤@µ§" + (addResult ? "¦¨¥\" : "¥¢±Ñ"));
+		System.out.println("æ–°å¢ä¸€ç­†" + (addResult ? "æˆåŠŸ" : "å¤±æ•—"));
 		return addResult;
 	}
 

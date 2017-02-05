@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import application.order.MenuBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ public class MainController {
 	@FXML
 	protected void OrderButtonAction(ActionEvent event) throws IOException {
 
+		MenuBuilder.load();
 		// def fxml loader
 		Parent menuStage = FXMLLoader.load(getClass().getResource("/fxml/MenuStage.fxml"));
 
