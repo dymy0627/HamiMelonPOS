@@ -3,12 +3,9 @@ package application.order;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
 
-import application.MainScene;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.value.ChangeListener;
@@ -18,26 +15,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 
 public class ListController implements Initializable {
-	Stage stage;
-	Scene scene;
-
-	// def fxml loader
-	Parent orderstage;
-	Parent mainstage;
-	Parent menustage;
-	Parent liststage;
 
 	@FXML
-	private ComboBox<String> DiscountCombo; 
+	private ComboBox<String> DiscountCombo;
 
 	@FXML
 	private Button p_page;
@@ -50,12 +36,13 @@ public class ListController implements Initializable {
 	private Label total_money;
 
 	@FXML
-	private ListView<String> menulist;
-	ListProperty<String> listProperty = new SimpleListProperty<>();
-	List<String> passing_list = new ArrayList<>();
-	
+	private ListView<Meal> menulist;
+
 	@FXML
 	private Label type;
+
+	private ListProperty<Meal> listProperty = new SimpleListProperty<>();
+	private List<Meal> passing_list = new ArrayList<>();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -142,45 +129,14 @@ public class ListController implements Initializable {
 
 	@FXML
 	protected void PreviousPageButtonAction(ActionEvent event) throws IOException {
-		/*
-		try {
-			menustage = FXMLLoader.load(getClass().getResource("/fxml/MenuStage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		// 想用static可試Singleton
-		// OO可試interface callback
-		// ref fxml to stage
-		stage = MainScene.stage_tmp;
-		scene = new Scene(menustage, 1024, 720);
-
-		// change scene to main scene
-		stage.setScene(scene);
-		stage.show();
-		*/
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MenuStage.fxml"));
-		Parent root = (Parent) fxmlLoader.load();
+		fxmlLoader.load();
 		MenuController controller = fxmlLoader.<MenuController>getController();
 		controller.setClosePop(true);
 	}
 
 	@FXML
 	protected void NextPageButtonAction(ActionEvent event) {
-		/*
-		try {
-			liststage = FXMLLoader.load(getClass().getResource("/fxml/ListStage.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		stage = MainScene.stage_tmp;
-		scene = new Scene(liststage, 1024, 720);
-
-		// change scene to main scene
-		stage.setScene(scene);
-		stage.show();
-		*/
 		System.out.println("print work");
 	}
 
@@ -191,11 +147,8 @@ public class ListController implements Initializable {
 	public void setPeople(int people) {
 		num_people.setText(Integer.toString(people));
 	}
-	
-	
-	
 
-	public void setMenuList(List<String> passing_menu) {
+	public void setMenuList(List<Meal> passing_menu) {
 		int cursor = 0;
 		System.out.println("passing_menu.size() = " + passing_menu.size());
 		while (cursor != passing_menu.size()) {
@@ -211,7 +164,6 @@ public class ListController implements Initializable {
 
 	public void setType(String consumption_type) {
 		type.setText(consumption_type);
-		
 	}
 
 }

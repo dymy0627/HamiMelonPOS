@@ -1,13 +1,12 @@
 package application.order;
 
-import java.awt.CardLayout;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Timer;
 
 import application.MainScene;
 import javafx.beans.value.ChangeListener;
@@ -22,7 +21,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -30,14 +28,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class MenuController implements Initializable {
 
@@ -84,12 +74,6 @@ public class MenuController implements Initializable {
 			num_meal64, num_meal65, num_meal66, num_meal67, num_meal68, num_meal69, num_meal70, num_meal71, num_meal72,
 			num_meal73, num_meal74;
 
-	private Stage stage;
-	static Stage Pop_Stage;
-	private Scene scene;
-
-	public static boolean pause;
-	
 	@FXML
 	private ComboBox<String> peopleComboBox;
 
@@ -100,23 +84,27 @@ public class MenuController implements Initializable {
 
 	@FXML
 	private VBox menu1;
-	
 	@FXML
 	private Label type;
-	
 	@FXML
-	private ToggleButton btn_type1,btn_type2,btn_type3;
-	ToggleGroup TypeGroup;
+	private ToggleButton typeHereButton, typeTakeOutButton, typeDeliverButton;
 
-	private List<String> passing_menu = new ArrayList<String>();
+	private Stage stage;
+	private static Stage Pop_Stage;
+	private Scene scene;
+
+	public static boolean pause;
+	private ToggleGroup mTypeGroup;
+
+	private Map<String, ListItem> mealMap = new HashMap<>();
+
 	private List<CheckBox> checkBoxGroup = new ArrayList<CheckBox>();
-	private List<Button> PButtonGroup = new ArrayList<Button>();
-	private List<Button> MButtonGroup = new ArrayList<Button>();
+	private List<Button> plusButtonGroup = new ArrayList<Button>();
+	private List<Button> minusButtonGroup = new ArrayList<Button>();
 	private List<Label> LabelGroup = new ArrayList<Label>();
 
 	private String Consumption_type = "內用";
 	private int num_people;
-	private int now_people;
 
 	private int money;
 	private int pork;
@@ -126,59 +114,50 @@ public class MenuController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		//togglebutton listener 
-		TypeGroup = new ToggleGroup();
-		btn_type1.setToggleGroup(TypeGroup);
-		btn_type2.setToggleGroup(TypeGroup);
-		btn_type3.setToggleGroup(TypeGroup);
-		TypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-		      public void changed(ObservableValue<? extends Toggle> ov, Toggle old_select,Toggle new_select) {
-		    	  
-		    	  if(!btn_type1.isSelected() && old_select == btn_type1 && new_select == null)
-		    		  btn_type1.setSelected(true);
-		    	  if(!btn_type2.isSelected() && old_select == btn_type2 && new_select == null)
-		    		  btn_type2.setSelected(true);
-		    	  if(!btn_type3.isSelected() && old_select == btn_type3 && new_select == null)
-		    		  btn_type3.setSelected(true);
-		    	  
-		    	  //System.out.println(old_select.toString() + " " + new_select.toString());
-		    	  
-		    	  for (CheckBox inti : checkBoxGroup) {
-							inti.setSelected(false);
-							LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
-							passing_menu.clear();
 
-						}
-		    	  now_people = 0;
-			    	  
-			      if(TypeGroup.getToggles().get(0).isSelected()){
-			    		 TypeGroup.getToggles().get(1).setSelected(false);
-			    		 TypeGroup.getToggles().get(2).setSelected(false);
-			    		 Consumption_type = "內用";
-			    		 type.setText(Consumption_type);
-			    		 peopleComboBox.setDisable(false);
-			    		 peopleComboBox.setValue("1");
+		// Toggle button listener
+		mTypeGroup = new ToggleGroup();
+		mTypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_select, Toggle new_select) {
 
-			      }
-			      else if(TypeGroup.getToggles().get(1).isSelected()){
-			    		 	 TypeGroup.getToggles().get(0).setSelected(false);
-				    		 TypeGroup.getToggles().get(2).setSelected(false);
-				    		 Consumption_type = "外帶";
-				    		 type.setText(Consumption_type);
-				    		 peopleComboBox.setDisable(true); 
-				    		 peopleComboBox.setValue("1");
-			      }
-			      else if(TypeGroup.getToggles().get(2).isSelected()){
-					    		 TypeGroup.getToggles().get(0).setSelected(false);
-					    		 TypeGroup.getToggles().get(1).setSelected(false);
-					    		 Consumption_type = "外送";
-					    		 type.setText(Consumption_type);
-					    		 peopleComboBox.setDisable(true);
-					    		 peopleComboBox.setValue("1");
-			      }
-		      }
-		    });
+				((ToggleButton) new_select).setDisable(true);
+				System.out.println("new_select = " + new_select.toString());
+
+				if (old_select != null) {
+					((ToggleButton) old_select).setDisable(false);
+					System.out.println("old_select = " + old_select.toString());
+				} else {
+					System.out.println("old_select == null");
+				}
+
+				if (new_select == typeHereButton) {
+					Consumption_type = "內用";
+					peopleComboBox.setValue("1");
+					peopleComboBox.setDisable(false);
+				} else if (new_select == typeTakeOutButton) {
+					Consumption_type = "外帶";
+					peopleComboBox.setDisable(true);
+				} else if (new_select == typeDeliverButton) {
+					Consumption_type = "外送";
+					peopleComboBox.setDisable(true);
+				}
+
+				type.setText(Consumption_type);
+
+				for (CheckBox inti : checkBoxGroup) {
+					inti.setSelected(false);
+					LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
+				}
+				mealMap.clear();
+
+			}
+		});
+
+		typeHereButton.setToggleGroup(mTypeGroup);
+		typeTakeOutButton.setToggleGroup(mTypeGroup);
+		typeDeliverButton.setToggleGroup(mTypeGroup);
+
+		typeHereButton.setSelected(true);
 
 		// populate the fruit combo box with item choices.
 		peopleComboBox.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
@@ -190,15 +169,11 @@ public class MenuController implements Initializable {
 			public void changed(ObservableValue<? extends String> observable, String oldSelected, String newSelected) {
 				num_people = Integer.parseInt(newSelected);
 				System.out.println("num_people: " + num_people);
-
 				for (CheckBox inti : checkBoxGroup) {
 					inti.setSelected(false);
 					LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
-					passing_menu.clear();
-
 				}
-				now_people = 0;
-
+				mealMap.clear();
 			}
 		});
 
@@ -208,110 +183,90 @@ public class MenuController implements Initializable {
 			checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean wasSelected,
 						Boolean isSelected) {
-					System.out.println(checkbox.getText() + " checked=" + isSelected);
+					Label currentNumLabel = LabelGroup.get(checkBoxGroup.indexOf(checkbox));
+					String currentMealId = currentNumLabel.getId();
+					System.out.println(currentMealId + " checked = " + isSelected);
 
 					if (isSelected) {
-
-						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText(String.valueOf(
-								Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText()) + 1));
-						now_people += 1;
-
-						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
-						if ((checkbox.getText().contains("沙朗") || checkbox.getText().contains("菲力")
-								|| checkbox.getText().contains("肋眼") || checkbox.getText().contains("紐約克")
-								|| checkbox.getText().contains("雪花") || checkbox.getText().contains("牛小排")
-								|| checkbox.getText().contains("牛筋") || checkbox.getText().contains("牛肉片")
-								|| checkbox.getText().contains("牛"))) {
-							beef++;
-							System.out.println("beef number " + beef);
-							;
-						}
-						passing_menu.add(checkbox.getText());
+						currentNumLabel.setText(String.valueOf(1));
+						Meal meal = new Meal(currentMealId);
+						ListItem listItem = new ListItem(meal);
+						mealMap.put(listItem.getId(), listItem);
 					} else {
-
-						now_people = now_people
-								- Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
-						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
-						if ((checkbox.getText().contains("牛") || checkbox.getText().contains("菲力")
-								|| checkbox.getText().contains("肋眼") || checkbox.getText().contains("紐約克")
-								|| checkbox.getText().contains("雪花") || checkbox.getText().contains("牛小排")
-								|| checkbox.getText().contains("牛筋") || checkbox.getText().contains("牛肉片")
-								|| checkbox.getText().contains("沙朗")) && beef >0) {
-							beef = beef - Integer.parseInt(LabelGroup.get(checkBoxGroup.indexOf(checkbox)).getText());
-							System.out.println("beef number2 " + beef );
-							
+						currentNumLabel.setText(String.valueOf(0));
+						if (mealMap.containsKey(currentMealId)) {
+							mealMap.remove(currentMealId);
 						}
-						LabelGroup.get(checkBoxGroup.indexOf(checkbox)).setText("0");
-						if(passing_menu.contains(checkbox.getText()))
-							passing_menu.remove(checkbox.getText());
 					}
-
 				}
 			});
 		}
 
-		for (Button btn : PButtonGroup) {
+		for (Button btn : plusButtonGroup) {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
+					int currentButtonIndex = plusButtonGroup.indexOf(btn);
+					Label currentNumLabel = LabelGroup.get(currentButtonIndex);
+					String currentMealId = currentNumLabel.getId();
+					CheckBox currentCheckBox = checkBoxGroup.get(currentButtonIndex);
 
-					if (Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText()) == 0) {
-						checkBoxGroup.get(PButtonGroup.indexOf(btn)).setSelected(true);
+					int currentNum = Integer.parseInt(currentNumLabel.getText());
+					if (currentNum == 0) {
+						currentCheckBox.setSelected(true);
 					} else {
-						LabelGroup.get(PButtonGroup.indexOf(btn)).setText(String
-								.valueOf(Integer.parseInt(LabelGroup.get(PButtonGroup.indexOf(btn)).getText()) + 1));
-						now_people++;
-						passing_menu.add(checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText());
-						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
-						if (checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("菲力")
-								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("肋眼") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("紐約克")
-								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("雪花") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛小排")
-								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛筋") || checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("牛肉片")
-								|| checkBoxGroup.get(PButtonGroup.indexOf(btn)).getText().contains("沙朗")) {
-							beef++;
-							System.out.println("beef number " + beef);
-							
-						}
-					}
+						currentNum = mealMap.get(currentMealId).getNumber();
+						currentNum++;
+						currentNumLabel.setText(String.valueOf(currentNum));
 
+						ListItem listItem = new ListItem(new Meal(currentMealId));
+						listItem.setNumber(currentNum);
+						mealMap.replace(listItem.getId(), listItem);
+					}
 				}
 			});
 		}
 
-		for (Button btn : MButtonGroup) {
+		for (Button btn : minusButtonGroup) {
 			btn.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
+					int currentButtonIndex = minusButtonGroup.indexOf(btn);
+					Label currentNumLabel = LabelGroup.get(currentButtonIndex);
+					String currentMealId = currentNumLabel.getId();
+					CheckBox currentCheckBox = checkBoxGroup.get(currentButtonIndex);
 
-					if (Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) > 0) {
-						LabelGroup.get(MButtonGroup.indexOf(btn)).setText(String
-								.valueOf(Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) - 1));
-						now_people--;
-						System.out.println("此單人數 " + num_people + " 已點客數" + now_people);
-						if (checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("菲力")
-								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("肋眼") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("紐約克")
-								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("雪花") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛小排")
-								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛筋") || checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("牛肉片")
-								|| checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText().contains("沙朗")) {
-							beef--;
-							System.out.println("beef number " + beef);
-							
+					int currentNum = Integer.parseInt(currentNumLabel.getText());
+					if (currentNum > 0) {
+						if (currentNum == 1) {
+							currentCheckBox.setSelected(false);
+						} else {
+							currentNum = mealMap.get(currentMealId).getNumber();
+							currentNum--;
+							currentNumLabel.setText(String.valueOf(currentNum));
+
+							ListItem listItem = new ListItem(new Meal(currentMealId));
+							listItem.setNumber(currentNum);
+							mealMap.replace(listItem.getId(), listItem);
 						}
-						if(passing_menu.contains(checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText()))
-							passing_menu.remove(checkBoxGroup.get(MButtonGroup.indexOf(btn)).getText());
-						if (Integer.parseInt(LabelGroup.get(MButtonGroup.indexOf(btn)).getText()) == 0)
-							checkBoxGroup.get(MButtonGroup.indexOf(btn)).setSelected(false);
 					}
-
 				}
 			});
 		}
 
 	}
 
+	private boolean checkIsBeef(String mealName) {
+		if (mealName.contains("牛") || mealName.contains("菲力") || mealName.contains("肋眼") || mealName.contains("紐約克")
+				|| mealName.contains("雪花") || mealName.contains("牛小排") || mealName.contains("牛筋")
+				|| mealName.contains("牛肉片") || mealName.contains("沙朗")) {
+			return true;
+		}
+		return false;
+	}
+
 	private void menu_content_intialize() {
 		num_people = 1;
-		now_people = 0;
 
 		checkBoxGroup.add(meal1);
 		checkBoxGroup.add(meal2);
@@ -388,155 +343,155 @@ public class MenuController implements Initializable {
 		checkBoxGroup.add(meal73);
 		checkBoxGroup.add(meal74);
 
-		PButtonGroup.add(pbtn_meal1);
-		PButtonGroup.add(pbtn_meal2);
-		PButtonGroup.add(pbtn_meal3);
-		PButtonGroup.add(pbtn_meal4);
-		PButtonGroup.add(pbtn_meal5);
-		PButtonGroup.add(pbtn_meal6);
-		PButtonGroup.add(pbtn_meal7);
-		PButtonGroup.add(pbtn_meal8);
-		PButtonGroup.add(pbtn_meal9);
-		PButtonGroup.add(pbtn_meal10);
-		PButtonGroup.add(pbtn_meal11);
-		PButtonGroup.add(pbtn_meal12);
-		PButtonGroup.add(pbtn_meal13);
-		PButtonGroup.add(pbtn_meal14);
-		PButtonGroup.add(pbtn_meal15);
-		PButtonGroup.add(pbtn_meal16);
-		PButtonGroup.add(pbtn_meal17);
-		PButtonGroup.add(pbtn_meal18);
-		PButtonGroup.add(pbtn_meal19);
-		PButtonGroup.add(pbtn_meal20);
-		PButtonGroup.add(pbtn_meal21);
-		PButtonGroup.add(pbtn_meal22);
-		PButtonGroup.add(pbtn_meal23);
-		PButtonGroup.add(pbtn_meal24);
-		PButtonGroup.add(pbtn_meal25);
-		PButtonGroup.add(pbtn_meal26);
-		PButtonGroup.add(pbtn_meal27);
-		PButtonGroup.add(pbtn_meal28);
-		PButtonGroup.add(pbtn_meal29);
-		PButtonGroup.add(pbtn_meal30);
-		PButtonGroup.add(pbtn_meal31);
-		PButtonGroup.add(pbtn_meal32);
-		PButtonGroup.add(pbtn_meal33);
-		PButtonGroup.add(pbtn_meal34);
-		PButtonGroup.add(pbtn_meal35);
-		PButtonGroup.add(pbtn_meal36);
-		PButtonGroup.add(pbtn_meal37);
-		PButtonGroup.add(pbtn_meal38);
-		PButtonGroup.add(pbtn_meal39);
-		PButtonGroup.add(pbtn_meal40);
-		PButtonGroup.add(pbtn_meal41);
-		PButtonGroup.add(pbtn_meal42);
-		PButtonGroup.add(pbtn_meal43);
-		PButtonGroup.add(pbtn_meal44);
-		PButtonGroup.add(pbtn_meal45);
-		PButtonGroup.add(pbtn_meal46);
-		PButtonGroup.add(pbtn_meal47);
-		PButtonGroup.add(pbtn_meal48);
-		PButtonGroup.add(pbtn_meal49);
-		PButtonGroup.add(pbtn_meal50);
-		PButtonGroup.add(pbtn_meal51);
-		PButtonGroup.add(pbtn_meal52);
-		PButtonGroup.add(pbtn_meal53);
-		PButtonGroup.add(pbtn_meal54);
-		PButtonGroup.add(pbtn_meal55);
-		PButtonGroup.add(pbtn_meal56);
-		PButtonGroup.add(pbtn_meal57);
-		PButtonGroup.add(pbtn_meal58);
-		PButtonGroup.add(pbtn_meal59);
-		PButtonGroup.add(pbtn_meal60);
-		PButtonGroup.add(pbtn_meal61);
-		PButtonGroup.add(pbtn_meal62);
-		PButtonGroup.add(pbtn_meal63);
-		PButtonGroup.add(pbtn_meal64);
-		PButtonGroup.add(pbtn_meal65);
-		PButtonGroup.add(pbtn_meal66);
-		PButtonGroup.add(pbtn_meal67);
-		PButtonGroup.add(pbtn_meal68);
-		PButtonGroup.add(pbtn_meal69);
-		PButtonGroup.add(pbtn_meal70);
-		PButtonGroup.add(pbtn_meal71);
-		PButtonGroup.add(pbtn_meal72);
-		PButtonGroup.add(pbtn_meal73);
-		PButtonGroup.add(pbtn_meal74);   
+		plusButtonGroup.add(pbtn_meal1);
+		plusButtonGroup.add(pbtn_meal2);
+		plusButtonGroup.add(pbtn_meal3);
+		plusButtonGroup.add(pbtn_meal4);
+		plusButtonGroup.add(pbtn_meal5);
+		plusButtonGroup.add(pbtn_meal6);
+		plusButtonGroup.add(pbtn_meal7);
+		plusButtonGroup.add(pbtn_meal8);
+		plusButtonGroup.add(pbtn_meal9);
+		plusButtonGroup.add(pbtn_meal10);
+		plusButtonGroup.add(pbtn_meal11);
+		plusButtonGroup.add(pbtn_meal12);
+		plusButtonGroup.add(pbtn_meal13);
+		plusButtonGroup.add(pbtn_meal14);
+		plusButtonGroup.add(pbtn_meal15);
+		plusButtonGroup.add(pbtn_meal16);
+		plusButtonGroup.add(pbtn_meal17);
+		plusButtonGroup.add(pbtn_meal18);
+		plusButtonGroup.add(pbtn_meal19);
+		plusButtonGroup.add(pbtn_meal20);
+		plusButtonGroup.add(pbtn_meal21);
+		plusButtonGroup.add(pbtn_meal22);
+		plusButtonGroup.add(pbtn_meal23);
+		plusButtonGroup.add(pbtn_meal24);
+		plusButtonGroup.add(pbtn_meal25);
+		plusButtonGroup.add(pbtn_meal26);
+		plusButtonGroup.add(pbtn_meal27);
+		plusButtonGroup.add(pbtn_meal28);
+		plusButtonGroup.add(pbtn_meal29);
+		plusButtonGroup.add(pbtn_meal30);
+		plusButtonGroup.add(pbtn_meal31);
+		plusButtonGroup.add(pbtn_meal32);
+		plusButtonGroup.add(pbtn_meal33);
+		plusButtonGroup.add(pbtn_meal34);
+		plusButtonGroup.add(pbtn_meal35);
+		plusButtonGroup.add(pbtn_meal36);
+		plusButtonGroup.add(pbtn_meal37);
+		plusButtonGroup.add(pbtn_meal38);
+		plusButtonGroup.add(pbtn_meal39);
+		plusButtonGroup.add(pbtn_meal40);
+		plusButtonGroup.add(pbtn_meal41);
+		plusButtonGroup.add(pbtn_meal42);
+		plusButtonGroup.add(pbtn_meal43);
+		plusButtonGroup.add(pbtn_meal44);
+		plusButtonGroup.add(pbtn_meal45);
+		plusButtonGroup.add(pbtn_meal46);
+		plusButtonGroup.add(pbtn_meal47);
+		plusButtonGroup.add(pbtn_meal48);
+		plusButtonGroup.add(pbtn_meal49);
+		plusButtonGroup.add(pbtn_meal50);
+		plusButtonGroup.add(pbtn_meal51);
+		plusButtonGroup.add(pbtn_meal52);
+		plusButtonGroup.add(pbtn_meal53);
+		plusButtonGroup.add(pbtn_meal54);
+		plusButtonGroup.add(pbtn_meal55);
+		plusButtonGroup.add(pbtn_meal56);
+		plusButtonGroup.add(pbtn_meal57);
+		plusButtonGroup.add(pbtn_meal58);
+		plusButtonGroup.add(pbtn_meal59);
+		plusButtonGroup.add(pbtn_meal60);
+		plusButtonGroup.add(pbtn_meal61);
+		plusButtonGroup.add(pbtn_meal62);
+		plusButtonGroup.add(pbtn_meal63);
+		plusButtonGroup.add(pbtn_meal64);
+		plusButtonGroup.add(pbtn_meal65);
+		plusButtonGroup.add(pbtn_meal66);
+		plusButtonGroup.add(pbtn_meal67);
+		plusButtonGroup.add(pbtn_meal68);
+		plusButtonGroup.add(pbtn_meal69);
+		plusButtonGroup.add(pbtn_meal70);
+		plusButtonGroup.add(pbtn_meal71);
+		plusButtonGroup.add(pbtn_meal72);
+		plusButtonGroup.add(pbtn_meal73);
+		plusButtonGroup.add(pbtn_meal74);
 
-		MButtonGroup.add(mbtn_meal1);
-		MButtonGroup.add(mbtn_meal2);
-		MButtonGroup.add(mbtn_meal3);
-		MButtonGroup.add(mbtn_meal4);
-		MButtonGroup.add(mbtn_meal5);
-		MButtonGroup.add(mbtn_meal6);
-		MButtonGroup.add(mbtn_meal7);
-		MButtonGroup.add(mbtn_meal8);
-		MButtonGroup.add(mbtn_meal9);
-		MButtonGroup.add(mbtn_meal10);
-		MButtonGroup.add(mbtn_meal11);
-		MButtonGroup.add(mbtn_meal12);
-		MButtonGroup.add(mbtn_meal13);
-		MButtonGroup.add(mbtn_meal14);
-		MButtonGroup.add(mbtn_meal15);
-		MButtonGroup.add(mbtn_meal16);
-		MButtonGroup.add(mbtn_meal17);
-		MButtonGroup.add(mbtn_meal18);
-		MButtonGroup.add(mbtn_meal19);
-		MButtonGroup.add(mbtn_meal20);
-		MButtonGroup.add(mbtn_meal21);
-		MButtonGroup.add(mbtn_meal22);
-		MButtonGroup.add(mbtn_meal23);
-		MButtonGroup.add(mbtn_meal24);
-		MButtonGroup.add(mbtn_meal25);
-		MButtonGroup.add(mbtn_meal26);
-		MButtonGroup.add(mbtn_meal27);
-		MButtonGroup.add(mbtn_meal28);
-		MButtonGroup.add(mbtn_meal29);
-		MButtonGroup.add(mbtn_meal30);
-		MButtonGroup.add(mbtn_meal31);
-		MButtonGroup.add(mbtn_meal32);
-		MButtonGroup.add(mbtn_meal33);
-		MButtonGroup.add(mbtn_meal34);
-		MButtonGroup.add(mbtn_meal35);
-		MButtonGroup.add(mbtn_meal36);
-		MButtonGroup.add(mbtn_meal37);
-		MButtonGroup.add(mbtn_meal38);
-		MButtonGroup.add(mbtn_meal39);
-		MButtonGroup.add(mbtn_meal40);
-		MButtonGroup.add(mbtn_meal41);
-		MButtonGroup.add(mbtn_meal42);
-		MButtonGroup.add(mbtn_meal43);
-		MButtonGroup.add(mbtn_meal44);
-		MButtonGroup.add(mbtn_meal45);
-		MButtonGroup.add(mbtn_meal46);
-		MButtonGroup.add(mbtn_meal47);
-		MButtonGroup.add(mbtn_meal48);
-		MButtonGroup.add(mbtn_meal49);
-		MButtonGroup.add(mbtn_meal50);
-		MButtonGroup.add(mbtn_meal51);
-		MButtonGroup.add(mbtn_meal52);
-		MButtonGroup.add(mbtn_meal53);
-		MButtonGroup.add(mbtn_meal54);
-		MButtonGroup.add(mbtn_meal55);
-		MButtonGroup.add(mbtn_meal56);
-		MButtonGroup.add(mbtn_meal57);
-		MButtonGroup.add(mbtn_meal58);
-		MButtonGroup.add(mbtn_meal59);
-		MButtonGroup.add(mbtn_meal60);
-		MButtonGroup.add(mbtn_meal61);
-		MButtonGroup.add(mbtn_meal62);
-		MButtonGroup.add(mbtn_meal63);
-		MButtonGroup.add(mbtn_meal64);
-		MButtonGroup.add(mbtn_meal65);
-		MButtonGroup.add(mbtn_meal66);
-		MButtonGroup.add(mbtn_meal67);
-		MButtonGroup.add(mbtn_meal68);
-		MButtonGroup.add(mbtn_meal69);
-		MButtonGroup.add(mbtn_meal70);
-		MButtonGroup.add(mbtn_meal71);
-		MButtonGroup.add(mbtn_meal72);
-		MButtonGroup.add(mbtn_meal73);
-		MButtonGroup.add(mbtn_meal74);
+		minusButtonGroup.add(mbtn_meal1);
+		minusButtonGroup.add(mbtn_meal2);
+		minusButtonGroup.add(mbtn_meal3);
+		minusButtonGroup.add(mbtn_meal4);
+		minusButtonGroup.add(mbtn_meal5);
+		minusButtonGroup.add(mbtn_meal6);
+		minusButtonGroup.add(mbtn_meal7);
+		minusButtonGroup.add(mbtn_meal8);
+		minusButtonGroup.add(mbtn_meal9);
+		minusButtonGroup.add(mbtn_meal10);
+		minusButtonGroup.add(mbtn_meal11);
+		minusButtonGroup.add(mbtn_meal12);
+		minusButtonGroup.add(mbtn_meal13);
+		minusButtonGroup.add(mbtn_meal14);
+		minusButtonGroup.add(mbtn_meal15);
+		minusButtonGroup.add(mbtn_meal16);
+		minusButtonGroup.add(mbtn_meal17);
+		minusButtonGroup.add(mbtn_meal18);
+		minusButtonGroup.add(mbtn_meal19);
+		minusButtonGroup.add(mbtn_meal20);
+		minusButtonGroup.add(mbtn_meal21);
+		minusButtonGroup.add(mbtn_meal22);
+		minusButtonGroup.add(mbtn_meal23);
+		minusButtonGroup.add(mbtn_meal24);
+		minusButtonGroup.add(mbtn_meal25);
+		minusButtonGroup.add(mbtn_meal26);
+		minusButtonGroup.add(mbtn_meal27);
+		minusButtonGroup.add(mbtn_meal28);
+		minusButtonGroup.add(mbtn_meal29);
+		minusButtonGroup.add(mbtn_meal30);
+		minusButtonGroup.add(mbtn_meal31);
+		minusButtonGroup.add(mbtn_meal32);
+		minusButtonGroup.add(mbtn_meal33);
+		minusButtonGroup.add(mbtn_meal34);
+		minusButtonGroup.add(mbtn_meal35);
+		minusButtonGroup.add(mbtn_meal36);
+		minusButtonGroup.add(mbtn_meal37);
+		minusButtonGroup.add(mbtn_meal38);
+		minusButtonGroup.add(mbtn_meal39);
+		minusButtonGroup.add(mbtn_meal40);
+		minusButtonGroup.add(mbtn_meal41);
+		minusButtonGroup.add(mbtn_meal42);
+		minusButtonGroup.add(mbtn_meal43);
+		minusButtonGroup.add(mbtn_meal44);
+		minusButtonGroup.add(mbtn_meal45);
+		minusButtonGroup.add(mbtn_meal46);
+		minusButtonGroup.add(mbtn_meal47);
+		minusButtonGroup.add(mbtn_meal48);
+		minusButtonGroup.add(mbtn_meal49);
+		minusButtonGroup.add(mbtn_meal50);
+		minusButtonGroup.add(mbtn_meal51);
+		minusButtonGroup.add(mbtn_meal52);
+		minusButtonGroup.add(mbtn_meal53);
+		minusButtonGroup.add(mbtn_meal54);
+		minusButtonGroup.add(mbtn_meal55);
+		minusButtonGroup.add(mbtn_meal56);
+		minusButtonGroup.add(mbtn_meal57);
+		minusButtonGroup.add(mbtn_meal58);
+		minusButtonGroup.add(mbtn_meal59);
+		minusButtonGroup.add(mbtn_meal60);
+		minusButtonGroup.add(mbtn_meal61);
+		minusButtonGroup.add(mbtn_meal62);
+		minusButtonGroup.add(mbtn_meal63);
+		minusButtonGroup.add(mbtn_meal64);
+		minusButtonGroup.add(mbtn_meal65);
+		minusButtonGroup.add(mbtn_meal66);
+		minusButtonGroup.add(mbtn_meal67);
+		minusButtonGroup.add(mbtn_meal68);
+		minusButtonGroup.add(mbtn_meal69);
+		minusButtonGroup.add(mbtn_meal70);
+		minusButtonGroup.add(mbtn_meal71);
+		minusButtonGroup.add(mbtn_meal72);
+		minusButtonGroup.add(mbtn_meal73);
+		minusButtonGroup.add(mbtn_meal74);
 
 		LabelGroup.add(num_meal1);
 		LabelGroup.add(num_meal2);
@@ -638,25 +593,35 @@ public class MenuController implements Initializable {
 		controller.setMoney(6666);
 		controller.setPeople(num_people);
 		controller.setType(Consumption_type);
+		List<Meal> passing_menu = new ArrayList<Meal>();
+		for (String id : mealMap.keySet()) {
+			passing_menu.add(mealMap.get(id).getMeal());
+
+			String mealName = mealMap.get(id).getMeal().getName();
+			if (mealName != null && checkIsBeef(mealName)) {
+				beef += mealMap.get(id).getNumber();
+			}
+		}
+
+		System.out.println("beef number " + beef);
+
 		controller.setMenuList(passing_menu);
 		scene = new Scene(root, 800, 600);
-		//Pop_Stage = MainScene.stage_tmp;
-		
+		// Pop_Stage = MainScene.stage_tmp;
+
 		// change scene to main scene
 		Pop_Stage = new Stage();
 		Pop_Stage.setScene(scene);
 		Pop_Stage.initModality(Modality.APPLICATION_MODAL);
 		Pop_Stage.setTitle("清單");
 		Pop_Stage.showAndWait();
-		
-		//Pop_Stage.setOnHide(event -> Platform.exit());
-		//stage.show();
+
+		// Pop_Stage.setOnHide(event -> Platform.exit());
+		// stage.show();
 	}
 
 	public void setClosePop(boolean b) {
-
 		Pop_Stage.close();
-		
 	}
-	
+
 }
