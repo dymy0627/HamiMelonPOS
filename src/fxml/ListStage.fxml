@@ -27,9 +27,6 @@
 			<ComboBox fx:id="DiscountCombo" layoutX="15.0" layoutY="33.0"
 				prefWidth="200.0" promptText="折扣選擇" />
 
-			<Button prefHeight="30.0" prefWidth="200.0" fx:id="p_page"
-				text="關閉" onAction="#PreviousPageButtonAction" />
-
 		</children>
 	</HBox>
 
@@ -45,12 +42,15 @@
 
 
 	</VBox>
-
-	<HBox spacing="500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-		GridPane.columnIndex="0" GridPane.rowIndex="2">
-		<children>
-			<Label prefHeight="30.0" prefWidth="200.0" fx:id="total_money"
+	
+	<Label GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="30.0" prefWidth="200.0" fx:id="total_money"
 				text="總價" />
+				
+	<HBox spacing="500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+		GridPane.columnIndex="0" GridPane.rowIndex="3">
+		<children>
+			<Button prefHeight="30.0" prefWidth="200.0" fx:id="p_page"
+				text="關閉" onAction="#PreviousPageButtonAction" />
 
 			<Button prefHeight="30.0" prefWidth="200.0" fx:id="n_page"
 				text="列印" onAction="#NextPageButtonAction" />

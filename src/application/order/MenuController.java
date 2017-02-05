@@ -74,6 +74,18 @@ public class MenuController implements Initializable {
 			num_meal64, num_meal65, num_meal66, num_meal67, num_meal68, num_meal69, num_meal70, num_meal71, num_meal72,
 			num_meal73, num_meal74;
 
+	private int price_meal1, price_meal2, price_meal3, price_meal4, price_meal5, price_meal6, price_meal7, price_meal8,
+			price_meal9, price_meal10, price_meal11, price_meal12, price_meal13, price_meal14, price_meal15,
+			price_meal16, price_meal17, price_meal18, price_meal19, price_meal20, price_meal21, price_meal22,
+			price_meal23, price_meal24, price_meal25, price_meal26, price_meal27, price_meal28, price_meal29,
+			price_meal30, price_meal31, price_meal32, price_meal33, price_meal34, price_meal35, price_meal36,
+			price_meal37, price_meal38, price_meal39, price_meal40, price_meal41, price_meal42, price_meal43,
+			price_meal44, price_meal45, price_meal46, price_meal47, price_meal48, price_meal49, price_meal50,
+			price_meal51, price_meal52, price_meal53, price_meal54, price_meal55, price_meal56, price_meal57,
+			price_meal58, price_meal59, price_meal60, price_meal61, price_meal62, price_meal63, price_meal64,
+			price_meal65, price_meal66, price_meal67, price_meal68, price_meal69, price_meal70, price_meal71,
+			price_meal72, price_meal73, price_meal74;
+
 	@FXML
 	private ComboBox<String> peopleComboBox;
 
@@ -102,19 +114,22 @@ public class MenuController implements Initializable {
 	private List<Button> plusButtonGroup = new ArrayList<Button>();
 	private List<Button> minusButtonGroup = new ArrayList<Button>();
 	private List<Label> LabelGroup = new ArrayList<Label>();
+	private List<Integer> PriceGroup = new ArrayList<Integer>();
 
 	private String Consumption_type = "ずノ";
 	private int num_people;
 
-	private int money;
+	private int money = 0;;
 	private int pork;
 	private int beef;
 	private int chicken;
 	private int lamb;
+	private int seafood;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		assign_price();
 		// Toggle button listener
 		mTypeGroup = new ToggleGroup();
 		mTypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
@@ -173,7 +188,10 @@ public class MenuController implements Initializable {
 					inti.setSelected(false);
 					LabelGroup.get(checkBoxGroup.indexOf(inti)).setText("0");
 				}
+
 				mealMap.clear();
+				money = 0;
+
 			}
 		});
 
@@ -183,21 +201,29 @@ public class MenuController implements Initializable {
 			checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean wasSelected,
 						Boolean isSelected) {
-					Label currentNumLabel = LabelGroup.get(checkBoxGroup.indexOf(checkbox));
+					int currentIndex = checkBoxGroup.indexOf(checkbox);
+					Label currentNumLabel = LabelGroup.get(currentIndex);
 					String currentMealId = currentNumLabel.getId();
 					System.out.println(currentMealId + " checked = " + isSelected);
 
 					if (isSelected) {
+
 						currentNumLabel.setText(String.valueOf(1));
 						Meal meal = new Meal(currentMealId);
 						ListItem listItem = new ListItem(meal);
 						mealMap.put(listItem.getId(), listItem);
+						money += PriceGroup.get(currentIndex);
+						System.out.println("+肂 = " + PriceGroup.get(currentIndex));
 					} else {
 						currentNumLabel.setText(String.valueOf(0));
 						if (mealMap.containsKey(currentMealId)) {
+							int listItemNum = mealMap.get(currentMealId).getNumber();
+							money -= PriceGroup.get(currentIndex) * listItemNum;
+							System.out.println("-肂 = " + PriceGroup.get(currentIndex) * listItemNum);
 							mealMap.remove(currentMealId);
 						}
 					}
+					System.out.println("羆肂 = " + money);
 				}
 			});
 		}
@@ -222,6 +248,9 @@ public class MenuController implements Initializable {
 						ListItem listItem = new ListItem(new Meal(currentMealId));
 						listItem.setNumber(currentNum);
 						mealMap.replace(listItem.getId(), listItem);
+						System.out.println("+肂 = " + PriceGroup.get(currentButtonIndex));
+						money += PriceGroup.get(currentButtonIndex);
+						System.out.println("羆肂= " + money);
 					}
 				}
 			});
@@ -248,6 +277,9 @@ public class MenuController implements Initializable {
 							ListItem listItem = new ListItem(new Meal(currentMealId));
 							listItem.setNumber(currentNum);
 							mealMap.replace(listItem.getId(), listItem);
+							System.out.println("-肂 = " + PriceGroup.get(currentButtonIndex));
+							money -= PriceGroup.get(currentButtonIndex);
+							System.out.println("羆肂 = " + money);
 						}
 					}
 				}
@@ -263,6 +295,83 @@ public class MenuController implements Initializable {
 			return true;
 		}
 		return false;
+	}
+
+	private void assign_price() {
+		price_meal1 = 720;
+		price_meal2 = 720;
+		price_meal3 = 620;
+		price_meal4 = 620;
+		price_meal5 = 520;
+		price_meal6 = 520;
+		price_meal7 = 420;
+		price_meal8 = 420;
+		price_meal9 = 420;
+		price_meal10 = 480;
+		price_meal11 = 480;
+		price_meal12 = 480;
+		price_meal13 = 399;
+		price_meal14 = 200;
+		price_meal15 = 200;
+		price_meal16 = 200;
+		price_meal17 = 230;
+		price_meal18 = 230;
+		price_meal19 = 230;
+		price_meal20 = 170;
+		price_meal21 = 170;
+		price_meal22 = 170;
+		price_meal23 = 350;
+		price_meal24 = 350;
+		price_meal25 = 300;
+		price_meal26 = 280;
+		price_meal27 = 260;
+		price_meal28 = 140;
+		price_meal29 = 180;
+		price_meal30 = 180;
+		price_meal31 = 180;
+		price_meal32 = 150;
+		price_meal33 = 150;
+		price_meal34 = 120;
+		price_meal35 = 120;
+		price_meal36 = 120;
+		price_meal37 = 150;
+		price_meal38 = 180;
+		price_meal39 = 180;
+		price_meal40 = 180;
+		price_meal41 = 180;
+		price_meal42 = 180;
+		price_meal43 = 180;
+		price_meal44 = 150;
+		price_meal45 = 150;
+		price_meal46 = 180;
+		price_meal47 = 180;
+		price_meal48 = 150;
+		price_meal49 = 490;
+		price_meal50 = 450;
+		price_meal51 = 350;
+		price_meal52 = 300;
+		price_meal53 = 280;
+		price_meal54 = 200;
+		price_meal55 = 0;
+		price_meal56 = 250;
+		price_meal57 = 200;
+		price_meal58 = 10;
+		price_meal59 = 20;
+		price_meal60 = 30;
+		price_meal61 = 50;
+		price_meal62 = 50;
+		price_meal63 = 60;
+		price_meal64 = 40;
+		price_meal65 = 60;
+		price_meal66 = 80;
+		price_meal67 = 60;
+		price_meal68 = 50;
+		price_meal69 = 99;
+		price_meal70 = 100;
+		price_meal71 = 150;
+		price_meal72 = 99;
+		price_meal73 = 99;
+		// remove ο逼 new 翧厚江 蛮花地 虫花地 获冰郊瞴
 	}
 
 	private void menu_content_intialize() {
@@ -341,7 +450,7 @@ public class MenuController implements Initializable {
 		checkBoxGroup.add(meal71);
 		checkBoxGroup.add(meal72);
 		checkBoxGroup.add(meal73);
-		checkBoxGroup.add(meal74);
+		// checkBoxGroup.add(meal74);
 
 		plusButtonGroup.add(pbtn_meal1);
 		plusButtonGroup.add(pbtn_meal2);
@@ -416,7 +525,7 @@ public class MenuController implements Initializable {
 		plusButtonGroup.add(pbtn_meal71);
 		plusButtonGroup.add(pbtn_meal72);
 		plusButtonGroup.add(pbtn_meal73);
-		plusButtonGroup.add(pbtn_meal74);
+		// plusButtonGroup.add(pbtn_meal74);
 
 		minusButtonGroup.add(mbtn_meal1);
 		minusButtonGroup.add(mbtn_meal2);
@@ -491,7 +600,7 @@ public class MenuController implements Initializable {
 		minusButtonGroup.add(mbtn_meal71);
 		minusButtonGroup.add(mbtn_meal72);
 		minusButtonGroup.add(mbtn_meal73);
-		minusButtonGroup.add(mbtn_meal74);
+		// minusButtonGroup.add(mbtn_meal74);
 
 		LabelGroup.add(num_meal1);
 		LabelGroup.add(num_meal2);
@@ -566,7 +675,83 @@ public class MenuController implements Initializable {
 		LabelGroup.add(num_meal71);
 		LabelGroup.add(num_meal72);
 		LabelGroup.add(num_meal73);
-		LabelGroup.add(num_meal74);
+		// LabelGroup.add(num_meal74);
+
+		PriceGroup.add(price_meal1);
+		PriceGroup.add(price_meal2);
+		PriceGroup.add(price_meal3);
+		PriceGroup.add(price_meal4);
+		PriceGroup.add(price_meal5);
+		PriceGroup.add(price_meal6);
+		PriceGroup.add(price_meal7);
+		PriceGroup.add(price_meal8);
+		PriceGroup.add(price_meal9);
+		PriceGroup.add(price_meal10);
+		PriceGroup.add(price_meal11);
+		PriceGroup.add(price_meal12);
+		PriceGroup.add(price_meal13);
+		PriceGroup.add(price_meal14);
+		PriceGroup.add(price_meal15);
+		PriceGroup.add(price_meal16);
+		PriceGroup.add(price_meal17);
+		PriceGroup.add(price_meal18);
+		PriceGroup.add(price_meal19);
+		PriceGroup.add(price_meal20);
+		PriceGroup.add(price_meal21);
+		PriceGroup.add(price_meal22);
+		PriceGroup.add(price_meal23);
+		PriceGroup.add(price_meal24);
+		PriceGroup.add(price_meal25);
+		PriceGroup.add(price_meal26);
+		PriceGroup.add(price_meal27);
+		PriceGroup.add(price_meal28);
+		PriceGroup.add(price_meal29);
+		PriceGroup.add(price_meal30);
+		PriceGroup.add(price_meal31);
+		PriceGroup.add(price_meal32);
+		PriceGroup.add(price_meal33);
+		PriceGroup.add(price_meal34);
+		PriceGroup.add(price_meal35);
+		PriceGroup.add(price_meal36);
+		PriceGroup.add(price_meal37);
+		PriceGroup.add(price_meal38);
+		PriceGroup.add(price_meal39);
+		PriceGroup.add(price_meal40);
+		PriceGroup.add(price_meal41);
+		PriceGroup.add(price_meal42);
+		PriceGroup.add(price_meal43);
+		PriceGroup.add(price_meal44);
+		PriceGroup.add(price_meal45);
+		PriceGroup.add(price_meal46);
+		PriceGroup.add(price_meal47);
+		PriceGroup.add(price_meal48);
+		PriceGroup.add(price_meal49);
+		PriceGroup.add(price_meal50);
+		PriceGroup.add(price_meal51);
+		PriceGroup.add(price_meal52);
+		PriceGroup.add(price_meal53);
+		PriceGroup.add(price_meal54);
+		PriceGroup.add(price_meal55);
+		PriceGroup.add(price_meal56);
+		PriceGroup.add(price_meal57);
+		PriceGroup.add(price_meal58);
+		PriceGroup.add(price_meal59);
+		PriceGroup.add(price_meal60);
+		PriceGroup.add(price_meal61);
+		PriceGroup.add(price_meal62);
+		PriceGroup.add(price_meal63);
+		PriceGroup.add(price_meal64);
+		PriceGroup.add(price_meal65);
+		PriceGroup.add(price_meal66);
+		PriceGroup.add(price_meal67);
+		PriceGroup.add(price_meal68);
+		PriceGroup.add(price_meal69);
+		PriceGroup.add(price_meal70);
+		PriceGroup.add(price_meal71);
+		PriceGroup.add(price_meal72);
+		PriceGroup.add(price_meal73);
+		// PriceGroup.add(price_meal74);
+
 	}
 
 	@FXML
@@ -590,7 +775,7 @@ public class MenuController implements Initializable {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ListStage.fxml"));
 		Parent root = (Parent) fxmlLoader.load();
 		ListController controller = fxmlLoader.<ListController>getController();
-		controller.setMoney(6666);
+		controller.setMoney(money);
 		controller.setPeople(num_people);
 		controller.setType(Consumption_type);
 		List<Meal> passing_menu = new ArrayList<Meal>();
@@ -602,7 +787,7 @@ public class MenuController implements Initializable {
 				beef += mealMap.get(id).getNumber();
 			}
 		}
-
+		System.out.println("money " + money);
 		System.out.println("beef number " + beef);
 
 		controller.setMenuList(passing_menu);
