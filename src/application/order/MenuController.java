@@ -241,7 +241,7 @@ public class MenuController implements Initializable {
 			Meal meal = mealMap.get(id);
 			HBox hBox = new HBox();
 			CheckBox chBox = new CheckBox();
-			chBox.setId(id);
+			chBox.setId(id); 
 			checkBoxGroup.put(id, chBox);
 			Label nameLabel = new Label(meal.getName() + i);
 			nameLabel.setId(id);

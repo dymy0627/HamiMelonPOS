@@ -36,13 +36,13 @@ public class ListController implements Initializable {
 	private Label total_money;
 
 	@FXML
-	private ListView<Meal> menulist;
+	private ListView<String> menulist;
 
 	@FXML
 	private Label type;
 
-	private ListProperty<Meal> listProperty = new SimpleListProperty<>();
-	private List<Meal> passing_list = new ArrayList<>();
+	private ListProperty<String> listProperty = new SimpleListProperty<>();
+	private List<String> passing_list = new ArrayList<>();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -152,8 +152,8 @@ public class ListController implements Initializable {
 		int cursor = 0;
 		System.out.println("passing_menu.size() = " + passing_menu.size());
 		while (cursor != passing_menu.size()) {
-			System.out.println(passing_menu.get(cursor));
-			passing_list.add(passing_menu.get(cursor++));
+			System.out.println(passing_menu.get(cursor).getSet()+passing_menu.get(cursor).getName());
+			passing_list.add(passing_menu.get(cursor).getSet()+" "+passing_menu.get(cursor).getName()+" "+passing_menu.get(cursor++).getPrice());
 		}
 
 		menulist.itemsProperty().bind(listProperty);
