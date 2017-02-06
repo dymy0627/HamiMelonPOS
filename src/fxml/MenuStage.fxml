@@ -13,17 +13,21 @@
 	<padding>
 		<Insets top="5" right="5" bottom="5" left="5" />
 	</padding>
-	
-	<Label prefHeight="30.0" prefWidth="200.0" fx:id="type" text="用餐型態"
-				alignment="center_left" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-				
+
+	<Label  fx:id="typeLabel" prefHeight="30.0" prefWidth="200.0"
+		text="用餐型態" alignment="center_left" GridPane.columnIndex="0"
+		GridPane.rowIndex="0" />
+
 	<HBox spacing="100" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 		GridPane.columnIndex="0" GridPane.rowIndex="1">
 		<children>
 			<HBox>
-				<ToggleButton mnemonicParsing="false" fx:id ="typeHereButton" prefHeight="31.0" prefWidth="85.0" text="內用" toggleGroup="$TypeGroup" />
-	    		<ToggleButton mnemonicParsing="false" fx:id ="typeTakeOutButton" prefHeight="31.0" prefWidth="85.0" text="外帶" toggleGroup="$TypeGroup" />
-				<ToggleButton mnemonicParsing="false" fx:id ="typeDeliverButton" prefHeight="31.0" prefWidth="85.0" text="外送" toggleGroup="$TypeGroup"/>
+				<ToggleButton mnemonicParsing="false" fx:id="typeHereButton"
+					prefHeight="31.0" prefWidth="85.0" text="內用" toggleGroup="$TypeGroup" />
+				<ToggleButton mnemonicParsing="false" fx:id="typeTakeOutButton"
+					prefHeight="31.0" prefWidth="85.0" text="外帶" toggleGroup="$TypeGroup" />
+				<ToggleButton mnemonicParsing="false" fx:id="typeDeliverButton"
+					prefHeight="31.0" prefWidth="85.0" text="外送" toggleGroup="$TypeGroup" />
 			</HBox>
 
 			<ComboBox fx:id="peopleComboBox" layoutX="15.0" layoutY="33.0"
@@ -34,398 +38,35 @@
 
 		</children>
 	</HBox>
-	
-	
+
 	<GridPane xmlns:fx="http://javafx.com/fxml"
-				GridPane.columnIndex="0" GridPane.rowIndex="2" alignment="center"
-				hgap="20" vgap="0">
+		GridPane.columnIndex="0" GridPane.rowIndex="2" alignment="center"
+		hgap="20" vgap="0">
 
-	<children>
-			<ScrollPane fx:id="sasd" GridPane.columnIndex="0" GridPane.rowIndex="0">
-
-		 	<VBox fx:id="menu1" spacing="20" prefHeight = "500.0"  minWidth = "100" prefWidth="300.0" alignment="CENTER_LEFT"  >
-				<Label text="老饕雙享餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal1"  text="翼板牛"/> 
-				<Button fx:id="pbtn_meal1" text="+" /> <Label fx:id="num_meal1" text="0"/> <Button fx:id="mbtn_meal1" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal2"  text="松板豬"/> 
-				<Button fx:id="pbtn_meal2" text="+" /> <Label fx:id="num_meal2" text="0"/> <Button fx:id="mbtn_meal2" text="-" />
-				</HBox>
-				
-				<Label text="雙人麻吉餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal3"  text="翼板牛"/> 
-				<Button fx:id="pbtn_meal3" text="+" /> <Label fx:id="num_meal3" text="0"/> <Button fx:id="mbtn_meal3" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal4"  text="松板豬"/> 
-				<Button fx:id="pbtn_meal4" text="+" /> <Label fx:id="num_meal4" text="0"/> <Button fx:id="mbtn_meal4" text="-" />
-				</HBox>
-				
-				<Label text="雙人情侶餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal5"  text="沙朗心"/> 
-				<Button fx:id="pbtn_meal5" text="+" /> <Label fx:id="num_meal5" text="0"/> <Button fx:id="mbtn_meal5" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal6"  text="黃金豬"/> 
-				<Button fx:id="pbtn_meal6" text="+" /> <Label fx:id="num_meal6" text="0"/> <Button fx:id="mbtn_meal6" text="-" />
-				</HBox>
-				
-				<Label text="雙人A餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal7"  text="牛"/> 
-				<Button fx:id="pbtn_meal7" text="+" /> <Label fx:id="num_meal7" text="0"/> <Button fx:id="mbtn_meal7" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal8"  text="羊"/> 
-				<Button fx:id="pbtn_meal8" text="+" /> <Label fx:id="num_meal8" text="0"/> <Button fx:id="mbtn_meal8" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal9"  text="豬"/> 
-				<Button fx:id="pbtn_meal9" text="+" /> <Label fx:id="num_meal9" text="0"/> <Button fx:id="mbtn_meal9" text="-" />
-				</HBox>
-				
-				<Label text="雙人B餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal10"  text="沙朗"/> 
-				<Button fx:id="pbtn_meal10" text="+" /> <Label fx:id="num_meal10" text="0"/> <Button fx:id="mbtn_meal10" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal11"  text="豬排"/> 
-				<Button fx:id="pbtn_meal11" text="+" /> <Label fx:id="num_meal11" text="0"/> <Button fx:id="mbtn_meal11" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal12"  text="雞腿"/> 
-				<Button fx:id="pbtn_meal12" text="+" /> <Label fx:id="num_meal12" text="0"/> <Button fx:id="mbtn_meal12" text="-" />
-				</HBox>	
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal13"  text="風雨餐"/> 
-				<Button fx:id="pbtn_meal13" text="+" /> <Label fx:id="num_meal13" text="0"/> <Button fx:id="mbtn_meal13" text="-" />
-				</HBox>
-				
-				<Label text="海陸A餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal14"  text="牛"/> 
-				<Button fx:id="pbtn_meal14" text="+" /> <Label fx:id="num_meal14" text="0"/> <Button fx:id="mbtn_meal14" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal15"  text="羊"/> 
-				<Button fx:id="pbtn_meal15" text="+" /> <Label fx:id="num_meal15" text="0"/> <Button fx:id="mbtn_meal15" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal16"  text="豬"/> 
-				<Button fx:id="pbtn_meal16" text="+" /> <Label fx:id="num_meal16" text="0"/> <Button fx:id="mbtn_meal16" text="-" />
-				</HBox>
-				
-				<Label text="海陸B餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal17"  text="雞腿"/> 
-				<Button fx:id="pbtn_meal17" text="+" /> <Label fx:id="num_meal17" text="0"/> <Button fx:id="mbtn_meal17" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal18"  text="沙朗"/> 
-				<Button fx:id="pbtn_meal18" text="+" /> <Label fx:id="num_meal18" text="0"/> <Button fx:id="mbtn_meal18" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal19"  text="豬排"/> 
-				<Button fx:id="pbtn_meal19" text="+" /> <Label fx:id="num_meal19" text="0"/> <Button fx:id="mbtn_meal19" text="-" />
-				</HBox>
-				
-				<Label text="呷霸特餐" />
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal20"  text="牛筋"/> 
-				<Button fx:id="pbtn_meal20" text="+" /> <Label fx:id="num_meal20" text="0"/> <Button fx:id="mbtn_meal20" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal21"  text="雞柳"/> 
-				<Button fx:id="pbtn_meal21" text="+" /> <Label fx:id="num_meal21" text="0"/> <Button fx:id="mbtn_meal21" text="-" />
-				</HBox>
-				<HBox spacing="10" alignment="CENTER">  
-				<CheckBox fx:id="meal22"  text="豬排"/> 
-				<Button fx:id="pbtn_meal22" text="+" /> <Label fx:id="num_meal22" text="0"/> <Button fx:id="mbtn_meal22" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal23"  text="主廚套餐"/> 
-				<Button fx:id="pbtn_meal23" text="+" /> <Label fx:id="num_meal23" text="0"/> <Button fx:id="mbtn_meal23" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal24"  text="多蝦蟹餐"/> 
-				<Button fx:id="pbtn_meal24" text="+" /> <Label fx:id="num_meal24" text="0"/> <Button fx:id="mbtn_meal24" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal25"  text="海鮮餐"/> 
-				<Button fx:id="pbtn_meal25" text="+" /> <Label fx:id="num_meal25" text="0"/> <Button fx:id="mbtn_meal25" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal26"  text="靈魂餐"/> 
-				<Button fx:id="pbtn_meal26" text="+" /> <Label fx:id="num_meal26" text="0"/> <Button fx:id="mbtn_meal26" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal27"  text="潛能餐"/> 
-				<Button fx:id="pbtn_meal27" text="+" /> <Label fx:id="num_meal27" text="0"/> <Button fx:id="mbtn_meal27" text="-" />
-				</HBox>
-
-			</VBox>	
+		<children>
+			<ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+				<VBox fx:id="menu1" spacing="20" prefHeight="500.0" minWidth="100"
+					prefWidth="300.0" alignment="CENTER_LEFT">
+				</VBox>
 			</ScrollPane>
-			
-			<ScrollPane fx:id="sasd" GridPane.columnIndex="1" GridPane.rowIndex="0">	
-			<VBox spacing="20" prefHeight = "500.0" prefWidth = "300.0" alignment="CENTER_LEFT" fx:id="Left">
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal28"  text="照燒豬"/> 
-				<Button fx:id="pbtn_meal28" text="+" /> <Label fx:id="num_meal28" text="0"/> <Button fx:id="mbtn_meal28" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal29"  text="泰式雞"/> 
-				<Button fx:id="pbtn_meal29" text="+" /> <Label fx:id="num_meal29" text="0"/> <Button fx:id="mbtn_meal29" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal30"  text="蜜汁雞"/> 
-				<Button fx:id="pbtn_meal30" text="+" /> <Label fx:id="num_meal30" text="0"/> <Button fx:id="mbtn_meal30" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal31"  text="起司雞"/> 
-				<Button fx:id="pbtn_meal31" text="+" /> <Label fx:id="num_meal31" text="0"/> <Button fx:id="mbtn_meal31" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal32"  text="香蒜雞"/> 
-				<Button fx:id="pbtn_meal32" text="+" /> <Label fx:id="num_meal32" text="0"/> <Button fx:id="mbtn_meal32" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal33"  text="黑椒雞"/> 
-				<Button fx:id="pbtn_meal33" text="+" /> <Label fx:id="num_meal33" text="0"/> <Button fx:id="mbtn_meal33" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal34"  text="牛肉片"/> 
-				<Button fx:id="pbtn_meal34" text="+" /> <Label fx:id="num_meal34" text="0"/> <Button fx:id="mbtn_meal34" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal35"  text="羊肉片"/> 
-				<Button fx:id="pbtn_meal35" text="+" /> <Label fx:id="num_meal35" text="0"/> <Button fx:id="mbtn_meal35" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal36"  text="豬肉片"/> 
-				<Button fx:id="pbtn_meal36" text="+" /> <Label fx:id="num_meal36" text="0"/> <Button fx:id="mbtn_meal36" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal37"  text="蔬肉片"/> 
-				<Button fx:id="pbtn_meal37" text="+" /> <Label fx:id="num_meal37" text="0"/> <Button fx:id="mbtn_meal37" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal38"  text="和風魷"/> 
-				<Button fx:id="pbtn_meal38" text="+" /> <Label fx:id="num_meal38" text="0"/> <Button fx:id="mbtn_meal38" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal39"  text="泰式魷"/> 
-				<Button fx:id="pbtn_meal39" text="+" /> <Label fx:id="num_meal39" text="0"/> <Button fx:id="mbtn_meal39" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal40"  text="鮭魚"/> 
-				<Button fx:id="pbtn_meal40" text="+" /> <Label fx:id="num_meal40" text="0"/> <Button fx:id="mbtn_meal40" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal41"  text="泰式魚"/> 
-				<Button fx:id="pbtn_meal41" text="+" /> <Label fx:id="num_meal41" text="0"/> <Button fx:id="mbtn_meal41" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal42"  text="鯖魚"/> 
-				<Button fx:id="pbtn_meal42" text="+" /> <Label fx:id="num_meal42" text="0"/> <Button fx:id="mbtn_meal42" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal43"  text="鯛魚"/> 
-				<Button fx:id="pbtn_meal43" text="+" /> <Label fx:id="num_meal43" text="0"/> <Button fx:id="mbtn_meal43" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal44"  text="鱈魚"/> 
-				<Button fx:id="pbtn_meal44" text="+" /> <Label fx:id="num_meal44" text="0"/> <Button fx:id="mbtn_meal44" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal45"  text="海鮮總匯"/> 
-				<Button fx:id="pbtn_meal45" text="+" /> <Label fx:id="num_meal45" text="0"/> <Button fx:id="mbtn_meal45" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal46"  text="蟹肉"/> 
-				<Button fx:id="pbtn_meal46" text="+" /> <Label fx:id="num_meal46" text="0"/> <Button fx:id="mbtn_meal46" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal47"  text="鮮蚵"/> 
-				<Button fx:id="pbtn_meal47" text="+" /> <Label fx:id="num_meal47" text="0"/> <Button fx:id="mbtn_meal47" text="-" />
-				</HBox>
-			
-			</VBox>
-			</ScrollPane>
-			
-			<ScrollPane fx:id="sasd" GridPane.columnIndex="2" GridPane.rowIndex="0">	
-			<VBox spacing="20" prefHeight = "500.0" prefWidth = "300.0" alignment="CENTER_LEFT" fx:id="Left">
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal48"  text="肋眼牛"/> 
-				<Button fx:id="pbtn_meal48" text="+" /> <Label fx:id="num_meal48" text="0"/> <Button fx:id="mbtn_meal48" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal49"  text="紐約牛"/> 
-				<Button fx:id="pbtn_meal49" text="+" /> <Label fx:id="num_meal49" text="0"/> <Button fx:id="mbtn_meal49" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal50"  text="菲力牛"/> 
-				<Button fx:id="pbtn_meal50" text="+" /> <Label fx:id="num_meal50" text="0"/> <Button fx:id="mbtn_meal50" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal51"  text="翼板牛"/> 
-				<Button fx:id="pbtn_meal51" text="+" /> <Label fx:id="num_meal51" text="0"/> <Button fx:id="mbtn_meal51" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal52"  text="雪花牛"/> 
-				<Button fx:id="pbtn_meal52" text="+" /> <Label fx:id="num_meal52" text="0"/> <Button fx:id="mbtn_meal52" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal53"  text="牛小排"/> 
-				<Button fx:id="pbtn_meal53" text="+" /> <Label fx:id="num_meal53" text="0"/> <Button fx:id="mbtn_meal53" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal54"  text="沙朗心"/> 
-				<Button fx:id="pbtn_meal54" text="+" /> <Label fx:id="num_meal54" text="0"/> <Button fx:id="mbtn_meal54" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal55"  text="羊小排"/> 
-				<Button fx:id="pbtn_meal55" text="+" /> <Label fx:id="num_meal55" text="0"/> <Button fx:id="mbtn_meal55" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal56"  text="松板豬"/> 
-				<Button fx:id="pbtn_meal56" text="+" /> <Label fx:id="num_meal56" text="0"/> <Button fx:id="mbtn_meal56" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal57"  text="黃金豬"/> 
-				<Button fx:id="pbtn_meal57" text="+" /> <Label fx:id="num_meal57" text="0"/> <Button fx:id="mbtn_meal57" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal58"  text="荷包蛋"/> 
-				<Button fx:id="pbtn_meal58" text="+" /> <Label fx:id="num_meal58" text="0"/> <Button fx:id="mbtn_meal58" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal59"  text="蔥蛋捲"/> 
-				<Button fx:id="pbtn_meal59" text="+" /> <Label fx:id="num_meal59" text="0"/> <Button fx:id="mbtn_meal59" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal60"  text="九層塔蛋"/> 
-				<Button fx:id="pbtn_meal60" text="+" /> <Label fx:id="num_meal60" text="0"/> <Button fx:id="mbtn_meal60" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal61"  text="菜脯蛋"/> 
-				<Button fx:id="pbtn_meal61" text="+" /> <Label fx:id="num_meal61" text="0"/> <Button fx:id="mbtn_meal61" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal62"  text="起司蛋"/> 
-				<Button fx:id="pbtn_meal62" text="+" /> <Label fx:id="num_meal62" text="0"/> <Button fx:id="mbtn_meal62" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal63"  text="繽紛蛋"/> 
-				<Button fx:id="pbtn_meal63" text="+" /> <Label fx:id="num_meal63" text="0"/> <Button fx:id="mbtn_meal63" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal64"  text="鐵板豆腐"/> 
-				<Button fx:id="pbtn_meal64" text="+" /> <Label fx:id="num_meal64" text="0"/> <Button fx:id="mbtn_meal64" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal65"  text="蒜香菇"/> 
-				<Button fx:id="pbtn_meal65" text="+" /> <Label fx:id="num_meal65" text="0"/> <Button fx:id="mbtn_meal65" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal66"  text="起司菇"/> 
-				<Button fx:id="pbtn_meal66" text="+" /> <Label fx:id="num_meal66" text="0"/> <Button fx:id="mbtn_meal66" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal67"  text="大阪燒"/> 
-				<Button fx:id="pbtn_meal67" text="+" /> <Label fx:id="num_meal67" text="0"/> <Button fx:id="mbtn_meal67" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal68"  text="檸檬蝦"/> 
-				<Button fx:id="pbtn_meal68" text="+" /> <Label fx:id="num_meal68" text="0"/> <Button fx:id="mbtn_meal68" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal69"  text="龍蝦蛋"/> 
-				<Button fx:id="pbtn_meal69" text="+" /> <Label fx:id="num_meal69" text="0"/> <Button fx:id="mbtn_meal69" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal70"  text="NG魚蝦"/> 
-				<Button fx:id="pbtn_meal70" text="+" /> <Label fx:id="num_meal70" text="0"/> <Button fx:id="mbtn_meal70" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal71"  text="蒜蓉蝦"/> 
-				<Button fx:id="pbtn_meal71" text="+" /> <Label fx:id="num_meal71" text="0"/> <Button fx:id="mbtn_meal71" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal72"  text="紅蝦飯"/> 
-				<Button fx:id="pbtn_meal72" text="+" /> <Label fx:id="num_meal72" text="0"/> <Button fx:id="mbtn_meal72" text="-" />
-				</HBox>
-				
-				<HBox spacing="10" alignment="CENTER_LEFT">  
-				<CheckBox fx:id="meal73"  text="起司紅蝦"/> 
-				<Button fx:id="pbtn_meal73" text="+" /> <Label fx:id="num_meal73" text="0"/> <Button fx:id="mbtn_meal73" text="-" />
-				</HBox>
-			
-			</VBox>
 
+			<ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+				<VBox fx:id="menu2" spacing="20" prefHeight="500.0" prefWidth="300.0"
+					alignment="CENTER_LEFT">
+				</VBox>
 			</ScrollPane>
-	</children>
-			</GridPane>
 
+			<ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="0">
+				<VBox fx:id="menu3" spacing="20" prefHeight="500.0" prefWidth="300.0"
+					alignment="CENTER_LEFT">
+				</VBox>
+			</ScrollPane>
+		</children>
+	</GridPane>
 
 	<Button GridPane.columnIndex="0" GridPane.rowIndex="3"
-		prefHeight="30.0" prefWidth="200.0" fx:id="n_page" text="下一頁" alignment="bottom_center"
-		onAction="#NextPageButtonAction" />
+		prefHeight="30.0" prefWidth="200.0" fx:id="n_page" text="下一頁"
+		alignment="bottom_center" onAction="#NextPageButtonAction" />
 
 </GridPane>
 

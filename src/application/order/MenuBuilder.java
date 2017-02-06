@@ -39,4 +39,8 @@ public class MenuBuilder {
 	public static Meal getMealById(String id) {
 		return mealMap.get(id);
 	}
+
+	public static Map<String, Meal> getMenuMap() {
+		return mealMap;
+	}
 }
