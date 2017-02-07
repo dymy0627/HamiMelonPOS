@@ -317,11 +317,11 @@ public class MenuController implements Initializable {
 		controller.setMoney(money);
 		controller.setPeople(num_people);
 		controller.setType(Consumption_type);
-		List<Meal> passing_menu = new ArrayList<Meal>();
+		List<ListItem> passing_menu = new ArrayList<ListItem>();
 		for (String id : listItemMap.keySet()) {
-			Meal meal = listItemMap.get(id).getMeal();
-			passing_menu.add(meal);
-			if (checkIsBeef(meal.getName())) {
+			ListItem list_meal = listItemMap.get(id);
+			passing_menu.add(list_meal);
+			if (checkIsBeef(list_meal.getMeal().getName())) {
 				beef += listItemMap.get(id).getNumber();
 			}
 		}

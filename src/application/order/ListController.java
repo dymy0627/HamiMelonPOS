@@ -148,12 +148,17 @@ public class ListController implements Initializable {
 		num_people.setText(Integer.toString(people));
 	}
 
-	public void setMenuList(List<Meal> passing_menu) {
+	public void setMenuList(List<ListItem> passing_menu) {
 		int cursor = 0;
 		System.out.println("passing_menu.size() = " + passing_menu.size());
 		while (cursor != passing_menu.size()) {
-			System.out.println(passing_menu.get(cursor).getSet()+passing_menu.get(cursor).getName());
-			passing_list.add(passing_menu.get(cursor).getSet()+" "+passing_menu.get(cursor).getName()+" "+passing_menu.get(cursor++).getPrice());
+			System.out.println(passing_menu.get(cursor).getMeal().getSet() + passing_menu.get(cursor).getMeal().getName() + passing_menu.get(cursor).getNumber() + passing_menu.get(cursor).getMeal().getPrice());
+			String set_name = passing_menu.get(cursor).getMeal().getSet();
+			String meal_name = passing_menu.get(cursor).getMeal().getName();
+			String meal_number = Integer.toString(passing_menu.get(cursor).getNumber());
+			String meal_price = Integer.toString(passing_menu.get(cursor).getNumber()*passing_menu.get(cursor).getMeal().getPrice());
+			passing_list.add(set_name+"\t"+ meal_name +"\t" + meal_number +"\t" + meal_price);
+			cursor++;
 		}
 
 		menulist.itemsProperty().bind(listProperty);
