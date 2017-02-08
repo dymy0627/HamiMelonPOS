@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -40,7 +41,7 @@ public class MenuController implements Initializable {
 	private Button p_page, n_page;
 
 	@FXML
-	private VBox menu1, menu2, menu3;
+	private VBox menu1, menu2, menu3, menu4;
 
 	@FXML
 	private Label typeLabel;
@@ -230,57 +231,66 @@ public class MenuController implements Initializable {
 		String lastSetName = "";
 		Map<String, Meal> mealMap = MenuBuilder.getMenuMap();
 
-		int menuSize = mealMap.size();
-		System.out.println("menuSize = " + menuSize);
-		int eachNum = (int) ((int) menuSize / 3.0);
+		int eachNum = 18;
 		System.out.println("eachNum = " + eachNum);
 
 		VBox currentVBox;
-		for (int i = 1; i <= menuSize; i++) {
+		for (int i = 1; i <= mealMap.size(); i++) {
 			String id = "meal" + i;
 			Meal meal = mealMap.get(id);
-			HBox hBox = new HBox();
+
 			CheckBox chBox = new CheckBox();
-			chBox.setId(id); 
+			chBox.setId(id);
 			checkBoxGroup.put(id, chBox);
-			Label nameLabel = new Label(meal.getName() + i);
+
+			Label nameLabel = new Label(meal.getName());
 			nameLabel.setId(id);
+			nameLabel.setStyle("-fx-font-size: 18");
+
 			Button plusButton = new Button("+");
 			plusButton.setOnAction(plusEventHandler);
 			plusButton.setId(id);
 			plusButtonGroup.put(id, plusButton);
+
 			Label numLabel = new Label("0");
 			numLabel.setId(id);
+			numLabel.setStyle("-fx-font-size: 16");
 			numberLabelGroup.put(id, numLabel);
+
 			Button minusButton = new Button("-");
 			minusButton.setOnAction(minusEventHandler);
 			minusButton.setId(id);
 			minusButtonGroup.put(id, minusButton);
 
+			HBox hBox = new HBox(8);
+			hBox.setAlignment(Pos.CENTER_LEFT);
 			hBox.getChildren().add(chBox);
 			hBox.getChildren().add(nameLabel);
 			hBox.getChildren().add(plusButton);
 			hBox.getChildren().add(numLabel);
 			hBox.getChildren().add(minusButton);
 
-			if (i <= eachNum) {
-				currentVBox = menu1;
-			} else if (i > eachNum && i <= eachNum * 2) {
-				if (i == eachNum + 1) {
-					lastSetName = "";
-				}
-				currentVBox = menu2;
-			} else {
-				if (i == eachNum * 2 + 1) {
-					lastSetName = "";
-				}
+			String setName = meal.getSet();
+			if (setName.equals("精緻特餐")) {
 				currentVBox = menu3;
+			} else if (setName.equals("單點")) {
+				currentVBox = menu4;
+			} else {
+				if (i <= eachNum) {
+					currentVBox = menu1;
+				} else {
+					if (i == eachNum + 1) {
+						lastSetName = "";
+					}
+					currentVBox = menu2;
+				}
 			}
 
-			String setName = meal.getSet();
 			if (!setName.equals(lastSetName)) {
 				lastSetName = setName;
 				Label setLabel = new Label(setName);
+				setLabel.setStyle("-fx-border-color: black");
+				setLabel.setStyle("-fx-font-size: 22");
 				currentVBox.getChildren().add(setLabel);
 			}
 

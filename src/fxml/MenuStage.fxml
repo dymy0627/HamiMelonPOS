@@ -1,72 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.layout.Pane?>
 
-<GridPane fx:controller="application.order.MenuController"
-	xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+<GridPane alignment="center" hgap="10" vgap="10"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.order.MenuController">
 
 	<padding>
-		<Insets top="5" right="5" bottom="5" left="5" />
+		<Insets bottom="5" left="5" right="5" top="5" />
 	</padding>
+	<children>
+		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0">
+			<Label alignment="center" prefHeight="30.0" style="-fx-font-size: 20"
+				text="用餐型態：" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+			<Label fx:id="typeLabel" alignment="center_left" prefHeight="30.0"
+				style="-fx-font-size: 20" />
+		</HBox>
 
-	<Label  fx:id="typeLabel" prefHeight="30.0" prefWidth="200.0"
-		text="用餐型態" alignment="center_left" GridPane.columnIndex="0"
-		GridPane.rowIndex="0" />
+		<HBox GridPane.columnIndex="0" GridPane.rowIndex="1"
+			xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+			<children>
+				<HBox>
+					<children>
+						<ToggleButton fx:id="typeHereButton" mnemonicParsing="false"
+							prefHeight="30.0" prefWidth="85.0" text="內用" toggleGroup="$TypeGroup" />
+						<ToggleButton fx:id="typeTakeOutButton"
+							mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" text="外帶"
+							toggleGroup="$TypeGroup" />
+						<ToggleButton fx:id="typeDeliverButton"
+							mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" text="外送"
+							toggleGroup="$TypeGroup" />
+					</children>
+				</HBox>
 
-	<HBox spacing="100" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-		GridPane.columnIndex="0" GridPane.rowIndex="1">
-		<children>
-			<HBox>
-				<ToggleButton mnemonicParsing="false" fx:id="typeHereButton"
-					prefHeight="31.0" prefWidth="85.0" text="內用" toggleGroup="$TypeGroup" />
-				<ToggleButton mnemonicParsing="false" fx:id="typeTakeOutButton"
-					prefHeight="31.0" prefWidth="85.0" text="外帶" toggleGroup="$TypeGroup" />
-				<ToggleButton mnemonicParsing="false" fx:id="typeDeliverButton"
-					prefHeight="31.0" prefWidth="85.0" text="外送" toggleGroup="$TypeGroup" />
-			</HBox>
+				<Label alignment="center" prefHeight="30.0" prefWidth="50.0"
+					text="人數">
+					<HBox.margin>
+						<Insets left="50.0" />
+					</HBox.margin>
+				</Label>
 
-			<ComboBox fx:id="peopleComboBox" layoutX="15.0" layoutY="33.0"
-				prefWidth="200.0" promptText="1" />
+				<ComboBox fx:id="peopleComboBox" prefHeight="30.0"
+					prefWidth="70.0" promptText="1" />
 
-			<Button prefHeight="30.0" prefWidth="200.0" fx:id="p_page"
-				text="上一頁" onAction="#PreviousPageButtonAction" />
+			</children>
+		</HBox>
 
-		</children>
-	</HBox>
+		<GridPane alignment="center" hgap="20" vgap="0" prefHeight="560.0"
+			GridPane.columnIndex="0" GridPane.rowIndex="2" xmlns:fx="http://javafx.com/fxml">
 
-	<GridPane xmlns:fx="http://javafx.com/fxml"
-		GridPane.columnIndex="0" GridPane.rowIndex="2" alignment="center"
-		hgap="20" vgap="0">
+			<children>
+				<ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="0"
+					fitToWidth="true">
+					<content>
+						<VBox fx:id="menu1" alignment="CENTER_LEFT" prefWidth="280.0"
+							spacing="20">
+						</VBox>
+					</content>
+				</ScrollPane>
 
-		<children>
-			<ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="0">
-				<VBox fx:id="menu1" spacing="20" prefHeight="500.0" minWidth="100"
-					prefWidth="300.0" alignment="CENTER_LEFT">
-				</VBox>
-			</ScrollPane>
+				<ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="0"
+					fitToWidth="true">
+					<content>
+						<VBox fx:id="menu2" alignment="CENTER_LEFT" prefWidth="280.0"
+							spacing="20">
+						</VBox>
+					</content>
+				</ScrollPane>
 
-			<ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="0">
-				<VBox fx:id="menu2" spacing="20" prefHeight="500.0" prefWidth="300.0"
-					alignment="CENTER_LEFT">
-				</VBox>
-			</ScrollPane>
+				<ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="0"
+					fitToWidth="true">
+					<content>
+						<VBox fx:id="menu3" alignment="CENTER_LEFT" prefWidth="280.0"
+							spacing="20">
+						</VBox>
+					</content>
+				</ScrollPane>
 
-			<ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="0">
-				<VBox fx:id="menu3" spacing="20" prefHeight="500.0" prefWidth="300.0"
-					alignment="CENTER_LEFT">
-				</VBox>
-			</ScrollPane>
-		</children>
-	</GridPane>
+				<ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="0"
+					fitToWidth="true">
+					<content>
+						<VBox fx:id="menu4" alignment="CENTER_LEFT" prefWidth="280.0"
+							spacing="20">
+						</VBox>
+					</content>
+				</ScrollPane>
+			</children>
+		</GridPane>
 
-	<Button GridPane.columnIndex="0" GridPane.rowIndex="3"
-		prefHeight="30.0" prefWidth="200.0" fx:id="n_page" text="下一頁"
-		alignment="bottom_center" onAction="#NextPageButtonAction" />
+		<Pane GridPane.columnIndex="0" GridPane.rowIndex="3">
+			<children>
 
+				<Button fx:id="p_page" onAction="#PreviousPageButtonAction"
+					prefHeight="30.0" prefWidth="150.0" text="返回" />
+				<Button fx:id="n_page" layoutX="600.0" onAction="#NextPageButtonAction"
+					prefHeight="30.0" prefWidth="150.0" text="下一頁" />
+			</children>
+		</Pane>
+	</children>
 </GridPane>
-
