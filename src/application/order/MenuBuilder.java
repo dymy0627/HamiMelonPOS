@@ -27,8 +27,9 @@ public class MenuBuilder {
 				meal.setSet((String) jsonObj.get("set"));
 				meal.setName((String) jsonObj.get("name"));
 				meal.setPrice(((Long) jsonObj.get("price")).intValue());
+				meal.setMeatClass((String) jsonObj.get("class"));
 				mealMap.put(id, meal);
-				System.out.println(id + ", " + meal.getSet() + "-" + meal.getName() + ", " + meal.getPrice());
+				System.out.println(id + ", " + meal.getSet() + "-" + meal.getName() + ", " + meal.getPrice()+ ", " + meal.getMeatClass());
 			}
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();

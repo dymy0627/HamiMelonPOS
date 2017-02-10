@@ -5,6 +5,7 @@ public class Meal {
 	private String set;
 	private String name;
 	private int price;
+	private String meat_class;
 
 	public Meal(String id) {
 		this.id = id;
@@ -36,5 +37,15 @@ public class Meal {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public void setMeatClass(String meat_class) {
+		this.meat_class = meat_class;
+		
+	}
+	
+	public String getMeatClass() {
+		return meat_class;
+		
 	}
 }
