@@ -13,50 +13,45 @@ import javafx.stage.Stage;
 
 public class MainController {
 	@FXML
-	private Button daily;
-	@FXML
 	private Button monthly;
 
-	private Stage stage;
-	private Scene scene;
-
 	@FXML
-	protected void OrderButtonAction(ActionEvent event) throws IOException {
+	protected void OrderButtonAction(ActionEvent event) {
 
 		MenuBuilder.load();
-		// def fxml loader
-		Parent menuStage = FXMLLoader.load(getClass().getResource("/fxml/MenuStage.fxml"));
 
-		// ref fxml to stage
-		stage = MainScene.stage_tmp;
-		scene = new Scene(menuStage, 1024, 720);
-
-		// change scene to main scene
-		stage.setScene(scene);
-		stage.show();
+		showStage("/fxml/MenuStage.fxml");
 	}
 
 	@FXML
-	protected void PurchaseButtonAction(ActionEvent event) throws IOException {
-		// def fxml loader
-		Parent stockStage = FXMLLoader.load(getClass().getResource("/fxml/StockStage.fxml"));
-
-		// ref fxml to stage
-		stage = MainScene.stage_tmp;
-		scene = new Scene(stockStage, 1024, 720);
-
-		// change scene to main scene
-		stage.setScene(scene);
-		stage.show();
+	protected void PurchaseButtonAction(ActionEvent event) {
+		showStage("/fxml/StockStage.fxml");
 	}
 
 	@FXML
 	protected void DailyButtonAction(ActionEvent event) {
-		daily.setText("Sign in button pressed3");
+		showStage("/fxml/DailyReportStage.fxml");
 	}
 
 	@FXML
 	protected void MonthlyButtonAction(ActionEvent event) {
 		monthly.setText("Sign in button pressed4");
+	}
+
+	private void showStage(String filePath) {
+		try {
+			// def fxml loader
+			Parent root = FXMLLoader.load(getClass().getResource(filePath));
+			
+			// ref fxml to stage
+			Stage stage = MainScene.stage_tmp;
+			Scene scene = new Scene(root, 1024, 720);
+
+			// change scene to main scene
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

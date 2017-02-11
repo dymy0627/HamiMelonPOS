@@ -1,8 +1,213 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.report.DailyReportController">
+	<children>
+		<VBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+			AnchorPane.topAnchor="20.0">
+			<children>
+				<Label text="本日營業明細">
+					<VBox.margin>
+						<Insets bottom="10.0" right="10.0" top="10.0" />
+					</VBox.margin>
+				</Label>
+				<GridPane gridLinesVisible="true" style="-fx-background-color: white">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="80.0"
+							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"
+							prefWidth="120.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="80.0"
+							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"
+							prefWidth="120.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label prefHeight="40.0" prefWidth="100.0" text="來客數(內用)"
+							GridPane.columnIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="日營業額">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="午餐"
+							GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="晚餐"
+							GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="內用金額"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="雙人套餐"
+							GridPane.columnIndex="2" GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="客單價(內用)"
+							GridPane.columnIndex="2" GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="特餐"
+							GridPane.columnIndex="2" GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="外帶金額"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="外送金額"
+							GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="風雨餐"
+							GridPane.columnIndex="2" GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="100.0" text="豪華餐"
+							GridPane.columnIndex="2" GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_sales" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_lunch_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_dinner_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_inside_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_outside_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_deliver_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_total_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_avg_sales" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_double_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_special_num" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="3"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_wind_rain_num" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="3"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="daily_luxury_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+					</children>
+				</GridPane>
+				<Pane>
+					<children>
+						<Button onAction="#BackButtonAction" prefHeight="30.0"
+							prefWidth="150.0" text="返回" />
+					</children>
+					<VBox.margin>
+						<Insets top="20.0" />
+					</VBox.margin>
+				</Pane>
+			</children>
+			<padding>
+				<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+			</padding>
+		</VBox>
+	</children>
 </AnchorPane>
-
