@@ -53,7 +53,7 @@
 				text="關閉" onAction="#PreviousPageButtonAction" />
 
 			<Button prefHeight="30.0" prefWidth="200.0" fx:id="n_page"
-				text="列印" onAction="#NextPageButtonAction" />
+				text="列印" onAction="#PrintButtonAction" />
 		</children>
 	</HBox>
 </GridPane>

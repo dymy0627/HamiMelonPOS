@@ -67,7 +67,7 @@ public class MenuController implements Initializable {
 
 	private int money = 0;
 	
-	private Map<String, Integer> MealClassMap = new HashMap<>();
+	static Map<String, Integer> MealClassMap = new HashMap<>();
 	private int beef;//牛肉片
 	private int sharon;//沙朗
 	private int sharon_core;//沙朗心
@@ -101,6 +101,11 @@ public class MenuController implements Initializable {
 	private int smoke_salmon;//煄鮭
 	private int perch;//鱸魚
 	private int huge_shrimp;//大蝦
+	
+	private int rain_special;
+	private int pair_special;
+	private int deluxe_special;
+	private int chef_special;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -203,6 +208,8 @@ public class MenuController implements Initializable {
 		for(Entry<String, Integer> id:MealClassMap.entrySet()){
 			MealClassMap.replace(id.getKey(), 0);
 		}
+		
+		rain_special=0; pair_special=0; deluxe_special=0; chef_special=0;
 	}
 
 	private EventHandler<ActionEvent> plusEventHandler = new EventHandler<ActionEvent>() {
@@ -486,12 +493,14 @@ public class MenuController implements Initializable {
 		controller.setMoney(money);
 		controller.setPeople(num_people);
 		controller.setType(Consumption_type);
+		controller.setSpecialNum(rain_special, pair_special,deluxe_special,chef_special);
 		List<ListItem> passing_menu = new ArrayList<ListItem>();
 		for (String id : listItemMap.keySet()) {
 			ListItem list_meal = listItemMap.get(id);
 			passing_menu.add(list_meal);
 			
 			checkMeatClass(id,list_meal.getMeal().getMeatClass());
+			checkSpecialMeal(list_meal.getMeal().getSet());
 			
 		}
 		controller.setMenuList(passing_menu);
@@ -509,6 +518,18 @@ public class MenuController implements Initializable {
 		Pop_Stage.initModality(Modality.APPLICATION_MODAL);
 		Pop_Stage.setTitle("清單");
 		Pop_Stage.showAndWait();
+	}
+
+	private void checkSpecialMeal(String set) {
+		if(set.contains("風雨"))
+			rain_special++;
+		if(set.contains("雙"))
+			pair_special++;
+		if(set.contains("套餐"))
+			chef_special++;
+		if(set.contains("豪華"))
+			deluxe_special++;
+		
 	}
 
 	public void setClosePop(boolean b) {

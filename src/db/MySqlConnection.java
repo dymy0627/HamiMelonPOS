@@ -89,6 +89,15 @@ public class MySqlConnection {
 				+ cost + ",'" + name + "')");
 		return executeSql(sql);
 	}
+	
+	public boolean insertListData(String type, int people_num, int list_money) {
+		
+		String list_sql = 
+		new String("insert into hamimelon.detail_list_meals(Consumption_type,cost,number_of_meals)values('"+type+"',"+list_money+","+people_num+")");
+		
+		//new String("insert into hamimelon.detail_list_meals(Consumption_type,cost,number_of_meals)values('內用',662,62)");
+		return executeSql(list_sql);
+	}
 
 	public boolean executeSql(String sql) {
 		try {
@@ -173,5 +182,4 @@ public class MySqlConnection {
 		}
 		return stockList;
 	}
-
 }

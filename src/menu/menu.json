@@ -100,91 +100,91 @@
 		},
 		{
 			"id": "meal15",
-			"set": "多蝦蟹餐",
+			"set": "多蝦蟹套餐",
 			"name": "蝦蟹",
 			"price": 350,
 			"class":"花蝦"
 		},
 		{
 			"id": "meal16",
-			"set": "海鮮大餐",
+			"set": "海鮮套餐",
 			"name": "海大",
 			"price": 300,
 			"class":"鱈蚵"
 		},
 		{
 			"id": "meal17",
-			"set": "靈魂昇華餐",
+			"set": "靈魂昇華套餐",
 			"name": "靈魂",
 			"price": 280,
 			"class":"朗心蚵"
 		},
 		{
 			"id": "meal18",
-			"set": "潛能解放餐",
+			"set": "潛能解放套餐",
 			"name": "潛能",
 			"price": 260,
 			"class":"蚵"
 		},
 		{
 			"id": "meal19",
-			"set": "海陸A餐",
+			"set": "海陸A套餐",
 			"name": "牛肉",
 			"price": 200,
 			"class":"牛肉"
 		},
 		{
 			"id": "meal20",
-			"set": "海陸A餐",
+			"set": "海陸A套餐",
 			"name": "羊肉",
 			"price": 200,
 			"class":"羊肉"
 		},
 		{
 			"id": "meal21",
-			"set": "海陸A餐",
+			"set": "海陸A套餐",
 			"name": "豬肉",
 			"price": 200,
 			"class":"豬肉"
 		},
 		{
 			"id": "meal22",
-			"set": "海陸B餐",
+			"set": "海陸B套餐",
 			"name": "雞腿",
 			"price": 230,
 			"class":"雞"
 		},
 		{
 			"id": "meal23",
-			"set": "海陸B餐",
+			"set": "海陸B套餐",
 			"name": "沙朗",
 			"price": 230,
 			"class":"沙朗"
 		},
 		{
 			"id": "meal24",
-			"set": "海陸B餐",
+			"set": "海陸B套餐",
 			"name": "豬排",
 			"price": 230,
 			"class":"豬排"
 		},
 		{
 			"id": "meal25",
-			"set": "呷霸特餐",
+			"set": "呷霸套餐",
 			"name": "牛筋",
 			"price": 170,
 			"class":"牛筋"
 		},
 		{
 			"id": "meal26",
-			"set": "呷霸特餐",
+			"set": "呷霸套餐",
 			"name": "雞柳",
 			"price": 170,
 			"class":""
 		},
 		{
 			"id": "meal27",
-			"set": "呷霸特餐",
+			"set": "呷霸套餐",
 			"name": "豬排",
 			"price": 170,
 			"class":"豬排"
@@ -527,42 +527,42 @@
 		},
 		{
 			"id": "meal76",
-			"set": "雙豪特餐",
+			"set": "二豪華餐",
 			"name": "肋眼",
 			"price": 1280,
 			"class":"肋眼雞"
 		},
 		{
 			"id": "meal77",
-			"set": "雙豪特餐",
+			"set": "二豪華餐",
 			"name": "紐約克",
 			"price": 1280,
 			"class":"紐約雞"
 		},
 		{
 			"id": "meal78",
-			"set": "雙豪特餐",
+			"set": "二豪華餐",
 			"name": "羊肩",
 			"price": 1280,
 			"class":"雞"
 		},
 		{
 			"id": "meal79",
-			"set": "單豪特餐",
+			"set": "單豪華餐",
 			"name": "肋眼",
 			"price": 690,
 			"class":"肋眼"
 		},
 		{
 			"id": "meal80",
-			"set": "單豪特餐",
+			"set": "單豪華餐",
 			"name": "紐約克",
 			"price": 690,
 			"class":"紐約"
 		},
 		{
 			"id": "meal81",
-			"set": "單豪特餐",
+			"set": "單豪華餐",
 			"name": "羊肩",
 			"price": 690,
 			"class":""
