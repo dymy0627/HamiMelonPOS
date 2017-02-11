@@ -2,9 +2,12 @@ package application.report;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import application.MainScene;
+import db.MySqlConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,32 +29,29 @@ public class DailyReportController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		int dailyLunchSales = 1699;
-		int dailyDinnerSales = 2699;
-		daily_lunch_sales.setText(String.valueOf(dailyLunchSales));
-		daily_dinner_sales.setText(String.valueOf(dailyDinnerSales));
+		MySqlConnection mySqlConnection = new MySqlConnection();
+		mySqlConnection.connectSql();
+		DailyReportBean day = mySqlConnection.getDailyReport();
+		mySqlConnection.disconnectSql();
 
-		int dailyInsideSales = dailyLunchSales + dailyDinnerSales;
-		daily_inside_sales.setText(String.valueOf(dailyInsideSales));
+		// L_Average_consumption int(11)
+		// D_Average_consumption int(11)
 
-		int dailyOutsideSales = 999;
-		int dailyDeliverSales = 999;
-		daily_outside_sales.setText(String.valueOf(dailyOutsideSales));
-		daily_deliver_sales.setText(String.valueOf(dailyDeliverSales));
+		daily_sales.setText(String.valueOf(day.getDailySales()));
+		daily_lunch_sales.setText(String.valueOf(day.getLunchSales()));
+		daily_dinner_sales.setText(String.valueOf(day.getDinnerSales()));
 
-		int dailyTotalNum = 5;
-		daily_total_num.setText(String.valueOf(dailyTotalNum));
+		daily_inside_sales.setText(String.valueOf(day.getInsideSales()));
+		daily_outside_sales.setText(String.valueOf(day.getOutsideSales()));
+		daily_deliver_sales.setText(String.valueOf(day.getDeliverSales()));
 
-		int avgSales = dailyInsideSales / 2;
-		daily_avg_sales.setText(String.valueOf(avgSales));
+		daily_total_num.setText(String.valueOf(day.getTotalNum()));
+		daily_avg_sales.setText(String.valueOf(day.getAvgSales()));
 
-		int dailySales = dailyInsideSales + dailyOutsideSales + dailyDeliverSales;
-		daily_sales.setText(String.valueOf(dailySales));
-
-		daily_double_num.setText("1");
-		daily_special_num.setText("1");
-		daily_wind_rain_num.setText("1");
-		daily_luxury_num.setText("1");
+		daily_double_num.setText(String.valueOf(day.getDoubleNum()));
+		daily_special_num.setText(String.valueOf(day.getSpecialNum()));
+		daily_wind_rain_num.setText(String.valueOf(day.getWindAndRainNum()));
+		daily_luxury_num.setText(String.valueOf(day.getLuxuryNum()));
 
 	}
 

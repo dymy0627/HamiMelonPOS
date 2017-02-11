@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.Task;
+import application.report.DailyReportBean;
 import application.stock.StockBean;
 
 public class MySqlConnection {
@@ -89,14 +91,63 @@ public class MySqlConnection {
 				+ cost + ",'" + name + "')");
 		return executeSql(sql);
 	}
-	
+
 	public boolean insertListData(String type, int people_num, int list_money) {
-		
-		String list_sql = 
-		new String("insert into hamimelon.detail_list_meals(Consumption_type,cost,number_of_meals)values('"+type+"',"+list_money+","+people_num+")");
-		
-		//new String("insert into hamimelon.detail_list_meals(Consumption_type,cost,number_of_meals)values('內用',662,62)");
+		String list_sql = new String(
+				"insert into hamimelon.detail_list_meals(Consumption_type,cost,number_of_meals)values('" + type + "',"
+						+ list_money + "," + people_num + ")");
 		return executeSql(list_sql);
+	}
+
+	public DailyReportBean getDailyReport() {
+		DailyReportBean day = new DailyReportBean();
+		String systemtime = Task.getDateTime();
+		String[] timeArray = systemtime.split(" ");
+		String time = timeArray[0];
+		System.out.println("time=" + time);
+		try {
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = mStatement.executeQuery("SELECT * FROM hamimelon.daily where teppanyaki_date='" + time + "'");
+			while (mResultSet.next()) {
+
+				day.setDailySales(mResultSet.getInt("Turnover"));
+				int dailyOutsideSales = mResultSet.getInt("L_Outsourcing") + mResultSet.getInt("D_Outsourcing");
+				int dailyDeliverSales = mResultSet.getInt("L_delivery") + mResultSet.getInt("D_delivery");
+				day.setOutsideSales(dailyOutsideSales);
+				day.setDeliverSales(dailyDeliverSales);
+				int dailyLunchSales = mResultSet.getInt("Lunch_Turnover");
+				int dailyDinnerSales = mResultSet.getInt("Dinner_Turnover");
+				day.setLunchSales(dailyLunchSales);
+				day.setDinnerSales(dailyDinnerSales);
+				int dailyInsideSales = dailyLunchSales + dailyDinnerSales;
+				day.setInsideSales(dailyInsideSales);
+				int dailyTotalNum = mResultSet.getInt("L_Number_of_visitors")
+						+ mResultSet.getInt("D_Number_of_visitors");
+				day.setTotalNum(dailyTotalNum);
+				int avgSales = dailyInsideSales / dailyTotalNum;
+				day.setAvgSales(avgSales);
+				day.setDoubleNum(mResultSet.getInt("Double_Package"));
+				day.setSpecialNum(mResultSet.getInt("Special_meals"));
+				day.setWindAndRainNum(mResultSet.getInt("wind_and_rain"));
+				day.setLuxuryNum(0);
+			}
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			try {
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
+				}
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return day;
 	}
 
 	public boolean executeSql(String sql) {

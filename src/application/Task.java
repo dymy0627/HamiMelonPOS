@@ -1,13 +1,13 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.TimerTask;
 
-public class Task extends TimerTask {
-	Connection con = null; // Database objects
+import db.MySqlConnection;
+
+public class Task extends TimerTask { 
 
 	public void run() {
 		System.out.println("殺神降臨");
@@ -83,16 +83,10 @@ public class Task extends TimerTask {
 				"update hamimelon.daily set total_AVG_Turnover=(select sum(cost)/sum(number_of_meals) from hamimelon.detail_list_meals where date_format(Ordering_time,'%Y-%m-%d')='"
 						+ time + "' and Consumption_type='內用')where teppanyaki_date='" + time + "'");
 
+		MySqlConnection mySqlConnection = new MySqlConnection();
+
 		try {
-			// 連接MySQL
-			Class.forName("com.mysql.jdbc.Driver");
-			// System.out.println("連接成功MySQLToJava");
-			// 建立讀取資料庫 (test 為資料庫名稱; user 為MySQL使用者名稱; passwrod 為MySQL使用者密碼)
-			con = DriverManager.getConnection(
-					"jdbc:mysql://ap-cdbr-azure-southeast-b.cloudapp.net/?useUnicode=true&characterEncoding=Big5",
-					"b63738672a9134", "555d06ab");
-			System.out.println("連接成功MySQL");
-			Statement st = con.createStatement();
+			Statement st = mySqlConnection.getSqlConnection().createStatement();
 			// 撈出剛剛新增的資料
 			st.execute(insertdate);
 			st.execute(Turnover);
@@ -111,13 +105,10 @@ public class Task extends TimerTask {
 			st.execute(wind_and_rain);
 			st.execute(total_visitors);
 			st.execute(total_AVG_Turnover);
-			/*
-			 * ResultSet rs = st.getResultSet(); while(rs.next()) {
-			 * System.out.println(rs.getString("ordering_time")); }
-			 */
-		} catch (Exception e) {
-			System.out.println("?");
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		mySqlConnection.disconnectSql();
 
 	}
 
