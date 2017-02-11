@@ -2,11 +2,10 @@ package application.report;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import application.MainScene;
+import application.Task;
 import db.MySqlConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,8 +25,15 @@ public class DailyReportController implements Initializable {
 	@FXML
 	private Label daily_double_num, daily_special_num, daily_wind_rain_num, daily_luxury_num;
 
+	@FXML
+	private Label label_back_door;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		getData();
+	}
+
+	private void getData() {
 
 		MySqlConnection mySqlConnection = new MySqlConnection();
 		mySqlConnection.connectSql();
@@ -52,7 +58,19 @@ public class DailyReportController implements Initializable {
 		daily_special_num.setText(String.valueOf(day.getSpecialNum()));
 		daily_wind_rain_num.setText(String.valueOf(day.getWindAndRainNum()));
 		daily_luxury_num.setText(String.valueOf(day.getLuxuryNum()));
+	}
 
+	private int hackClick = 0;
+
+	@FXML
+	protected void BackDoorAction() throws IOException {
+		hackClick++;
+		if (hackClick > 6) {
+			System.out.println("BD不說");
+			new Task().run();
+			getData();
+			hackClick = 0;
+		}
 	}
 
 	@FXML

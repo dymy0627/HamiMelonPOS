@@ -2,9 +2,7 @@ package application.order;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -66,47 +64,41 @@ public class MenuController implements Initializable {
 	private int num_people;
 
 	private int money = 0;
-	
-	static Map<String, Integer> MealClassMap = new HashMap<>();
-	private int beef;//牛肉片
-	private int sharon;//沙朗
-	private int sharon_core;//沙朗心
-	private int wing_plate;//翼板
-	private int snow;//雪花
-	private int philp;//菲力
-	private int newyork;//紐約克
-	private int ribeye;//肋眼
-	private int tendon;//牛筋
-	private int ribs;//牛小排
-	
-	private int pork;//豬肉片
-	private int pork_chop;//豬排
-	private int matsusaka;//松阪
-	
-	private int chicken;//雞腿
-	
-	private int lamb;//羊肉片
-	
-	private int red_shrimp;//花蝦
-	private int white_shrimp;//鮮蝦
-	private int oyster;//蚵
-	private int salman;//鮭魚
-	private int cod;//鱈魚
-	private int mackerel;//鯖魚
-	private int snapper;//鯛魚
-	private int salad;//沙拉
-	private int scallops;//干貝
-	private int abalone;//鮑魚
-	private int huge_oyster;//大蚵
-	private int smoke_salmon;//煄鮭
-	private int perch;//鱸魚
-	private int huge_shrimp;//大蝦
-	
-	private int rain_special;
-	private int pair_special;
-	private int deluxe_special;
-	private int chef_special;
-	
+
+	private int beef;// 牛肉片
+	private int sharon;// 沙朗
+	private int sharon_core;// 沙朗心
+	private int wing_plate;// 翼板
+	private int snow;// 雪花
+	private int philp;// 菲力
+	private int newyork;// 紐約克
+	private int ribeye;// 肋眼
+	private int tendon;// 牛筋
+	private int ribs;// 牛小排
+
+	private int pork;// 豬肉片
+	private int pork_chop;// 豬排
+	private int matsusaka;// 松阪
+
+	private int chicken;// 雞腿
+
+	private int lamb;// 羊肉片
+
+	private int red_shrimp;// 花蝦
+	private int white_shrimp;// 鮮蝦
+	private int oyster;// 蚵
+	private int salman;// 鮭魚
+	private int cod;// 鱈魚
+	private int mackerel;// 鯖魚
+	private int snapper;// 鯛魚
+	private int salad;// 沙拉
+	private int scallops;// 干貝
+	private int abalone;// 鮑魚
+	private int huge_oyster;// 大蚵
+	private int smoke_salmon;// 煄鮭
+	private int perch;// 鱸魚
+	private int huge_shrimp;// 大蝦
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -204,12 +196,6 @@ public class MenuController implements Initializable {
 		}
 		listItemMap.clear();
 		money = 0;
-		
-		for(Entry<String, Integer> id:MealClassMap.entrySet()){
-			MealClassMap.replace(id.getKey(), 0);
-		}
-		
-		rain_special=0; pair_special=0; deluxe_special=0; chef_special=0;
 	}
 
 	private EventHandler<ActionEvent> plusEventHandler = new EventHandler<ActionEvent>() {
@@ -279,7 +265,7 @@ public class MenuController implements Initializable {
 		for (int i = 1; i <= mealMap.size(); i++) {
 			String id = "meal" + i;
 			Meal meal = mealMap.get(id);
-			//System.out.println(i + " " +mealMap.size());
+			// System.out.println(i + " " +mealMap.size());
 
 			CheckBox chBox = new CheckBox();
 			chBox.setId(id);
@@ -337,17 +323,6 @@ public class MenuController implements Initializable {
 			}
 
 			currentVBox.getChildren().add(hBox);
-			
-			MealClassMap.put("beef", 0); MealClassMap.put("sharon", 0); MealClassMap.put("saron_core", 0);
-			MealClassMap.put("wing_plate", 0); MealClassMap.put("snow", 0); MealClassMap.put("philp", 0);
-			MealClassMap.put("newyork", 0); MealClassMap.put("ribeye", 0); MealClassMap.put("tendon", 0);
-			MealClassMap.put("ribs", 0); MealClassMap.put("pork", 0); MealClassMap.put("pork_chop", 0);
-			MealClassMap.put("matsusaka", 0); MealClassMap.put("chicken", 0); MealClassMap.put("lamb", 0);
-			MealClassMap.put("red_shrimp", 0); MealClassMap.put("white_shrimp", 0); MealClassMap.put("oyster", 0);
-			MealClassMap.put("salmon", 0); MealClassMap.put("cod", 0); MealClassMap.put("mackerel", 0);
-			MealClassMap.put("snapper", 0); MealClassMap.put("salad", 0); MealClassMap.put("scallops", 0);
-			MealClassMap.put("abalone", 0); MealClassMap.put("huge_oyster", 0); MealClassMap.put("smoke_salmon", 0);
-			MealClassMap.put("perch", 0); MealClassMap.put("huge_shrimp", 0);
 		}
 	}
 
@@ -360,131 +335,10 @@ public class MenuController implements Initializable {
 		stage.show();
 	}
 
-	private void checkMeatClass(String id,String mealClass) {
-		System.out.println("checkMealClass " + mealClass);
-		
-		if (mealClass.contains("牛肉"))
-			MealClassMap.replace("beef", MealClassMap.get("beef")+listItemMap.get(id).getNumber());
-			//beef += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("沙朗"))
-			MealClassMap.replace("sharon", MealClassMap.get("sharon")+listItemMap.get(id).getNumber());
-			//sharon += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("朗心"))
-			MealClassMap.replace("sharon_core", MealClassMap.get("sharon_core")+listItemMap.get(id).getNumber());
-			//sharon_core += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("翼板"))
-			MealClassMap.replace("wing_plate", MealClassMap.get("wing_plate")+listItemMap.get(id).getNumber());
-			//wing_plate += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("雪花"))
-			MealClassMap.replace("snow", MealClassMap.get("snow")+listItemMap.get(id).getNumber());
-			//snow += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("菲力"))
-			MealClassMap.replace("philp", MealClassMap.get("philp")+listItemMap.get(id).getNumber());
-			//philp += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("紐約"))
-			MealClassMap.replace("newyork", MealClassMap.get("newyork")+listItemMap.get(id).getNumber());
-			//newyork += listItemMap.get(id).getNumber();
-
-		if (mealClass.contains("肋眼"))
-			MealClassMap.replace("ribeye", MealClassMap.get("ribeye")+listItemMap.get(id).getNumber());
-			//ribeye += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("牛筋"))
-			MealClassMap.replace("tendon", MealClassMap.get("tendon")+listItemMap.get(id).getNumber());
-			//tendon += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("牛小"))
-			MealClassMap.replace("ribs", MealClassMap.get("ribs")+listItemMap.get(id).getNumber());
-			//ribs += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("豬肉"))
-			MealClassMap.replace("pork", MealClassMap.get("pork")+listItemMap.get(id).getNumber());
-			//pork += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("豬排"))
-			MealClassMap.replace("pork_chop", MealClassMap.get("pork_chop")+listItemMap.get(id).getNumber());
-			//pork_chop += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("松板"))
-			MealClassMap.replace("matsusaka", MealClassMap.get("matsusaka")+listItemMap.get(id).getNumber());
-			//matsusaka += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("雞"))
-			MealClassMap.replace("chicken", MealClassMap.get("chicken")+listItemMap.get(id).getNumber());
-			//chicken += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("羊肉"))
-			MealClassMap.replace("lamb", MealClassMap.get("lamb")+listItemMap.get(id).getNumber());
-			//lamb += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("花蝦"))
-			MealClassMap.replace("red_shrimp", MealClassMap.get("red_shrimp")+listItemMap.get(id).getNumber());
-			//red_shrimp += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("鮮蝦"))
-			MealClassMap.replace("white_shrimp", MealClassMap.get("white_shrimp")+listItemMap.get(id).getNumber());
-			//white_shrimp += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("蚵"))
-			MealClassMap.replace("oyster", MealClassMap.get("oyster")+listItemMap.get(id).getNumber());
-			//oyster += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("鮭"))
-			MealClassMap.replace("salmon", MealClassMap.get("salmon")+listItemMap.get(id).getNumber());
-			//salman += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("鱈"))
-			MealClassMap.replace("cod", MealClassMap.get("cod")+listItemMap.get(id).getNumber());
-			//cod += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("鯖"))
-			MealClassMap.replace("mackerel", MealClassMap.get("mackerel")+listItemMap.get(id).getNumber());
-			//mackerel += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("鯛"))
-			MealClassMap.replace("snapper", MealClassMap.get("snapper")+listItemMap.get(id).getNumber());
-			//snapper += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("沙拉"))
-			MealClassMap.replace("salad", MealClassMap.get("salad")+listItemMap.get(id).getNumber());
-			//salad += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("干貝"))
-			MealClassMap.replace("scallops", MealClassMap.get("scallops")+listItemMap.get(id).getNumber());
-			//scallops += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("鮑魚"))
-			MealClassMap.replace("abalone", MealClassMap.get("abalone")+listItemMap.get(id).getNumber());
-			//abalone += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("大可"))
-			MealClassMap.replace("huge_oyster", MealClassMap.get("huge_oyster")+listItemMap.get(id).getNumber());
-			//huge_oyster += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("燻"))
-			MealClassMap.replace("smoke_salmon", MealClassMap.get("smoke_salmon")+listItemMap.get(id).getNumber());
-			//smoke_salmon += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("鱸"))
-			MealClassMap.replace("perch", MealClassMap.get("perch")+listItemMap.get(id).getNumber());
-			//perch += listItemMap.get(id).getNumber();
-		
-		if (mealClass.contains("大叚"))
-			MealClassMap.replace("huge_shrimp", MealClassMap.get("huge_shrimp")+listItemMap.get(id).getNumber());
-			//huge_shrimp += listItemMap.get(id).getNumber();
-		
-		
-		
-	}
-
 	@FXML
 	protected void NextPageButtonAction(ActionEvent event) throws IOException {
+		System.out.println("NextPage Button Action");
+
 		pause = true;
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ListStage.fxml"));
@@ -493,43 +347,14 @@ public class MenuController implements Initializable {
 		controller.setMoney(money);
 		controller.setPeople(num_people);
 		controller.setType(Consumption_type);
-		controller.setSpecialNum(rain_special, pair_special,deluxe_special,chef_special);
-		List<ListItem> passing_menu = new ArrayList<ListItem>();
-		for (String id : listItemMap.keySet()) {
-			ListItem list_meal = listItemMap.get(id);
-			passing_menu.add(list_meal);
-			
-			checkMeatClass(id,list_meal.getMeal().getMeatClass());
-			checkSpecialMeal(list_meal.getMeal().getSet());
-			
-		}
-		controller.setMenuList(passing_menu);
-		System.out.println("money " + money);
-		for(Entry<String,Integer> id:MealClassMap.entrySet()){
-			if(id.getValue() != 0)
-				System.out.print(id.getKey() + " " + id.getValue() + " ");
-		}
-		System.out.println();
+		controller.setMenuList(listItemMap);
 
 		scene = new Scene(root, 800, 600);
-
 		Pop_Stage = new Stage();
 		Pop_Stage.setScene(scene);
 		Pop_Stage.initModality(Modality.APPLICATION_MODAL);
 		Pop_Stage.setTitle("清單");
 		Pop_Stage.showAndWait();
-	}
-
-	private void checkSpecialMeal(String set) {
-		if(set.contains("風雨"))
-			rain_special++;
-		if(set.contains("雙"))
-			pair_special++;
-		if(set.contains("套餐"))
-			chef_special++;
-		if(set.contains("豪華"))
-			deluxe_special++;
-		
 	}
 
 	public void setClosePop(boolean b) {
