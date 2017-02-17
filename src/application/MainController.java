@@ -35,7 +35,7 @@ public class MainController {
 
 	@FXML
 	protected void MonthlyButtonAction(ActionEvent event) {
-		monthly.setText("Sign in button pressed4");
+		showStage("/fxml/MonthLyReportStage.fxml");
 	}
 
 	private void showStage(String filePath) {

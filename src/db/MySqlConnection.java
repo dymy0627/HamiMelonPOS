@@ -124,7 +124,7 @@ public class MySqlConnection {
 				int dailyTotalNum = mResultSet.getInt("L_Number_of_visitors")
 						+ mResultSet.getInt("D_Number_of_visitors");
 				day.setTotalNum(dailyTotalNum);
-				int avgSales = dailyInsideSales / dailyTotalNum;
+				int avgSales = dailyInsideSales / (dailyTotalNum>0 ? dailyTotalNum:1);
 				day.setAvgSales(avgSales);
 				day.setDoubleNum(mResultSet.getInt("Double_Package"));
 				day.setSpecialNum(mResultSet.getInt("Special_meals"));
