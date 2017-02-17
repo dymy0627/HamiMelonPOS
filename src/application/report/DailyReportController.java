@@ -12,9 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 public class DailyReportController implements Initializable {
 
@@ -76,10 +74,8 @@ public class DailyReportController implements Initializable {
 	@FXML
 	protected void BackButtonAction(ActionEvent event) throws IOException {
 		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
-		Stage stage = MainScene.stage_tmp;
-		Scene scene = new Scene(mainstage, 1024, 720);
-		stage.setScene(scene);
-		stage.show();
+		
+		MainScene.changeScene(mainstage);
 	}
 
 }

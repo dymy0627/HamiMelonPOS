@@ -19,14 +19,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class StockController implements Initializable, StockListViewListener {
@@ -223,15 +221,8 @@ public class StockController implements Initializable, StockListViewListener {
 
 	@FXML
 	protected void LeaveButtonAction(ActionEvent event) throws IOException {
-		// def fxml loader
-		Parent stockStage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
+		Parent mainStage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 
-		// ref fxml to stage
-		Scene scene = new Scene(stockStage, 1024, 720);
-		Stage stage = MainScene.stage_tmp;
-		// change scene to main scene
-
-		stage.setScene(scene);
-		stage.show();
+		MainScene.changeScene(mainStage);
 	}
 }

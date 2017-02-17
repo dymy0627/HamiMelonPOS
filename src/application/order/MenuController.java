@@ -329,10 +329,8 @@ public class MenuController implements Initializable {
 	@FXML
 	protected void PreviousPageButtonAction(ActionEvent event) throws IOException {
 		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
-		stage = MainScene.stage_tmp;
-		scene = new Scene(mainstage, 1024, 720);
-		stage.setScene(scene);
-		stage.show();
+
+		MainScene.changeScene(mainstage);
 	}
 
 	@FXML

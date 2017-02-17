@@ -42,14 +42,9 @@ public class MainController {
 		try {
 			// def fxml loader
 			Parent root = FXMLLoader.load(getClass().getResource(filePath));
-			
-			// ref fxml to stage
-			Stage stage = MainScene.stage_tmp;
-			Scene scene = new Scene(root, 1024, 720);
 
-			// change scene to main scene
-			stage.setScene(scene);
-			stage.show();
+			MainScene.changeScene(root);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
