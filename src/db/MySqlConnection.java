@@ -149,7 +149,45 @@ public class MySqlConnection {
 		}
 		return day;
 	}
-
+	
+	public ArrayList<String[]> getMonthlyTurnOver(String time) {
+		
+		ArrayList<String[]> mResultArray = new ArrayList<String[]>();
+		try {
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = 
+			mStatement.executeQuery("select teppanyaki_date, Lunch_Turnover, Dinner_Turnover from hamimelon.daily where teppanyaki_date LIKE '%"+ time+ "%'" );
+			//select teppanyaki_date, Lunch_Turnover, Dinner_Turnover
+			//from hamimelon.daily
+			//where teppanyaki_date LIKE '%2017-02%'
+			
+			while (mResultSet.next()) {
+				
+				String[] ResultString = new String[3];
+				ResultString[0] = mResultSet.getString("teppanyaki_date");
+				ResultString[1] = Integer.toString(mResultSet.getInt("Lunch_Turnover"));
+				ResultString[2] = Integer.toString(mResultSet.getInt("Dinner_Turnover"));
+				
+				mResultArray.add(ResultString);	
+			}
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			try {
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
+				}
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return mResultArray;
+	}
 	public boolean executeSql(String sql) {
 		try {
 			if (mSqlConnection == null)
