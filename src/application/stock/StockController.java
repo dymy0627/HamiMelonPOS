@@ -3,6 +3,7 @@ package application.stock;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -30,16 +31,25 @@ import javafx.util.Callback;
 public class StockController implements Initializable, StockListViewListener {
 	@FXML
 	private ListView<StockBean> stockListView;
+
 	@FXML
-	private ComboBox<String> manufacturerComboBox;
+	private ComboBox<String> stockNameComboBox;
 	@FXML
 	private TextField stockNameTextField;
 	@FXML
+	private TextField quantityTextField;
+	@FXML
 	private TextField amountTextField;
+	@FXML
+	private TextField manufacturerTextField;
+
 	@FXML
 	private ProgressIndicator myProgressIndicator;
 	@FXML
 	private Button saveButton;
+
+	@FXML
+	private Button stockNameButton;
 
 	private ObservableList<StockBean> stockObservableList = FXCollections.observableArrayList();
 
@@ -75,7 +85,9 @@ public class StockController implements Initializable, StockListViewListener {
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
 				stockObservableList.setAll(mySqlConnection.selectAllStock());
-				manufacturerComboBox.getItems().setAll(mySqlConnection.selectManufacturer());
+				List<String> stockNameList = mySqlConnection.selectManufacturer();
+				stockNameList.add("其他");
+				stockNameComboBox.getItems().setAll(stockNameList);
 				mySqlConnection.disconnectSql();
 				return true;
 			}
@@ -83,7 +95,7 @@ public class StockController implements Initializable, StockListViewListener {
 			@Override
 			protected void succeeded() {
 				super.succeeded();
-				manufacturerComboBox.getSelectionModel().selectFirst();
+				stockNameComboBox.getSelectionModel().selectFirst();
 				myProgressIndicator.setVisible(false);
 				System.out.println("Load from DB Done!");
 			}
@@ -95,6 +107,16 @@ public class StockController implements Initializable, StockListViewListener {
 				System.out.println("Load from DB Failed!");
 			}
 		}).start();
+
+		stockNameComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> observable, String oldSelected, String newSelected) {
+				if (newSelected.equals("其他")) {
+					stockNameComboBox.setVisible(false);
+					stockNameTextField.setVisible(true);
+					stockNameButton.setVisible(true);
+				}
+			}
+		});
 	}
 
 	private void updateListView() {
@@ -102,13 +124,14 @@ public class StockController implements Initializable, StockListViewListener {
 		stockListView.setItems(stockObservableList);
 	}
 
-	private boolean validAmount(int amountValue) {
-		return amountValue > 0;
+	private boolean validCheck(int value) {
+		return value > 0;
 	}
 
 	private void clearTextField() {
-		stockNameTextField.setText("");
+		quantityTextField.setText("");
 		amountTextField.setText("");
+		manufacturerTextField.setText("");
 	}
 
 	@Override
@@ -119,21 +142,36 @@ public class StockController implements Initializable, StockListViewListener {
 
 	@FXML
 	protected void AddButtonAction(ActionEvent event) {
-		String manufacturerText = manufacturerComboBox.getSelectionModel().getSelectedItem();
-		String stockNameText = stockNameTextField.getText();
+
+		String stockNameText;
+
+		if (stockNameComboBox.isVisible()) {
+			stockNameText = stockNameComboBox.getSelectionModel().getSelectedItem();
+		} else {
+			stockNameText = stockNameTextField.getText();
+		}
+
+		int quantityValue = 0;
 		int amountValue = 0;
 		try {
+			quantityValue = Integer.parseInt(quantityTextField.getText());
 			amountValue = Integer.parseInt(amountTextField.getText());
 		} catch (NumberFormatException e) {
-			System.out.println("Amount cannot be String.");
+			System.out.println("Quantity and Amount cannot be String.");
 		}
-		if (manufacturerText != null && !stockNameText.isEmpty() && validAmount(amountValue)) {
+
+		String manufacturerText = manufacturerTextField.getText();
+
+		if (!stockNameText.isEmpty() && validCheck(amountValue) && validCheck(quantityValue)
+				&& manufacturerText != null) {
 			clearTextField();
 			StockBean stock = new StockBean();
 			stock.setId(tempId++);
-			stock.setManufacturer(manufacturerText);
 			stock.setName(stockNameText);
+			stock.setQuantity(quantityValue);
+			stock.setUnit("份");
 			stock.setAmount(amountValue);
+			stock.setManufacturer(manufacturerText);
 			addStockToList(stock);
 		}
 	}
@@ -162,6 +200,15 @@ public class StockController implements Initializable, StockListViewListener {
 				System.out.println("add to List =" + stock.getId());
 			}
 		});
+	}
+
+	@FXML
+	protected void ShowComboBoxAction(ActionEvent event) {
+		stockNameComboBox.setVisible(true);
+		stockNameComboBox.getSelectionModel().selectFirst();
+		stockNameTextField.setVisible(false);
+		stockNameTextField.setText("");
+		stockNameButton.setVisible(false);
 	}
 
 	@FXML

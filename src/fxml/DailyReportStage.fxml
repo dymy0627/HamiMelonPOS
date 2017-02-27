@@ -205,11 +205,15 @@
 					</VBox.margin>
 				</Pane>
 
-				
 			</children>
 			<padding>
 				<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
 			</padding>
 		</VBox>
+		<ProgressIndicator fx:id="myProgressIndicator"
+			maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+			minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0"
+			AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="320.0"
+			AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="320.0" />
 	</children>
 </AnchorPane>

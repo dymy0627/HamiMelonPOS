@@ -20,7 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import application.MainScene;
-import application.Task;
+import application.GenerateDailyTask;
 import db.MySqlConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,7 +76,7 @@ public class MonthlyReportController implements Initializable {
         Map<Integer, Object[]> data = new TreeMap<Integer, Object[]>();
         Calendar T_Calendar = Calendar.getInstance();
         
-        String systemtime = Task.getDateTime();
+        String systemtime = GenerateDailyTask.getDateTime();
 		String[] timeArray = systemtime.split("-");
 		String time = timeArray[0]+"-"+timeArray[1];
 		

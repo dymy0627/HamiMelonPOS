@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.Task;
+import application.GenerateDailyTask;
 import application.report.DailyReportBean;
 import application.stock.StockBean;
 
@@ -101,7 +101,7 @@ public class MySqlConnection {
 
 	public DailyReportBean getDailyReport() {
 		DailyReportBean day = new DailyReportBean();
-		String systemtime = Task.getDateTime();
+		String systemtime = GenerateDailyTask.getDateTime();
 		String[] timeArray = systemtime.split(" ");
 		String time = timeArray[0];
 		System.out.println("time=" + time);

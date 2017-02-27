@@ -7,7 +7,7 @@ import java.util.TimerTask;
 
 import db.MySqlConnection;
 
-public class Task extends TimerTask { 
+public class GenerateDailyTask extends TimerTask { 
 
 	public void run() {
 		System.out.println("殺神降臨");

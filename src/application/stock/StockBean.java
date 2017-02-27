@@ -3,9 +3,11 @@ package application.stock;
 public class StockBean {
 
 	private int id;
-	private String manufacturer;
 	private String name;
 	private int amount;
+	private int quantity;
+	private String unit;
+	private String manufacturer;
 
 	public int getId() {
 		return id;
@@ -13,14 +15,6 @@ public class StockBean {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
 	}
 
 	public String getName() {
@@ -39,4 +33,27 @@ public class StockBean {
 		this.amount = amount;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
 }

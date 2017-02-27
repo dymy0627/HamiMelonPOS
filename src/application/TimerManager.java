@@ -20,7 +20,7 @@ public class TimerManager {
 			date = this.addDay(date, 1);
 		}
 		Timer timer = new Timer();
-		Task task = new Task();
+		GenerateDailyTask task = new GenerateDailyTask();
 		timer.schedule(task, date, PERIOD_DAY);
 	}
 

@@ -10,14 +10,17 @@
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="600.0"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<Label fx:id="manufacturerLabel" prefHeight="60.0" prefWidth="170.0"
-			text="Label" />
-		<Label fx:id="nameLabel" prefHeight="60.0" prefWidth="210.0"
-			text="Label" />
-		<Label fx:id="amountLabel" prefHeight="60.0" prefWidth="120.0"
-			text="Label" />
-		<Button fx:id="deleteButton" mnemonicParsing="false"
-			onAction="#itemDeleteAction" prefHeight="30.0" prefWidth="40.0" text="刪除">
+		<Label fx:id="nameLabel" prefHeight="60.0" prefWidth="200.0"
+			text="品名" />
+		<Label fx:id="quantityLabel" prefHeight="60.0" prefWidth="120.0"
+			text="數量" />
+		<Label fx:id="amountLabel" prefHeight="60.0" prefWidth="140.0"
+			text="金額" />
+		<Label fx:id="manufacturerLabel" prefHeight="60.0" prefWidth="100.0"
+			text="廠商" />
+		<Button fx:id="deleteButton" minWidth="-Infinity"
+			mnemonicParsing="false" onAction="#itemDeleteAction" prefHeight="30.0"
+			prefWidth="40.0" text="刪除">
 			<HBox.margin>
 				<Insets left="10.0" top="5.0" />
 			</HBox.margin>

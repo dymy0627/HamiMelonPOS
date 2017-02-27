@@ -15,12 +15,16 @@ public class StockListViewCell extends ListCell<StockBean> {
 
 	@FXML
 	private HBox stockItem;
-	@FXML
-	private Label manufacturerLabel;
+
 	@FXML
 	private Label nameLabel;
 	@FXML
+	private Label quantityLabel;
+	@FXML
 	private Label amountLabel;
+	@FXML
+	private Label manufacturerLabel;
+
 	@FXML
 	private Button deleteButton;
 
@@ -49,9 +53,10 @@ public class StockListViewCell extends ListCell<StockBean> {
 					e.printStackTrace();
 				}
 			}
-			manufacturerLabel.setText(stock.getManufacturer());
 			nameLabel.setText(stock.getName());
-			amountLabel.setText(String.valueOf(stock.getAmount()));
+			quantityLabel.setText(String.valueOf(stock.getQuantity()) + stock.getUnit());
+			amountLabel.setText("$ " + String.valueOf(stock.getAmount()));
+			manufacturerLabel.setText(stock.getManufacturer());
 
 			deleteButton.setVisible(false);
 			StockBean selectedItem = getListView().getSelectionModel().getSelectedItem();
