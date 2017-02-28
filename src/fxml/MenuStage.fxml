@@ -9,56 +9,63 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.Pane?>
 
-<GridPane alignment="center" hgap="10" vgap="10"
-	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="application.order.MenuController">
 
-	<padding>
-		<Insets bottom="5" left="5" right="5" top="5" />
-	</padding>
-	<children>
-		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0">
-			<Label alignment="center" prefHeight="30.0" style="-fx-font-size: 20"
-				text="用餐型態：" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-			<Label fx:id="typeLabel" alignment="center_left" prefHeight="30.0"
-				style="-fx-font-size: 20" />
-		</HBox>
-
-		<HBox GridPane.columnIndex="0" GridPane.rowIndex="1"
-			xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<top>
+		<VBox prefWidth="100.0" BorderPane.alignment="CENTER">
 			<children>
 				<HBox>
 					<children>
+						<Label alignment="center" prefHeight="30.0" style="-fx-font-size: 20"
+							text="用餐型態：" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+						<Label fx:id="typeLabel" alignment="center_left" prefHeight="30.0"
+							style="-fx-font-size: 20" />
+					</children>
+				</HBox>
+				<HBox>
+					<children>
 						<ToggleButton fx:id="typeHereButton" mnemonicParsing="false"
-							prefHeight="30.0" prefWidth="85.0" text="內用" toggleGroup="$TypeGroup" />
+							prefHeight="30.0" prefWidth="85.0" text="內用">
+							<toggleGroup>
+								<ToggleGroup fx:id="TypeGroup" />
+							</toggleGroup>
+						</ToggleButton>
 						<ToggleButton fx:id="typeTakeOutButton"
 							mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" text="外帶"
 							toggleGroup="$TypeGroup" />
 						<ToggleButton fx:id="typeDeliverButton"
 							mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0" text="外送"
 							toggleGroup="$TypeGroup" />
+
+						<HBox>
+							<children>
+
+								<Label alignment="center" prefHeight="30.0" prefWidth="50.0"
+									text="人數">
+									<HBox.margin>
+										<Insets left="50.0" />
+									</HBox.margin>
+								</Label>
+
+								<ComboBox fx:id="peopleComboBox" prefHeight="30.0"
+									prefWidth="70.0" promptText="1" />
+
+							</children>
+						</HBox>
 					</children>
 				</HBox>
-
-				<Label alignment="center" prefHeight="30.0" prefWidth="50.0"
-					text="人數">
-					<HBox.margin>
-						<Insets left="50.0" />
-					</HBox.margin>
-				</Label>
-
-				<ComboBox fx:id="peopleComboBox" prefHeight="30.0"
-					prefWidth="70.0" promptText="1" />
-
 			</children>
-		</HBox>
+		</VBox>
+	</top>
+	<center>
 
-		<GridPane alignment="center" hgap="20" vgap="0" prefHeight="560.0"
-			GridPane.columnIndex="0" GridPane.rowIndex="2" xmlns:fx="http://javafx.com/fxml">
+		<GridPane alignment="center" hgap="10.0" prefHeight="560.0"
+			vgap="0">
 
 			<children>
-				<ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="0"
-					fitToWidth="true">
+				<ScrollPane fitToWidth="true" GridPane.columnIndex="0"
+					GridPane.rowIndex="0">
 					<content>
 						<VBox fx:id="menu1" alignment="CENTER_LEFT" prefWidth="280.0"
 							spacing="20">
@@ -66,8 +73,8 @@
 					</content>
 				</ScrollPane>
 
-				<ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="0"
-					fitToWidth="true">
+				<ScrollPane fitToWidth="true" GridPane.columnIndex="1"
+					GridPane.rowIndex="0">
 					<content>
 						<VBox fx:id="menu2" alignment="CENTER_LEFT" prefWidth="280.0"
 							spacing="20">
@@ -75,8 +82,8 @@
 					</content>
 				</ScrollPane>
 
-				<ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="0"
-					fitToWidth="true">
+				<ScrollPane fitToWidth="true" GridPane.columnIndex="2"
+					GridPane.rowIndex="0">
 					<content>
 						<VBox fx:id="menu3" alignment="CENTER_LEFT" prefWidth="280.0"
 							spacing="20">
@@ -84,8 +91,8 @@
 					</content>
 				</ScrollPane>
 
-				<ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="0"
-					fitToWidth="true">
+				<ScrollPane fitToWidth="true" GridPane.columnIndex="3"
+					GridPane.rowIndex="0">
 					<content>
 						<VBox fx:id="menu4" alignment="CENTER_LEFT" prefWidth="280.0"
 							spacing="20">
@@ -93,16 +100,51 @@
 					</content>
 				</ScrollPane>
 			</children>
+			<columnConstraints>
+				<ColumnConstraints />
+				<ColumnConstraints />
+				<ColumnConstraints />
+				<ColumnConstraints />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints />
+			</rowConstraints>
+			<padding>
+				<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+			</padding>
 		</GridPane>
-
-		<Pane GridPane.columnIndex="0" GridPane.rowIndex="3">
+	</center>
+	<right>
+		<FlowPane prefHeight="560.0" prefWidth="200.0"
+			BorderPane.alignment="CENTER">
 			<children>
 
+				<ListView fx:id="menulist">
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+					</padding>
+				</ListView>
+				<AnchorPane prefHeight="60.0" prefWidth="200.0">
+					<children>
+
+						<Label fx:id="total_money_Label" prefHeight="30.0" text="總價"
+							AnchorPane.leftAnchor="0.0">
+							<padding>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+							</padding>
+						</Label>
+
+						<ComboBox fx:id="discount_ComboBox" prefHeight="30.0"
+							prefWidth="100.0" promptText="折扣選擇" AnchorPane.rightAnchor="0.0" />
+					</children>
+				</AnchorPane>
+
 				<Button fx:id="p_page" onAction="#PreviousPageButtonAction"
-					prefHeight="30.0" prefWidth="150.0" text="返回" />
-				<Button fx:id="n_page" layoutX="600.0" onAction="#NextPageButtonAction"
-					prefHeight="30.0" prefWidth="150.0" text="下一頁" />
+					prefHeight="30.0" prefWidth="120.0" text="返回" />
+
+				<Button fx:id="n_page" onAction="#PrintButtonAction"
+					prefHeight="30.0" prefWidth="120.0" text="列印" />
 			</children>
-		</Pane>
-	</children>
-</GridPane>
+		</FlowPane>
+	</right>
+</BorderPane>
