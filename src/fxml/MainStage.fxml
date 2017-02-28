@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -7,24 +8,43 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:controller="application.MainController" 
-    	  xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="20">
-    	  
-	<padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
-	
-	<VBox spacing="100" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
-		  GridPane.columnIndex="0" GridPane.rowIndex="0">
-   		<children>
-     		<Button prefHeight="30.0" prefWidth="200.0" fx:id="order" text="點餐" onAction="#OrderButtonAction"/>
-			
-			<Button prefHeight="30.0" prefWidth="200.0" fx:id="purchase" text="進出貨" onAction="#PurchaseButtonAction"/>
-			
-			<Button prefHeight="30.0" prefWidth="200.0" fx:id="daily" text="日報" onAction="#DailyButtonAction"/>
-			
-			<Button prefHeight="30.0" prefWidth="200.0" fx:id="monthly" text="月報" onAction="#MonthlyButtonAction"/>
-   		</children>
-	</VBox>
-	
+<GridPane alignment="center" maxHeight="1.7976931348623157E308"
+	maxWidth="1.7976931348623157E308" vgap="30.0" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController"
+	styleClass="mainBackground">
 
+	<padding>
+		<Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+	</padding>
+
+	<children>
+		<Button minHeight="-Infinity" onAction="#OrderButtonAction"
+			prefHeight="75.0" prefWidth="200.0" styleClass="mainButton" text="點餐"
+			GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+		<Button minHeight="-Infinity" onAction="#PurchaseButtonAction"
+			prefHeight="75.0" prefWidth="200.0" styleClass="mainButton" text="進貨與庫存管理"
+			GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+		<Button minHeight="-Infinity" onAction="#DailyButtonAction"
+			prefHeight="75.0" prefWidth="200.0" styleClass="mainButton" text="日報"
+			GridPane.columnIndex="0" GridPane.rowIndex="2" />
+
+		<Button minHeight="-Infinity" onAction="#MonthlyButtonAction"
+			prefHeight="75.0" prefWidth="200.0" styleClass="mainButton" text="月報"
+			GridPane.columnIndex="0" GridPane.rowIndex="3" />
+	</children>
+	<columnConstraints>
+		<ColumnConstraints />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+	</rowConstraints>
+	<stylesheets>
+		<URL value="@../css/button.css" />
+		<URL value="@../css/background.css" />
+	</stylesheets>
 </GridPane>
-

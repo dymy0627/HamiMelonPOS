@@ -7,13 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
-public class MainController {
-	@FXML
-	private Button monthly;
+public class MainController { 
 
 	@FXML
 	protected void OrderButtonAction(ActionEvent event) {
@@ -35,7 +30,7 @@ public class MainController {
 
 	@FXML
 	protected void MonthlyButtonAction(ActionEvent event) {
-		showStage("/fxml/MonthLyReportStage.fxml");
+		showStage("/fxml/MonthlyReportStage.fxml");
 	}
 
 	private void showStage(String filePath) {
