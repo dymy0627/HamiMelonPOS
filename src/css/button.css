@@ -18,3 +18,35 @@
 .mainButton:pressed {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1); 
 }
+
+.orderTypeButton { 
+	-fx-background-color: #F3F5F8;
+	-fx-border-color: #4D678B;
+	-fx-border-radius: 1.0 5.0 0.0 0.0;
+    -fx-background-radius: 1.0 5.0 0.0 0.0;
+}
+
+.orderTypeButton:selected  {
+	-fx-background-color: #758AA7;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+	-fx-border-color: #758AA7;
+	-fx-border-radius: 5.0 1.0 0.0 0.0;
+    -fx-background-radius: 5.0 1.0 0.0 0.0;
+}
+
+.backButton { 
+	-fx-background-color: #4D678B;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-border-radius: 2.0 2.0 2.0 2.0;
+    -fx-background-radius: 2.0 2.0 2.0 2.0;
+}
+
+.okButton { 
+	-fx-background-color: #4D678B;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-border-radius: 2.0 2.0 2.0 2.0;
+    -fx-background-radius: 2.0 2.0 2.0 2.0;
+}

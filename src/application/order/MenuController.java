@@ -47,8 +47,6 @@ public class MenuController implements Initializable {
 	@FXML
 	private VBox menu1, menu2, menu3, menu4;
 
-	@FXML
-	private Label typeLabel;
 	private ToggleGroup mTypeGroup;
 	private String mConsumptionType = "內用";
 
@@ -123,11 +121,17 @@ public class MenuController implements Initializable {
 		mTypeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_select, Toggle new_select) {
 
-				((ToggleButton) new_select).setDisable(true);
-				System.out.println("new_select = " + new_select.toString());
+				if (new_select != null) {
+					((ToggleButton) new_select).setSelected(true);
+					System.out.println("new_select = " + new_select.toString());
+				} else {
+					((ToggleButton) old_select).setSelected(true);
+					System.out.println("new_select = " + old_select.toString());
+					return;
+				}
 
 				if (old_select != null) {
-					((ToggleButton) old_select).setDisable(false);
+					((ToggleButton) old_select).setSelected(false);
 					System.out.println("old_select = " + old_select.toString());
 				} else {
 					System.out.println("old_select == null");
@@ -145,7 +149,6 @@ public class MenuController implements Initializable {
 					peopleComboBox.setDisable(true);
 				}
 
-				typeLabel.setText(mConsumptionType);
 				clearAllItem();
 			}
 		});
@@ -324,7 +327,7 @@ public class MenuController implements Initializable {
 
 			Label nameLabel = new Label(meal.getName());
 			nameLabel.setId(id);
-			nameLabel.setStyle("-fx-font-size: 18");
+			nameLabel.setStyle("-fx-font-size: 18;");
 
 			Button plusButton = new Button("+");
 			plusButton.setOnAction(plusEventHandler);
@@ -368,12 +371,13 @@ public class MenuController implements Initializable {
 			if (!setName.equals(lastSetName)) {
 				lastSetName = setName;
 				Label setLabel = new Label(setName);
-				setLabel.setStyle("-fx-border-color: black");
-				setLabel.setStyle("-fx-font-size: 22");
+				setLabel.setStyle("-fx-font-size: 22; -fx-font-weight: bold;"); // -fx-border-color:
+				// black;
 				currentVBox.getChildren().add(setLabel);
 			}
 
 			currentVBox.getChildren().add(hBox);
+
 		}
 	}
 

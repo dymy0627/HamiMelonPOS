@@ -39,14 +39,24 @@ public class DailyReportController implements Initializable {
 	private void getData() {
 		myProgressIndicator.setVisible(false);
 		new Thread(new Task<Boolean>() {
+			private DailyReportBean day;
+
 			@Override
 			protected Boolean call() throws Exception {
 				myProgressIndicator.setVisible(true);
 
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
-				DailyReportBean day = mySqlConnection.getDailyReport();
+				day = mySqlConnection.getDailyReport();
 				mySqlConnection.disconnectSql();
+				return true;
+			}
+
+			@Override
+			protected void succeeded() {
+				super.succeeded();
+				myProgressIndicator.setVisible(false);
+				System.out.println("Load from DB Done!");
 
 				// L_Average_consumption int(11)
 				// D_Average_consumption int(11)
@@ -66,15 +76,6 @@ public class DailyReportController implements Initializable {
 				daily_special_num.setText(String.valueOf(day.getSpecialNum()));
 				daily_wind_rain_num.setText(String.valueOf(day.getWindAndRainNum()));
 				daily_luxury_num.setText(String.valueOf(day.getLuxuryNum()));
-
-				return true;
-			}
-
-			@Override
-			protected void succeeded() {
-				super.succeeded();
-				myProgressIndicator.setVisible(false);
-				System.out.println("Load from DB Done!");
 			}
 
 			@Override

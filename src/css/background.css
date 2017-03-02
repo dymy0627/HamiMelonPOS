@@ -1,4 +1,15 @@
 .mainBackground {
-   -fx-background-image: url("main.jpg");
-   -fx-background-size: cover;
+   /*-fx-background-image: url("main.jpg");
+   -fx-background-size: cover; */
+   -fx-background-color:  #D2DAE5;
+   
 }
+
+.menuBackground {
+	-fx-background-color: #758AA7;
+}
+
+.menuBlockBackground {
+	-fx-background-color: #D2DAE5;
+}
+
