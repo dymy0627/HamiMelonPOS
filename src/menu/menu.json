@@ -5,70 +5,70 @@
 			"set": "老饕雙享餐",
 			"name": "翼板",
 			"price": 720,
-			"class": "翼板雞鯖花蝦"
+			"class": "翼板雞腿鯖紅蝦"
 		},
 		{
 			"id": "meal2",
 			"set": "老饕雙享餐",
-			"name": "松板",
+			"name": "松阪",
 			"price": 720,
-			"class": "松板雞鯖花蝦"
+			"class": "松阪雞腿鯖紅蝦"
 		},
 		{
 			"id": "meal3",
 			"set": "雙人麻吉餐",
 			"name": "翼板",
 			"price": 620,
-			"class": "翼板朗心鮭"
+			"class": "翼板朗心鮭花蝦"
 		},
 		{
 			"id": "meal4",
 			"set": "雙人麻吉餐",
-			"name": "松板",
+			"name": "松阪",
 			"price": 620,
-			"class": "松板朗心鮭"
+			"class": "松阪朗心鮭花蝦"
 		},
 		{
 			"id": "meal5",
 			"set": "雙人情侶餐",
 			"name": "朗心",
 			"price": 520,
-			"class": "朗心雞鱈大蝦"
+			"class": "朗心雞腿鱈大蝦"
 		},
 		{
 			"id": "meal6",
 			"set": "雙人情侶餐",
 			"name": "豬排",
 			"price": 520,
-			"class": "豬排雞鱈大蝦"
+			"class": "豬排雞腿鱈大蝦"
 		},
 		{
 			"id": "meal7",
 			"set": "雙人A餐",
 			"name": "牛肉",
 			"price": 420,
-			"class": "牛肉雞大蝦"
+			"class": "牛肉雞腿鯛大蝦"
 		},
 		{
 			"id": "meal8",
 			"set": "雙人A餐",
 			"name": "羊肉",
 			"price": 420,
-			"class": "羊肉雞大蝦"
+			"class": "羊肉雞腿鯛大蝦"
 		},
 		{
 			"id": "meal9",
 			"set": "雙人A餐",
 			"name": "豬肉",
 			"price": 420,
-			"class": "豬肉雞大蝦"
+			"class": "豬肉雞腿鯛大蝦"
 		},
 		{
 			"id": "meal10",
 			"set": "雙人B餐",
 			"name": "雞腿",
 			"price": 480,
-			"class": "雞鱈蚵沙拉"
+			"class": "雞腿鱈蚵沙拉"
 		},
 		{
 			"id": "meal11",
@@ -89,7 +89,7 @@
 			"set": "風雨餐",
 			"name": "風雨",
 			"price": 399,
-			"class": "雞沙朗"
+			"class": "雞腿沙朗鯛鮮蝦"
 		},
 		{
 			"id": "meal14",
@@ -103,14 +103,14 @@
 			"set": "多蝦蟹套餐",
 			"name": "蝦蟹",
 			"price": 350,
-			"class": "花蝦"
+			"class": "鮮蝦紅蝦"
 		},
 		{
 			"id": "meal16",
 			"set": "海鮮套餐",
 			"name": "海大",
 			"price": 300,
-			"class": "鱈蚵"
+			"class": "鱈花蝦蚵"
 		},
 		{
 			"id": "meal17",
@@ -131,42 +131,42 @@
 			"set": "海陸A套餐",
 			"name": "牛肉",
 			"price": 200,
-			"class": "牛肉"
+			"class": "牛肉花蝦"
 		},
 		{
 			"id": "meal20",
 			"set": "海陸A套餐",
 			"name": "羊肉",
 			"price": 200,
-			"class": "羊肉"
+			"class": "羊肉花蝦"
 		},
 		{
 			"id": "meal21",
 			"set": "海陸A套餐",
 			"name": "豬肉",
 			"price": 200,
-			"class": "豬肉"
+			"class": "豬肉花蝦"
 		},
 		{
 			"id": "meal22",
 			"set": "海陸B套餐",
 			"name": "雞腿",
 			"price": 230,
-			"class": "雞"
+			"class": "雞腿花蝦"
 		},
 		{
 			"id": "meal23",
 			"set": "海陸B套餐",
 			"name": "沙朗",
 			"price": 230,
-			"class": "沙朗"
+			"class": "沙朗花蝦"
 		},
 		{
 			"id": "meal24",
 			"set": "海陸B套餐",
 			"name": "豬排",
 			"price": 230,
-			"class": "豬排"
+			"class": "豬排花蝦"
 		},
 		{
 			"id": "meal25",
@@ -180,7 +180,7 @@
 			"set": "呷霸套餐",
 			"name": "雞柳",
 			"price": 170,
-			"class": ""
+			"class": "雞柳"
 		},
 		{
 			"id": "meal27",
@@ -241,9 +241,9 @@
 		{
 			"id": "meal35",
 			"set": "精緻特餐",
-			"name": "松板",
+			"name": "松阪",
 			"price": 250,
-			"class": "松板"
+			"class": "松阪"
 		},
 		{
 			"id": "meal36",
@@ -257,49 +257,49 @@
 			"set": "精緻特餐",
 			"name": "泰雞",
 			"price": 180,
-			"class": "雞"
+			"class": "雞腿"
 		},
 		{
 			"id": "meal38",
 			"set": "精緻特餐",
 			"name": "蜜雞",
 			"price": 180,
-			"class": "雞"
+			"class": "雞腿"
 		},
 		{
 			"id": "meal39",
 			"set": "精緻特餐",
 			"name": "起雞",
 			"price": 180,
-			"class": "雞"
+			"class": "雞腿"
 		},
 		{
 			"id": "meal40",
 			"set": "精緻特餐",
 			"name": "蒜雞",
 			"price": 150,
-			"class": "雞"
+			"class": "雞腿"
 		},
 		{
 			"id": "meal41",
 			"set": "精緻特餐",
 			"name": "黑雞",
 			"price": 150,
-			"class": "雞"
+			"class": "雞腿"
 		},
 		{
 			"id": "meal42",
 			"set": "精緻特餐",
 			"name": "和魷",
 			"price": 180,
-			"class": ""
+			"class": "魷"
 		},
 		{
 			"id": "meal43",
 			"set": "精緻特餐",
 			"name": "泰魷",
 			"price": 180,
-			"class": ""
+			"class": "魷"
 		},
 		{
 			"id": "meal44",
@@ -313,7 +313,7 @@
 			"set": "精緻特餐",
 			"name": "泰魚",
 			"price": 180,
-			"class": ""
+			"class": "鯛"
 		},
 		{
 			"id": "meal46",
@@ -341,7 +341,7 @@
 			"set": "精緻特餐",
 			"name": "海總",
 			"price": 180,
-			"class": ""
+			"class": "花蝦"
 		},
 		{
 			"id": "meal50",
@@ -362,7 +362,7 @@
 			"set": "精緻特餐",
 			"name": "花蝦",
 			"price": 150,
-			"class": ""
+			"class": "花蝦"
 		},
 		{
 			"id": "meal53",
@@ -397,7 +397,7 @@
 			"set": "精緻特餐",
 			"name": "蔬肉",
 			"price": 150,
-			"class": ""
+			"class": "豬肉"
 		},
 		{
 			"id": "meal58",
@@ -488,7 +488,7 @@
 			"set": "單點",
 			"name": "NG",
 			"price": 100,
-			"class": ""
+			"class": "鱈鮮蝦"
 		},
 		{
 			"id": "meal71",
@@ -502,7 +502,7 @@
 			"set": "單點",
 			"name": "蝦球",
 			"price": 120,
-			"class": ""
+			"class": "鮮蝦"
 		},
 		{
 			"id": "meal73",
@@ -516,35 +516,35 @@
 			"set": "單點",
 			"name": "蝦飯",
 			"price": 99,
-			"class": "花蝦"
+			"class": "紅蝦"
 		},
 		{
 			"id": "meal75",
 			"set": "單點",
 			"name": "焗蝦",
 			"price": 99,
-			"class": "花蝦"
+			"class": "紅蝦"
 		},
 		{
 			"id": "meal76",
 			"set": "二豪華餐",
 			"name": "肋眼",
 			"price": 1280,
-			"class": "肋眼雞"
+			"class": "肋眼雞腿"
 		},
 		{
 			"id": "meal77",
 			"set": "二豪華餐",
 			"name": "紐約克",
 			"price": 1280,
-			"class": "紐約雞"
+			"class": "紐約雞腿"
 		},
 		{
 			"id": "meal78",
 			"set": "二豪華餐",
 			"name": "羊肩",
 			"price": 1280,
-			"class": "雞"
+			"class": "雞腿"
 		},
 		{
 			"id": "meal79",
