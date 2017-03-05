@@ -12,7 +12,7 @@ import org.json.simple.parser.ParseException;
 
 public class MenuBuilder {
 
-	private static Map<String, Meal> mealMap = new HashMap<>();
+	private static Map<String, MealBean> mealMap = new HashMap<>();
 
 	public static void load() {
 		System.out.println("--- meun loading start ---");
@@ -23,7 +23,7 @@ public class MenuBuilder {
 			for (Object obj : menuArray) {
 				JSONObject jsonObj = ((JSONObject) obj);
 				String id = (String) jsonObj.get("id");
-				Meal meal = new Meal(id);
+				MealBean meal = new MealBean(id);
 				meal.setSet((String) jsonObj.get("set"));
 				meal.setName((String) jsonObj.get("name"));
 				meal.setPrice(((Long) jsonObj.get("price")).intValue());
@@ -37,11 +37,11 @@ public class MenuBuilder {
 		System.out.println("--- meun loading end ---");
 	}
 
-	public static Meal getMealById(String id) {
+	public static MealBean getMealById(String id) {
 		return mealMap.get(id);
 	}
 
-	public static Map<String, Meal> getMenuMap() {
+	public static Map<String, MealBean> getMenuMap() {
 		return mealMap;
 	}
 }

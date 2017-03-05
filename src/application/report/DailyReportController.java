@@ -31,6 +31,8 @@ public class DailyReportController implements Initializable {
 	@FXML
 	private ProgressIndicator myProgressIndicator;
 
+	private static boolean needUpdate = false;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		getData();
@@ -44,6 +46,10 @@ public class DailyReportController implements Initializable {
 			@Override
 			protected Boolean call() throws Exception {
 				myProgressIndicator.setVisible(true);
+				label_back_door.setDisable(true);
+
+				if (needUpdate)
+					new GenerateDailyTask().run();
 
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
@@ -56,6 +62,9 @@ public class DailyReportController implements Initializable {
 			protected void succeeded() {
 				super.succeeded();
 				myProgressIndicator.setVisible(false);
+				label_back_door.setDisable(false);
+				needUpdate = false;
+
 				System.out.println("Load from DB Done!");
 
 				// L_Average_consumption int(11)
@@ -82,6 +91,9 @@ public class DailyReportController implements Initializable {
 			protected void failed() {
 				super.failed();
 				myProgressIndicator.setVisible(false);
+				label_back_door.setDisable(false);
+				needUpdate = false;
+
 				System.out.println("Load from DB Failed!");
 			}
 		}).start();
@@ -92,9 +104,10 @@ public class DailyReportController implements Initializable {
 	@FXML
 	protected void BackDoorAction() throws IOException {
 		hackClick++;
-		if (hackClick > 6) {
+		System.out.println("BD" + hackClick);
+		if (hackClick >= 6) {
 			System.out.println("BD不說");
-			new GenerateDailyTask().run();
+			needUpdate = true;
 			getData();
 			hackClick = 0;
 		}

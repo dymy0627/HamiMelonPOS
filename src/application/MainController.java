@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
-public class MainController { 
+public class MainController {
 
 	@FXML
 	protected void OrderButtonAction(ActionEvent event) {
@@ -20,7 +20,7 @@ public class MainController {
 
 	@FXML
 	protected void PurchaseButtonAction(ActionEvent event) {
-		showStage("/fxml/StockStage.fxml");
+		showStage("/fxml/PurchaseAndStockStage.fxml");
 	}
 
 	@FXML

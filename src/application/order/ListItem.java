@@ -1,10 +1,10 @@
 package application.order;
 
 public class ListItem {
-	private Meal meal;
+	private MealBean meal;
 	private int number = 0;
 
-	public ListItem(Meal meal) {
+	public ListItem(MealBean meal) {
 		this.meal = meal;
 		this.number = 1;
 	}
@@ -13,7 +13,7 @@ public class ListItem {
 		return meal.getId();
 	}
 
-	public Meal getMeal() {
+	public MealBean getMeal() {
 		return meal;
 	}
 

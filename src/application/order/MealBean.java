@@ -1,13 +1,13 @@
 package application.order;
 
-public class Meal {
+public class MealBean {
 	private String id;
 	private String set;
 	private String name;
 	private int price;
 	private String meat_class;
 
-	public Meal(String id) {
+	public MealBean(String id) {
 		this.id = id;
 	}
 

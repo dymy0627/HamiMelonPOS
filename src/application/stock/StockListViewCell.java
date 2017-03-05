@@ -2,16 +2,13 @@ package application.stock;
 
 import java.io.IOException;
 
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 
-public class StockListViewCell extends ListCell<StockBean> {
+public class StockListViewCell extends ListCell<StockListBean> {
 
 	@FXML
 	private HBox stockItem;
@@ -19,25 +16,16 @@ public class StockListViewCell extends ListCell<StockBean> {
 	@FXML
 	private Label nameLabel;
 	@FXML
-	private Label quantityLabel;
+	private Label purchaseLabel;
 	@FXML
-	private Label amountLabel;
+	private Label shippingLabel;
 	@FXML
-	private Label manufacturerLabel;
-
-	@FXML
-	private Button deleteButton;
+	private Label reserveLabel;
 
 	private FXMLLoader mFXMLLoader;
 
-	private StockListViewListener mListener;
-
-	public StockListViewCell(StockListViewListener listener) {
-		this.mListener = listener;
-	}
-
 	@Override
-	protected void updateItem(StockBean stock, boolean empty) {
+	protected void updateItem(StockListBean stock, boolean empty) {
 		super.updateItem(stock, empty);
 		if (empty || stock == null) {
 			setText(null);
@@ -54,26 +42,12 @@ public class StockListViewCell extends ListCell<StockBean> {
 				}
 			}
 			nameLabel.setText(stock.getName());
-			quantityLabel.setText(String.valueOf(stock.getQuantity()) + stock.getUnit());
-			amountLabel.setText("$ " + String.valueOf(stock.getAmount()));
-			manufacturerLabel.setText(stock.getManufacturer());
-
-			deleteButton.setVisible(false);
-			StockBean selectedItem = getListView().getSelectionModel().getSelectedItem();
-			if (selectedItem != null) {
-				ObservableList<StockBean> listItem = getListView().getItems();
-				if (listItem.indexOf(stock) == listItem.indexOf(selectedItem)) {
-					deleteButton.setVisible(true);
-				}
-			}
+			purchaseLabel.setText(String.valueOf(stock.getPurchaseNum()));
+			shippingLabel.setText(String.valueOf(stock.getShippingNum()));
+			reserveLabel.setText(String.valueOf(stock.getReserveNum()));
 
 			setText(null);
 			setGraphic(stockItem);
 		}
-	}
-
-	@FXML
-	protected void itemDeleteAction(ActionEvent event) {
-		mListener.delete();
 	}
 }

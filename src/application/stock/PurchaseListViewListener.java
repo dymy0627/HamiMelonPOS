@@ -1,5 +1,5 @@
 package application.stock;
 
-public interface StockListViewListener {
+public interface PurchaseListViewListener {
 	void delete();
 }

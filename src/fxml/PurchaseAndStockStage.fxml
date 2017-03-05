@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.stock.PurchaseAndStockController">
+	<children>
+		<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<children>
+				<TitledPane animated="false" text="進貨明細">
+					<content>
+						<VBox>
+							<children>
+								<HBox alignment="CENTER_LEFT">
+									<children>
+										<Label text="品名">
+											<padding>
+												<Insets left="10.0" right="5.0" />
+											</padding>
+										</Label>
+										<AnchorPane>
+											<children>
+												<ComboBox fx:id="purchaseNameComboBox" minWidth="-Infinity"
+													prefWidth="110.0" AnchorPane.bottomAnchor="10.0"
+													AnchorPane.topAnchor="10.0" />
+												<TextField fx:id="purchaseNameTextField" minWidth="-Infinity"
+													prefWidth="90.0" visible="false" AnchorPane.bottomAnchor="10.0"
+													AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="24.0"
+													AnchorPane.topAnchor="10.0" />
+												<Button fx:id="purchaseNameButton" mnemonicParsing="false"
+													onAction="#ShowComboBoxAction" prefWidth="20.0" text="X"
+													visible="false" AnchorPane.bottomAnchor="10.0"
+													AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+											</children>
+										</AnchorPane>
+										<Label prefHeight="23.0" prefWidth="39.0" text="數量">
+											<padding>
+												<Insets left="10.0" right="5.0" />
+											</padding>
+										</Label>
+										<TextField fx:id="purchaseQuantityTextField"
+											minWidth="-Infinity" prefWidth="50.0">
+										</TextField>
+										<Label prefHeight="23.0" prefWidth="39.0" text="金額">
+											<padding>
+												<Insets left="10.0" right="5.0" />
+											</padding>
+										</Label>
+										<TextField fx:id="purchaseAmountTextField" minWidth="-Infinity"
+											prefWidth="70.0">
+										</TextField>
+										<Label prefHeight="23.0" prefWidth="39.0" text="廠商">
+											<padding>
+												<Insets left="10.0" right="5.0" />
+											</padding>
+										</Label>
+										<TextField fx:id="purchaseManufacturerTextField"
+											minWidth="-Infinity" prefWidth="80.0">
+										</TextField>
+										<Button mnemonicParsing="false" onAction="#AddPurchaseAction"
+											prefHeight="30.0" prefWidth="70.0" text="新增">
+											<HBox.margin>
+												<Insets left="30.0" />
+											</HBox.margin>
+										</Button>
+										<Button fx:id="purchaseSaveButton" mnemonicParsing="false"
+											onAction="#PurchaseSaveAction" prefHeight="30.0" prefWidth="70.0"
+											text="儲存">
+											<HBox.margin>
+												<Insets left="5.0" />
+											</HBox.margin>
+										</Button>
+									</children>
+								</HBox>
+								<HBox prefHeight="40.0">
+									<children>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="120.0" text="品名">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="80.0" text="數量">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="120.0" text="金額">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="100.0" text="廠商">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="100.0" text="進貨日期">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+									</children>
+								</HBox>
+								<ListView fx:id="purchaseListView" focusTraversable="false" />
+							</children>
+						</VBox>
+					</content>
+				</TitledPane>
+				<TitledPane fx:id="stockTitledPane" animated="false"
+					text="進出貨庫存查詢">
+					<content>
+						<VBox>
+							<children>
+								<HBox alignment="CENTER_LEFT" prefHeight="40.0">
+									<children>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="160.0" text="品項">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="100.0" text="進貨">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="100.0" text="銷貨">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label minHeight="-Infinity" prefHeight="40.0"
+											prefWidth="100.0" text="庫存">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+									</children>
+								</HBox>
+								<ListView fx:id="stockListView" focusTraversable="false" />
+							</children>
+						</VBox>
+					</content>
+				</TitledPane>
+				<HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity"
+					minHeight="-Infinity" prefHeight="50.0">
+					<children>
+						<Button mnemonicParsing="false" onAction="#LeaveButtonAction"
+							prefHeight="36.0" prefWidth="64.0" text="離開">
+							<HBox.margin>
+								<Insets left="15.0" />
+							</HBox.margin>
+						</Button>
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+		<ProgressIndicator fx:id="myProgressIndicator"
+			maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+			minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0"
+			AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="320.0"
+			AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="320.0" />
+	</children>
+</AnchorPane>

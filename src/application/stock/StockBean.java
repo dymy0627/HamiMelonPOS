@@ -1,19 +1,15 @@
 package application.stock;
 
 public class StockBean {
-
-	private int id;
+	private String id;
 	private String name;
-	private int amount;
-	private int quantity;
-	private String unit;
-	private String manufacturer;
+	private int reserve;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -25,35 +21,11 @@ public class StockBean {
 		this.name = name;
 	}
 
-	public int getAmount() {
-		return amount;
+	public int getReserve() {
+		return reserve;
 	}
 
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
+	public void setReserve(int reserve) {
+		this.reserve = reserve;
 	}
 }

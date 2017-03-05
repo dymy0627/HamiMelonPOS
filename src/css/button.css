@@ -35,6 +35,13 @@
     -fx-background-radius: 5.0 1.0 0.0 0.0;
 }
 
+.moneyLabel{ 
+	-fx-background-color: #F3F5F8;
+	-fx-font-size: 14.0px;
+	-fx-font-weight: bold;
+	-fx-text-fill: black; 
+}
+
 .backButton { 
 	-fx-background-color: #4D678B;
 	-fx-font-weight: bold;
@@ -42,11 +49,20 @@
 	-fx-border-radius: 2.0 2.0 2.0 2.0;
     -fx-background-radius: 2.0 2.0 2.0 2.0;
 }
+.backButton:pressed  {
+	-fx-background-color: #758AA7; 
+	-fx-border-color: #758AA7; 
+}
 
 .okButton { 
 	-fx-background-color: #4D678B;
-	-fx-font-weight: bold;
 	-fx-text-fill: white;
+	-fx-font-weight: bold;
 	-fx-border-radius: 2.0 2.0 2.0 2.0;
     -fx-background-radius: 2.0 2.0 2.0 2.0;
 }
+.okButton:pressed  {
+	-fx-background-color: #758AA7; 
+	-fx-border-color: #758AA7; 
+}
+

@@ -32,6 +32,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -46,7 +47,7 @@ public class MenuController implements Initializable {
 	private int num_people;
 
 	@FXML
-	private Button p_page, n_page;
+	private Button backButton, printButton;
 
 	@FXML
 	private VBox menu1, menu2, menu3, menu4;
@@ -61,9 +62,11 @@ public class MenuController implements Initializable {
 	private Map<String, Button> plusButtonGroup = new HashMap<>();
 	private Map<String, Label> numberLabelGroup = new HashMap<>();
 	private Map<String, Button> minusButtonGroup = new HashMap<>();
-	
-	Button alacarteButton  = new Button(); Button otherButton = new Button();
-	int alacarteNum=0; int otherNum = 0;
+
+	Button alacarteButton = new Button();
+	Button otherButton = new Button();
+	int alacarteNum = 0;
+	int otherNum = 0;
 
 	@FXML
 	private Label total_money_Label;// 金額
@@ -79,6 +82,9 @@ public class MenuController implements Initializable {
 	private List<String> passing_list = new ArrayList<>();
 
 	private static Map<String, Integer> mMealClassMap = new HashMap<>();
+
+	@FXML
+	private ProgressIndicator myProgressIndicator;
 
 	public static boolean pause;
 
@@ -172,6 +178,7 @@ public class MenuController implements Initializable {
 				System.out.println("DiscountCombo newSelected = " + newSelected);
 			}
 		});
+		discount_ComboBox.setDisable(true);
 
 		// populate the fruit combo box with item choices.
 		peopleComboBox.getItems().setAll("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
@@ -197,7 +204,7 @@ public class MenuController implements Initializable {
 					Label currentNumLabel = numberLabelGroup.get(currentMealId);
 					System.out.println(currentMealId + " checked = " + isSelected);
 
-					Meal currentMeal = MenuBuilder.getMealById(currentMealId);
+					MealBean currentMeal = MenuBuilder.getMealById(currentMealId);
 					if (isSelected) {
 						currentNumLabel.setText(String.valueOf(1));
 						mTotalMoney += currentMeal.getPrice();
@@ -222,21 +229,6 @@ public class MenuController implements Initializable {
 
 	}
 
-	private void clearAllItem() {
-		for (Entry<String, CheckBox> inti : checkBoxGroup.entrySet()) {
-			inti.getValue().setSelected(false);
-			numberLabelGroup.get(inti.getValue().getId()).setText("0");
-		}
-		listItemMap.clear();
-		mTotalMoney = 0;
-
-		rain_special = 0;
-		pair_special = 0;
-		deluxe_special = 0;
-		chef_special = 0;
-		mMealClassMap.clear();
-	}
-
 	private EventHandler<ActionEvent> plusEventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
@@ -244,7 +236,7 @@ public class MenuController implements Initializable {
 			String currentMealId = ((Button) e.getSource()).getId();//
 			Label currentNumLabel = numberLabelGroup.get(currentMealId);
 
-			Meal currentMeal = MenuBuilder.getMealById(currentMealId);//
+			MealBean currentMeal = MenuBuilder.getMealById(currentMealId);//
 			int currentNum = Integer.parseInt(currentNumLabel.getText());
 			if (currentNum == 0) {
 				checkBoxGroup.get(currentMealId).setSelected(true);
@@ -264,34 +256,14 @@ public class MenuController implements Initializable {
 		}
 	};
 
-	private void updateMenuList() {
-
-		passing_list.clear();
-		for (String id : listItemMap.keySet()) {
-			
-			ListItem listItem = listItemMap.get(id);
-			String set_name = listItem.getMeal().getSet();
-			String meal_name = listItem.getMeal().getName();
-			int meal_price = listItem.getMeal().getPrice();//
-			int item_number = listItem.getNumber();//
-			int item_price = item_number * meal_price;
-
-			passing_list.add(set_name + "\t" + meal_name + "\t" + item_number + "\t" + item_price);
-		}
-
-		listProperty.set(FXCollections.observableArrayList(passing_list));
-
-		total_money_Label.setText("總價 " + Integer.toString(mTotalMoney));
-	}
-
 	private EventHandler<ActionEvent> minusEventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
-			
+
 			String currentMealId = ((Button) e.getSource()).getId();
 			Label currentNumLabel = numberLabelGroup.get(currentMealId);
 
-			Meal currentMeal = MenuBuilder.getMealById(currentMealId);
+			MealBean currentMeal = MenuBuilder.getMealById(currentMealId);
 			int currentNum = Integer.parseInt(currentNumLabel.getText());
 			if (currentNum > 0) {
 				if (currentNum == 1) {
@@ -312,82 +284,129 @@ public class MenuController implements Initializable {
 			}
 		}
 	};
-	
+
 	private EventHandler<ActionEvent> alacarteEventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
 
 			alacarteNum++;
-			if(alacarteNum >0){
+			if (alacarteNum > 0) {
 				String currentMealId = ((Button) e.getSource()).getId();
-				
-				Meal alacarteMeal = new Meal(currentMealId+"a");
-				Meal chosenMeal = MenuBuilder.getMealById(currentMealId);
+
+				MealBean alacarteMeal = new MealBean(currentMealId + "a");
+				MealBean chosenMeal = MenuBuilder.getMealById(currentMealId);
 				alacarteMeal.setName(chosenMeal.getName());
 				alacarteMeal.setSet("套餐單點");
-				alacarteMeal.setPrice(chosenMeal.getPrice()-30);
+				alacarteMeal.setPrice(chosenMeal.getPrice() - 30);
 				alacarteMeal.setMeatClass(chosenMeal.getMeatClass());
-				
+
 				ListItem listItem = new ListItem(alacarteMeal);
 
-				if(listItemMap.containsKey(currentMealId+"a")){
-					int getCurrentNum = listItemMap.get(currentMealId+"a").getNumber();
+				if (listItemMap.containsKey(currentMealId + "a")) {
+					int getCurrentNum = listItemMap.get(currentMealId + "a").getNumber();
 					listItem.setNumber(++getCurrentNum);
-					listItemMap.replace(currentMealId+"a", listItem);
-				}			
-				else{
-					alacarteNum=0;
+					listItemMap.replace(currentMealId + "a", listItem);
+				} else {
+					alacarteNum = 0;
 					listItem.setNumber(++alacarteNum);
-					listItemMap.put(currentMealId+"a", listItem);
+					listItemMap.put(currentMealId + "a", listItem);
 				}
-						
+
 				mTotalMoney += alacarteMeal.getPrice();
-				
-				updateMenuList();	
-			}	
+
+				updateMenuList();
+			}
 		}
 
 	};
-	
+
 	private EventHandler<ActionEvent> otherEventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
 			otherNum++;
-			if(otherNum >0){
+			if (otherNum > 0) {
 				String currentMealId = ((Button) e.getSource()).getId();
-				
-				Meal otherMeal = new Meal(currentMealId+"o");
-				Meal chosenMeal = MenuBuilder.getMealById(currentMealId);
+
+				MealBean otherMeal = new MealBean(currentMealId + "o");
+				MealBean chosenMeal = MenuBuilder.getMealById(currentMealId);
 				otherMeal.setName(chosenMeal.getName());
 				otherMeal.setSet("套餐加點");
-				otherMeal.setPrice(chosenMeal.getPrice()+150);
-				otherMeal.setMeatClass(chosenMeal.getMeatClass()+"鱈鮮蝦");
-				
+				otherMeal.setPrice(chosenMeal.getPrice() + 150);
+				otherMeal.setMeatClass(chosenMeal.getMeatClass() + "鱈鮮蝦");
+
 				ListItem listItem = new ListItem(otherMeal);
 
-				if(listItemMap.containsKey(currentMealId+"o")){
-					int getCurrentNum = listItemMap.get(currentMealId+"o").getNumber();
+				if (listItemMap.containsKey(currentMealId + "o")) {
+					int getCurrentNum = listItemMap.get(currentMealId + "o").getNumber();
 					listItem.setNumber(++getCurrentNum);
-					listItemMap.replace(currentMealId+"o", listItem);
-				}			
-				else{
-					otherNum=0;
+					listItemMap.replace(currentMealId + "o", listItem);
+				} else {
+					otherNum = 0;
 					listItem.setNumber(++otherNum);
-					listItemMap.put(currentMealId+"o", listItem);
+					listItemMap.put(currentMealId + "o", listItem);
 				}
-						
+
 				mTotalMoney += otherMeal.getPrice();
-				
-				updateMenuList();	
-			}	
+
+				updateMenuList();
+			}
 		}
 	};
 
+	private void clearAllItem() {
+		for (Entry<String, CheckBox> inti : checkBoxGroup.entrySet()) {
+			inti.getValue().setSelected(false);
+			numberLabelGroup.get(inti.getValue().getId()).setText("0");
+		}
+		listItemMap.clear();
+		mTotalMoney = 0;
+
+		rain_special = 0;
+		pair_special = 0;
+		deluxe_special = 0;
+		chef_special = 0;
+		mMealClassMap.clear();
+	}
+
+	private void updateMenuList() {
+		passing_list.clear();
+		for (String id : listItemMap.keySet()) {
+
+			ListItem listItem = listItemMap.get(id);
+			String set_name = listItem.getMeal().getSet();
+			String meal_name = listItem.getMeal().getName();
+			int meal_price = listItem.getMeal().getPrice();
+			int item_number = listItem.getNumber();
+			int item_price = item_number * meal_price;
+
+			passing_list.add(set_name + "\t" + meal_name + "\t" + item_number + "\t" + item_price);
+		}
+
+		listProperty.set(FXCollections.observableArrayList(passing_list));
+
+		total_money_Label.setText("總價  " + Integer.toString(mTotalMoney));
+	}
+
+	private void disableMode(boolean disable) {
+		peopleComboBox.setDisable(disable);
+		printButton.setDisable(disable);
+		backButton.setDisable(disable);
+		menu1.setMouseTransparent(disable);
+		menu1.setFocusTraversable(!disable);
+		menu2.setMouseTransparent(disable);
+		menu2.setFocusTraversable(!disable);
+		menu3.setMouseTransparent(disable);
+		menu3.setFocusTraversable(!disable);
+		menu4.setMouseTransparent(disable);
+		menu4.setFocusTraversable(!disable);
+	}
+
 	private void menu_content_intialize() {
+		myProgressIndicator.setVisible(false);
 		num_people = 1;
 
 		String lastSetName = "";
-		Map<String, Meal> mealMap = MenuBuilder.getMenuMap();
+		Map<String, MealBean> mealMap = MenuBuilder.getMenuMap();
 
 		int eachNum = 18;
 		System.out.println("eachNum = " + eachNum);
@@ -395,7 +414,7 @@ public class MenuController implements Initializable {
 		VBox currentVBox;
 		for (int i = 1; i <= mealMap.size(); i++) {
 			String id = "meal" + i;
-			Meal meal = mealMap.get(id);
+			MealBean meal = mealMap.get(id);
 			// System.out.println(i + " " +mealMap.size());
 
 			CheckBox chBox = new CheckBox();
@@ -420,20 +439,20 @@ public class MenuController implements Initializable {
 			minusButton.setOnAction(minusEventHandler);
 			minusButton.setId(id);
 			minusButtonGroup.put(id, minusButton);
-			
-			if(meal.getSet().equals("精緻特餐")){
-				
+
+			if (meal.getSet().equals("精緻特餐")) {
+
 				alacarteButton = new Button("單點");
 				alacarteButton.setOnAction(alacarteEventHandler);
 				alacarteButton.setId(id);
 				setAlacarteCancelEvent(id);
-				
+
 				otherButton = new Button("加點");
 				otherButton.setOnAction(otherEventHandler);
 				otherButton.setId(id);
 				setOtherCancelEvent(id);
 			}
-			
+
 			HBox hBox = new HBox(8);
 			hBox.setAlignment(Pos.CENTER_LEFT);
 			hBox.getChildren().add(chBox);
@@ -441,11 +460,11 @@ public class MenuController implements Initializable {
 			hBox.getChildren().add(plusButton);
 			hBox.getChildren().add(numLabel);
 			hBox.getChildren().add(minusButton);
-			if(meal.getSet().equals("精緻特餐")){
+			if (meal.getSet().equals("精緻特餐")) {
 				hBox.getChildren().add(alacarteButton);
 				hBox.getChildren().add(otherButton);
 			}
-			
+
 			String setName = meal.getSet();
 			if (setName.equals("精緻特餐")) {
 				currentVBox = menu3;
@@ -461,7 +480,7 @@ public class MenuController implements Initializable {
 					currentVBox = menu2;
 				}
 			}
-			
+
 			if (!setName.equals(lastSetName)) {
 				lastSetName = setName;
 				Label setLabel = new Label(setName);
@@ -475,61 +494,59 @@ public class MenuController implements Initializable {
 	}
 
 	private void setOtherCancelEvent(String ID) {
-		Timeline timer = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-            	
-            	if(listItemMap.containsKey(ID+"o")){
-    				int getCurrentNum = 0;
-    				listItemMap.get(ID+"o").setNumber(getCurrentNum);
-    				listItemMap.remove(ID+"o");
-    				otherNum = -1;
-    				updateMenuList();
-    			}			  
-            }
-        }));
-	    otherButton.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+		Timeline timer = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
 
-	        @Override
-	        public void handle(MouseEvent event) {
-	            if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
-	                timer.play();
-	            }
-	            else{
-	            	timer.stop();
-	            }
-	        }
-	    });
-		
+				if (listItemMap.containsKey(ID + "o")) {
+					int getCurrentNum = 0;
+					listItemMap.get(ID + "o").setNumber(getCurrentNum);
+					listItemMap.remove(ID + "o");
+					otherNum = -1;
+					updateMenuList();
+				}
+			}
+		}));
+		otherButton.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+					timer.play();
+				} else {
+					timer.stop();
+				}
+			}
+		});
+
 	}
 
 	private void setAlacarteCancelEvent(String ID) {
-		
-		Timeline timer = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-            	
-            	if(listItemMap.containsKey(ID+"a")){
-    				int getCurrentNum = 0;
-    				listItemMap.get(ID+"a").setNumber(getCurrentNum);
-    				listItemMap.remove(ID+"a");
-    				alacarteNum = -1;
-    				updateMenuList();
-    			}			  
-            }
-        }));
-	    alacarteButton.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
 
-	        @Override
-	        public void handle(MouseEvent event) {
-	            if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
-	                timer.play();
-	            }
-	            else{
-	            	timer.stop();
-	            }
-	        }
-	    });
+		Timeline timer = new Timeline(new KeyFrame(Duration.millis(500), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				if (listItemMap.containsKey(ID + "a")) {
+					int getCurrentNum = 0;
+					listItemMap.get(ID + "a").setNumber(getCurrentNum);
+					listItemMap.remove(ID + "a");
+					alacarteNum = -1;
+					updateMenuList();
+				}
+			}
+		}));
+		alacarteButton.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+					timer.play();
+				} else {
+					timer.stop();
+				}
+			}
+		});
 	}
 
 	@FXML
@@ -541,8 +558,6 @@ public class MenuController implements Initializable {
 
 	@FXML
 	protected void PrintButtonAction(ActionEvent event) {
-		System.out.println("print work");
-
 		for (String id : listItemMap.keySet()) {
 
 			ListItem listItem = listItemMap.get(id);
@@ -559,15 +574,18 @@ public class MenuController implements Initializable {
 		System.out.println(
 				"風雨:" + rain_special + " 雙人:" + pair_special + " 豪華:" + deluxe_special + " 特餐:" + chef_special);
 
-		dataBaseConnection(mConsumptionType, num_people, mTotalMoney);
+		if (mTotalMoney > 0)
+			dataBaseConnection(mConsumptionType, num_people, mTotalMoney);
 	}
 
 	private void dataBaseConnection(String type, int people_num, int list_money) {
-
+		myProgressIndicator.setVisible(false);
+		disableMode(true);
 		new Thread(new Task<Boolean>() {
 
 			@Override
 			protected Boolean call() throws Exception {
+				myProgressIndicator.setVisible(true);
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
 				mySqlConnection.insertListData(type, people_num, list_money);
@@ -579,12 +597,22 @@ public class MenuController implements Initializable {
 			protected void succeeded() {
 				super.succeeded();
 				System.out.println("Menu Insert Done!");
+				myProgressIndicator.setVisible(false);
+				disableMode(false);
+
+				clearAllItem();
+
+				System.out.println("print work");
 			}
 
 			@Override
 			protected void failed() {
 				super.failed();
 				System.out.println("Menu Insert Failed!");
+				myProgressIndicator.setVisible(false);
+				disableMode(false);
+
+				clearAllItem();
 			}
 		}).start();
 
@@ -658,7 +686,7 @@ public class MenuController implements Initializable {
 		if (mealMeatClassName.contains("雞腿")) {
 			updateMealClassMap("chicken", listItemNum);
 		}
-		
+
 		if (mealMeatClassName.contains("雞柳")) {
 			updateMealClassMap("chicken", listItemNum);
 		}
@@ -670,7 +698,7 @@ public class MenuController implements Initializable {
 		if (mealMeatClassName.contains("花蝦")) {
 			updateMealClassMap("squid_shrimp", listItemNum);
 		}
-		
+
 		if (mealMeatClassName.contains("紅蝦")) {
 			updateMealClassMap("red_shrimp", listItemNum);
 		}
@@ -698,54 +726,48 @@ public class MenuController implements Initializable {
 		if (mealMeatClassName.contains("沙拉")) {
 			updateMealClassMap("salad", listItemNum);
 		}
-		
 
 		if (list_meal.getMeal().getSet().contains("風雨") || list_meal.getMeal().getSet().contains("蝦蟹")) {
-			updateMealClassMap("white_shrimp", listItemNum*5);
+			updateMealClassMap("white_shrimp", listItemNum * 5);
 		}
-		
+
 		if (list_meal.getMeal().getName().contains("NG")) {
-			updateMealClassMap("white_shrimp", listItemNum*2);
+			updateMealClassMap("white_shrimp", listItemNum * 2);
 		}
-		
+
 		if (list_meal.getMeal().getName().contains("蒸蝦")) {
-			updateMealClassMap("white_shrimp", listItemNum*6);
+			updateMealClassMap("white_shrimp", listItemNum * 6);
 		}
-		
+
 		if (list_meal.getMeal().getName().contains("蝦球")) {
-			updateMealClassMap("white_shrimp", listItemNum*5);
+			updateMealClassMap("white_shrimp", listItemNum * 5);
 		}
-		
+
 		/*
-		if (mealMeatClassName.contains("干貝")) {
-			updateMealClassMap("scallops", listItemNum);
-		}
-
-		if (mealMeatClassName.contains("鮑魚")) {
-			updateMealClassMap("abalone", listItemNum);
-		}
-
-		if (mealMeatClassName.contains("大可")) {
-			updateMealClassMap("huge_oyster", listItemNum);
-		}
-
-		if (mealMeatClassName.contains("燻")) {
-			updateMealClassMap("smoke_salmon", listItemNum);
-		}
-
-		if (mealMeatClassName.contains("鱸")) {
-			updateMealClassMap("perch", listItemNum);
-		}
-
-		if (mealMeatClassName.contains("大蝦")) {
-			updateMealClassMap("huge_shrimp", listItemNum);
-		}
-		*/
+		 * if (mealMeatClassName.contains("干貝")) {
+		 * updateMealClassMap("scallops", listItemNum); }
+		 * 
+		 * if (mealMeatClassName.contains("鮑魚")) { updateMealClassMap("abalone",
+		 * listItemNum); }
+		 * 
+		 * if (mealMeatClassName.contains("大可")) {
+		 * updateMealClassMap("huge_oyster", listItemNum); }
+		 * 
+		 * if (mealMeatClassName.contains("燻")) {
+		 * updateMealClassMap("smoke_salmon", listItemNum); }
+		 * 
+		 * if (mealMeatClassName.contains("鱸")) { updateMealClassMap("perch",
+		 * listItemNum); }
+		 * 
+		 * if (mealMeatClassName.contains("大蝦")) {
+		 * updateMealClassMap("huge_shrimp", listItemNum); }
+		 */
 
 	}
 
 	private void checkSpecialMeal(ListItem list_meal) {
 		String setName = list_meal.getMeal().getSet();
+		System.out.println("setName = " + setName);
 		if (setName.contains("風雨"))
 			rain_special++;
 		if (setName.contains("雙"))
