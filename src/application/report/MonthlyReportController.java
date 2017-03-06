@@ -27,7 +27,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class MonthlyReportController implements Initializable {
 
@@ -40,6 +45,9 @@ public class MonthlyReportController implements Initializable {
 
 	@FXML
 	private Label label_back_door;
+	
+	@FXML
+	private VBox BarChartView1;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -48,8 +56,61 @@ public class MonthlyReportController implements Initializable {
 
 	private void getData() {
 
+	BarChartCreat();
 
+		
+	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void BarChartCreat() {
+		
+		//Result
+		String R_First = "一月";
+		String R_Second = "二月";
+		String R_Third = "三月";
+		
+		//yAxis Content
+		final String Ribeye = "Ribeye";
+	    final String Sharon = "Sharon";
+	    final String Chicken = "Chicken";
+	    final String Pork = "Pork";
+	    final String White_shrimp = "White_shrimp";
+	    
+	    final NumberAxis xAxis = new NumberAxis();
+        final CategoryAxis yAxis = new CategoryAxis();
+        final BarChart<Number,String> bc = 
+            new BarChart<Number,String>(xAxis,yAxis);
+        bc.setTitle("月圖報表");
+        xAxis.setLabel("比例");  
+        xAxis.setTickLabelRotation(90);
+        yAxis.setLabel("內容");        
+ 
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName(R_First);       
+        series1.getData().add(new XYChart.Data(50, Ribeye));
+        series1.getData().add(new XYChart.Data(20, Sharon));
+        series1.getData().add(new XYChart.Data(10, Chicken));
+        series1.getData().add(new XYChart.Data(77.15, Pork));
+        series1.getData().add(new XYChart.Data(83, White_shrimp));      
+        
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName(R_Second);
+        series2.getData().add(new XYChart.Data(2, Ribeye));
+        series2.getData().add(new XYChart.Data(97, Sharon));
+        series2.getData().add(new XYChart.Data(50, Chicken));
+        series2.getData().add(new XYChart.Data(33, Pork));
+        series2.getData().add(new XYChart.Data(11, White_shrimp));  
+        
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName(R_Third);
+        series3.getData().add(new XYChart.Data(65, Ribeye));
+        series3.getData().add(new XYChart.Data(43, Sharon));
+        series3.getData().add(new XYChart.Data(18, Chicken));
+        series3.getData().add(new XYChart.Data(15, Pork));
+        series3.getData().add(new XYChart.Data(90, White_shrimp));   
+        
+        bc.getData().addAll(series1, series2, series3);
+        BarChartView1.getChildren().add(bc);
 		
 	}
 
@@ -60,14 +121,15 @@ public class MonthlyReportController implements Initializable {
 		MainScene.changeScene(mainstage);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@FXML
 	protected void CountTurnoverAction(ActionEvent event) throws IOException {
 		//Blank workbook
-        XSSFWorkbook workbook = new XSSFWorkbook(); 
+        @SuppressWarnings("resource")
+		XSSFWorkbook workbook = new XSSFWorkbook(); 
          
         //Create a blank sheet
         XSSFSheet sheet = workbook.createSheet("TurnOver Data");
-        DataFormat format = workbook.createDataFormat();
         CellStyle  style = workbook.createCellStyle();
         style.setAlignment(CellStyle.ALIGN_CENTER);
         
@@ -109,9 +171,7 @@ public class MonthlyReportController implements Initializable {
         	data.put(m+2, new Object[] {m, day, 0,0,0 });
         }
         
-      //Iterate over data and write to sheet
-        Set<Integer> keyset = data.keySet();
-        int rownum = 0;
+      int rownum = 0;
         for (Integer key = 1 ; key <= data.keySet().size() ; key++){
             Row row = sheet.createRow(rownum++);
             Object [] objArr = data.get(key);
