@@ -413,7 +413,7 @@ public class MenuController implements Initializable {
 
 		VBox currentVBox;
 		for (int i = 1; i <= mealMap.size(); i++) {
-			String id = "meal" + i;
+			String id = "meal" + String.format("%03d", i);
 			MealBean meal = mealMap.get(id);
 			// System.out.println(i + " " +mealMap.size());
 
