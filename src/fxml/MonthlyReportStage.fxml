@@ -10,44 +10,245 @@
 	fx:controller="application.report.MonthlyReportController">
 	<children>
 		
-		<VBox fx:id = "BarChartView1" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+	<VBox fx:id = "MonthlyReportView" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
 			AnchorPane.topAnchor="20.0" spacing="20">
-		<children>	
+	<children>	
+		<TitledPane animated="false" text="圖表">
+		<content>
 			<VBox fx:id = "BarChartView1" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
 			AnchorPane.topAnchor="20.0" spacing="20">
 			
 			</VBox>
+		</content>
+		</TitledPane>
 		
-			<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+		<TitledPane animated="false" text="表格">
+		<content>
+			<VBox fx:id = "TableView1" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+			AnchorPane.topAnchor="20.0" spacing="20">
+				<Label text="本月營業明細" fx:id="label_back_door" >
+					<VBox.margin>
+						<Insets bottom="10.0" right="10.0" top="10.0" />
+					</VBox.margin>
+				</Label>
+				<GridPane gridLinesVisible="true" style="-fx-background-color: white">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="80.0"
+							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"
+							prefWidth="120.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="80.0"
+							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"
+							prefWidth="120.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label prefHeight="40.0" prefWidth="150.0" text="月來客數(內用)"
+							GridPane.columnIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="月營業額">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="午餐(月)"
+							GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="晚餐(月)"
+							GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="內用(月)"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="雙人套餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="月客單價(內用)"
+							GridPane.columnIndex="2" GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="特餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="外帶金額(月)"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="外送金額(月)"
+							GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="風雨餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="豪華餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_sales" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_lunch_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_dinner_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_inside_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_outside_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_deliver_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_total_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_avg_sales" prefHeight="40.0" prefWidth="150.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_double_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_special_num" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="3"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_wind_rain_num" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="3"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_luxury_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+					</children>
+				</GridPane>
+			
+			</VBox>
+		</content>
+		</TitledPane>
+		
+		<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
 				AnchorPane.topAnchor="20.0" spacing="20">
+		<children>
+				
+			<Pane>
 				<children>
-				
-				<Pane>
-					<children>
-						<Button onAction="#BackButtonAction" prefHeight="30.0"
-							prefWidth="150.0" text="返回" />
-					</children>
-					<HBox.margin>
-						<Insets top="20.0" />
-					</HBox.margin>
-				</Pane>
-				<Pane>
-					<children>
-						<Button onAction="#CountTurnoverAction" prefHeight="30.0"
-							prefWidth="150.0" text="產生營業額" />
-					</children>
-					<HBox.margin>
-						<Insets top="20.0" />
-					</HBox.margin>
-				</Pane>
-				
-			</children>
-			<padding>
-				<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-			</padding>
-			</HBox>
-		</children>
-		</VBox>
+					<Button onAction="#BackButtonAction" prefHeight="30.0"
+								prefWidth="150.0" text="返回" />
+				</children>
+				<HBox.margin>
+					<Insets top="20.0" />
+				</HBox.margin>
+			</Pane>
 		
+			<Pane>
+				<children>
+					<Button onAction="#CountTurnoverAction" prefHeight="30.0"
+								prefWidth="150.0" text="產生營業額" />
+				</children>
+				<HBox.margin>
+					<Insets top="20.0" />
+				</HBox.margin>
+			</Pane>
+		</children>
+		
+		<padding>
+			<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+		</padding>
+		</HBox>
+	</children>
+	</VBox>
+	<ProgressIndicator fx:id="myProgressIndicator"
+			maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+			minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0"
+			AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="320.0"
+			AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="320.0" />	
 	</children>
 </AnchorPane>

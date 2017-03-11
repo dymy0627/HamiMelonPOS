@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
+
 import java.util.TreeMap;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -22,6 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import application.MainScene;
 import application.GenerateDailyTask;
 import db.MySqlConnection;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,33 +32,107 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.VBox;
 
 public class MonthlyReportController implements Initializable {
 
 	@FXML
-	private Label daily_sales, daily_lunch_sales, daily_dinner_sales;
+	private Label monthly_sales, monthly_lunch_sales, monthly_dinner_sales;
 	@FXML
-	private Label daily_inside_sales, daily_outside_sales, daily_deliver_sales, daily_total_num, daily_avg_sales;
+	private Label monthly_inside_sales, monthly_outside_sales, monthly_deliver_sales, monthly_total_num, monthly_avg_sales;
 	@FXML
-	private Label daily_double_num, daily_special_num, daily_wind_rain_num, daily_luxury_num;
+	private Label monthly_double_num, monthly_special_num, monthly_wind_rain_num, monthly_luxury_num;
 
 	@FXML
 	private Label label_back_door;
 	
 	@FXML
 	private VBox BarChartView1;
-
+	
+	@FXML
+	private ProgressIndicator myProgressIndicator;
+	
+	private static boolean needUpdate = false;
+	
+	private Map<String, String> month;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		getData();
+		BarChartCreat();
 	}
 
 	private void getData() {
+		myProgressIndicator.setVisible(false);
+		new Thread(new Task<Boolean>() {
 
-	BarChartCreat();
+			@SuppressWarnings("unchecked")
+			@Override
+			protected Boolean call() throws Exception {
+				myProgressIndicator.setVisible(true);
+				label_back_door.setDisable(true);
 
-		
+				if (needUpdate)
+					new GenerateDailyTask().run();
+
+				MySqlConnection mySqlConnection = new MySqlConnection();
+				mySqlConnection.connectSql();
+				month = mySqlConnection.getMonthlyReport();
+				mySqlConnection.disconnectSql();
+				return true;
+			}
+
+			@Override
+			protected void succeeded() {
+				super.succeeded();
+				myProgressIndicator.setVisible(false);
+				label_back_door.setDisable(false);
+				needUpdate = false;
+
+				System.out.println("Load from DB Done!");
+
+				// L_Average_consumption int(11)
+				// D_Average_consumption int(11)
+				
+				monthly_sales.setText(month.get("Turnover"));
+				
+				int month_inside = Integer.parseInt(month.get("Lunch_Turnover")) + Integer.parseInt(month.get("Dinner_Turnover"));
+				monthly_inside_sales.setText(Integer.toString(month_inside));
+				
+				monthly_lunch_sales.setText(month.get("Lunch_Turnover"));
+				monthly_dinner_sales.setText(month.get("Dinner_Turnover"));
+				
+				int month_togo = Integer.parseInt(month.get("L_Outsourcing")) + Integer.parseInt(month.get("D_Outsourcing"));
+				monthly_outside_sales.setText(Integer.toString(month_togo));
+				
+				int month_delivery = Integer.parseInt(month.get("L_delivery"))+Integer.parseInt(month.get("D_delivery"));
+				monthly_deliver_sales.setText(Integer.toString(month_delivery));
+					
+				int month_total_visit = Integer.parseInt(month.get("L_Number_of_visitors")) + Integer.parseInt(month.get("D_Number_of_visitors"));
+				monthly_total_num.setText(Integer.toString(month_total_visit));
+				
+				double month_avg = ( Double.parseDouble(month.get("L_Average_consumption")) + Double.parseDouble(month.get("D_Average_consumption")))/2;
+				//System.out.println(month_avg);
+				monthly_avg_sales.setText(Double.toString(month_avg));
+				
+				monthly_double_num.setText(month.get("Double_package"));
+				monthly_special_num.setText(month.get("Special_meals"));
+				monthly_wind_rain_num.setText(month.get("wind_and_rain"));
+				monthly_luxury_num.setText("0");	
+			}
+
+			@Override
+			protected void failed() {
+				super.failed();
+				myProgressIndicator.setVisible(false);
+				label_back_door.setDisable(false);
+				needUpdate = false;
+
+				System.out.println("Load from DB Failed!");
+			}
+		}).start();
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
