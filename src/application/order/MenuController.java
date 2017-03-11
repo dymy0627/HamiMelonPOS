@@ -705,10 +705,6 @@ public class MenuController implements Initializable {
 			updateMealClassMap("squid_shrimp", listItemNum);
 		}
 
-		if (mealMeatClassName.contains("紅蝦")) {
-			updateMealClassMap("red_shrimp", listItemNum);
-		}
-
 		if (mealMeatClassName.contains("蚵")) {
 			updateMealClassMap("oyster", listItemNum);
 		}
@@ -724,6 +720,10 @@ public class MenuController implements Initializable {
 		if (mealMeatClassName.contains("鯖")) {
 			updateMealClassMap("mackerel", listItemNum);
 		}
+		
+		if (mealMeatClassName.contains("魷")) {
+			updateMealClassMap("squid", listItemNum);
+		}
 
 		if (mealMeatClassName.contains("鯛")) {
 			updateMealClassMap("snapper", listItemNum);
@@ -732,22 +732,36 @@ public class MenuController implements Initializable {
 		if (mealMeatClassName.contains("沙拉")) {
 			updateMealClassMap("salad", listItemNum);
 		}
-
-		if (list_meal.getMeal().getSet().contains("風雨") || list_meal.getMeal().getSet().contains("蝦蟹")) {
-			updateMealClassMap("white_shrimp", listItemNum * 5);
+		
+		if (mealMeatClassName.contains("紅蝦*2")) {
+			updateMealClassMap("red_shrimp", listItemNum*2);
 		}
-
-		if (list_meal.getMeal().getName().contains("NG")) {
-			updateMealClassMap("white_shrimp", listItemNum * 2);
+		
+		if (mealMeatClassName.contains("紅蝦*1")) {
+			updateMealClassMap("red_shrimp", listItemNum);
 		}
-
-		if (list_meal.getMeal().getName().contains("蒸蝦")) {
-			updateMealClassMap("white_shrimp", listItemNum * 6);
+		
+		if (mealMeatClassName.contains("鮮蝦*2")) {
+			updateMealClassMap("white_shrimp", listItemNum *2);
 		}
-
-		if (list_meal.getMeal().getName().contains("蝦球")) {
-			updateMealClassMap("white_shrimp", listItemNum * 5);
+		
+		if (mealMeatClassName.contains("鮮蝦*6")) {
+			updateMealClassMap("white_shrimp", listItemNum *6);
 		}
+		
+		if (mealMeatClassName.contains("鮮蝦*5")) {
+			updateMealClassMap("white_shrimp", listItemNum *5);
+		}
+		
+		if (mealMeatClassName.contains("草蝦*6")) {
+			updateMealClassMap("grass_shrimp", listItemNum *6);
+		}
+		
+		if (mealMeatClassName.contains("草蝦*4")) {
+			updateMealClassMap("grass_shrimp", listItemNum *5);
+		}
+		
+	
 
 		/*
 		 * if (mealMeatClassName.contains("干貝")) {
