@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import application.GenerateDailyTask;
+import application.order.MenuBean;
 import application.report.DailyReportBean;
 import application.stock.PurchaseBean;
 import application.stock.StockBean;
@@ -70,10 +71,9 @@ public class MySqlConnection {
 		}
 	}
 
-	public boolean insertListData(String type, int people_num, int list_money) {
-		String list_sql = new String(
-				"insert into hamimelon.detail_list_meals(Consumption_type,cost,number_of_meals)values('" + type + "',"
-						+ list_money + "," + people_num + ")");
+	public boolean insertOrderList(String type, int people_num, int cost, String meals) {
+		String list_sql = new String("insert into hamimelon.Order_list(type,people,cost,meals)values('" + type + "','"
+				+ people_num + "','" + cost + "','" + meals + "')");
 		return executeSql(list_sql);
 	}
 	
@@ -146,7 +146,7 @@ public class MySqlConnection {
 		System.out.println("time=" + time);
 		try {
 			mStatement = mSqlConnection.createStatement();
-			mResultSet = mStatement.executeQuery("SELECT * FROM hamimelon.daily where teppanyaki_date='" + time + "'");
+			mResultSet = mStatement.executeQuery("SELECT * FROM hamimelon.Daily where teppanyaki_date='" + time + "'");
 			while (mResultSet.next()) {
 
 				day.setDailySales(mResultSet.getInt("Turnover"));
@@ -195,7 +195,7 @@ public class MySqlConnection {
 		try {
 			mStatement = mSqlConnection.createStatement();
 			mResultSet = mStatement.executeQuery(
-					"select teppanyaki_date, Lunch_Turnover, Dinner_Turnover from hamimelon.daily where teppanyaki_date LIKE '%"
+					"select teppanyaki_date, Lunch_Turnover, Dinner_Turnover from hamimelon.Daily where teppanyaki_date LIKE '%"
 							+ time + "%'");
 			// select teppanyaki_date, Lunch_Turnover, Dinner_Turnover
 			// from hamimelon.daily
@@ -257,13 +257,13 @@ public class MySqlConnection {
 		List<String> manufacturerList = new ArrayList<>();
 		try {
 			mStatement = mSqlConnection.createStatement();
-			mResultSet = mStatement.executeQuery("select * from hamimelon.manufacturer");
+			mResultSet = mStatement.executeQuery("select * from hamimelon.Manufacturer");
 			while (mResultSet.next()) {
-				manufacturerList.add(mResultSet.getString("Name"));
-				System.out.println(mResultSet.getString("Name"));
+				manufacturerList.add(mResultSet.getString("name"));
+				System.out.println(mResultSet.getString("name"));
 			}
 		} catch (SQLException e) {
-			System.out.println("DropDB Exception :" + e.toString());
+			System.out.println("SQLException" + e.toString());
 		} finally {
 			try {
 				if (mResultSet != null) {
@@ -281,6 +281,67 @@ public class MySqlConnection {
 		return manufacturerList;
 	}
 
+	public List<MenuBean> selectMenu() {
+		List<MenuBean> menuBeanList = new ArrayList<>();
+		try {
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = mStatement.executeQuery("select * from hamimelon.Menu");
+			while (mResultSet.next()) {
+				String id = mResultSet.getString("id");
+				MenuBean menu = new MenuBean(id);
+				menu.setSet(mResultSet.getString("dish_set"));
+				menu.setName(mResultSet.getString("name"));
+				menu.setPrice(mResultSet.getInt("price"));
+				menu.setMeatClass(mResultSet.getString("meat_class"));
+				menuBeanList.add(menu);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQLException" + e.toString());
+		} finally {
+			try {
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
+				}
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return menuBeanList;
+	}
+
+	public Map<String, String> getMeatClassHashMap() {
+		Map<String, String> meatClassHashMap = new HashMap<>();
+		try {
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = mStatement.executeQuery("select * from hamimelon.Meat_class");
+			while (mResultSet.next()) {
+				meatClassHashMap.put(mResultSet.getString("id"), mResultSet.getString("name"));
+				System.out.println(mResultSet.getString("id") + "," + mResultSet.getString("name"));
+			}
+		} catch (SQLException e) {
+			System.out.println("SQLException" + e.toString());
+		} finally {
+			try {
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
+				}
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return meatClassHashMap;
+	}
+
 	public List<String> selectMeatClass() {
 		List<String> meatClassList = new ArrayList<>();
 		try {
@@ -291,7 +352,7 @@ public class MySqlConnection {
 				System.out.println(mResultSet.getString("name"));
 			}
 		} catch (SQLException e) {
-			System.out.println("DropDB Exception :" + e.toString());
+			System.out.println("SQLException" + e.toString());
 		} finally {
 			try {
 				if (mResultSet != null) {

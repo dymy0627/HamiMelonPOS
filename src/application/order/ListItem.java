@@ -1,20 +1,20 @@
 package application.order;
 
 public class ListItem {
-	private MealBean meal;
+	private MenuBean menuBean;
 	private int number = 0;
 
-	public ListItem(MealBean meal) {
-		this.meal = meal;
+	public ListItem(MenuBean menuBean) {
+		this.menuBean = menuBean;
 		this.number = 1;
 	}
 
 	public String getId() {
-		return meal.getId();
+		return menuBean.getId();
 	}
 
-	public MealBean getMeal() {
-		return meal;
+	public MenuBean getMeal() {
+		return menuBean;
 	}
 
 	public int getNumber() {

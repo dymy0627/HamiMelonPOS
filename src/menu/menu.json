@@ -1,570 +1,570 @@
 {
 	"menu": [
 		{
+			"set": "老饕雙享餐",
+			"price": 720,
+			"name": "翼板",
 			"id": "meal001",
-			"set": "老饕雙享餐",
-			"name": "翼板",
-			"price": 720,
-			"class": "翼板_雞腿_鯖_紅蝦*2"
+			"class": "翼板_雞腿_鯖魚_紅蝦*2"
 		},
 		{
+			"set": "老饕雙享餐",
+			"price": 720,
+			"name": "松阪",
 			"id": "meal002",
-			"set": "老饕雙享餐",
-			"name": "松阪",
-			"price": 720,
-			"class": "松阪_雞腿_鯖_紅蝦*2"
+			"class": "松阪_雞腿_鯖魚_紅蝦*2"
 		},
 		{
-			"id": "meal003",
 			"set": "雙人麻吉餐",
+			"price": 620,
 			"name": "翼板",
-			"price": 620,
-			"class": "翼板_朗心_鮭_花蝦"
+			"id": "meal003",
+			"class": "翼板_沙朗心_鮭魚_花蝦"
 		},
 		{
-			"id": "meal004",
 			"set": "雙人麻吉餐",
-			"name": "松阪",
 			"price": 620,
-			"class": "松阪_朗心_鮭_花蝦"
+			"name": "松阪",
+			"id": "meal004",
+			"class": "松阪_沙朗心_鮭魚_花蝦"
 		},
 		{
-			"id": "meal005",
 			"set": "雙人情侶餐",
+			"price": 520,
 			"name": "朗心",
-			"price": 520,
-			"class": "朗心_雞腿_鱈_草蝦*6"
+			"id": "meal005",
+			"class": "沙朗心_雞腿_鱈魚_草蝦*6"
 		},
 		{
-			"id": "meal006",
 			"set": "雙人情侶餐",
-			"name": "豬排",
 			"price": 520,
-			"class": "豬排_雞腿_鱈_草蝦*6"
-		},
-		{
-			"id": "meal007",
-			"set": "雙人A餐",
-			"name": "牛肉",
-			"price": 420,
-			"class": "牛肉_雞腿_鯛_草蝦*4"
-		},
-		{
-			"id": "meal008",
-			"set": "雙人A餐",
-			"name": "羊肉",
-			"price": 420,
-			"class": "羊肉_雞腿_鯛_草蝦*4"
-		},
-		{
-			"id": "meal009",
-			"set": "雙人A餐",
-			"name": "豬肉",
-			"price": 420,
-			"class": "豬肉_雞腿_鯛_草蝦*4"
-		},
-		{
-			"id": "meal010",
-			"set": "雙人B餐",
-			"name": "雞腿",
-			"price": 480,
-			"class": "雞腿_鱈_蚵_沙拉"
-		},
-		{
-			"id": "meal011",
-			"set": "雙人B餐",
-			"name": "沙朗",
-			"price": 480,
-			"class": "沙朗_鱈_蚵_沙拉"
-		},
-		{
-			"id": "meal012",
-			"set": "雙人B餐",
 			"name": "豬排",
+			"id": "meal006",
+			"class": "豬排_雞腿_鱈魚_草蝦*6"
+		},
+		{
+			"set": "雙人A餐",
+			"price": 420,
+			"name": "牛肉",
+			"id": "meal007",
+			"class": "牛肉片_雞腿_鯛魚_草蝦*4"
+		},
+		{
+			"set": "雙人A餐",
+			"price": 420,
+			"name": "羊肉",
+			"id": "meal008",
+			"class": "羊肉片_雞腿_鯛魚_草蝦*4"
+		},
+		{
+			"set": "雙人A餐",
+			"price": 420,
+			"name": "豬肉",
+			"id": "meal009",
+			"class": "豬肉片_雞腿_鯛魚_草蝦*4"
+		},
+		{
+			"set": "雙人B餐",
 			"price": 480,
-			"class": "豬排_鱈_蚵_沙拉"
+			"name": "雞腿",
+			"id": "meal010",
+			"class": "雞腿_鱈魚_蚵仔_龍蝦沙拉"
 		},
 		{
-			"id": "meal013",
+			"set": "雙人B餐",
+			"price": 480,
+			"name": "沙朗",
+			"id": "meal011",
+			"class": "沙朗_鱈魚_蚵仔_龍蝦沙拉"
+		},
+		{
+			"set": "雙人B餐",
+			"price": 480,
+			"name": "豬排",
+			"id": "meal012",
+			"class": "豬排_鱈魚_蚵仔_龍蝦沙拉"
+		},
+		{
 			"set": "風雨餐",
-			"name": "風雨",
 			"price": 399,
-			"class": "雞腿_沙朗_鯛_鮮蝦*5"
+			"name": "風雨",
+			"id": "meal013",
+			"class": "雞腿_沙朗_鯛魚_鮮蝦*5"
 		},
 		{
-			"id": "meal014",
 			"set": "主廚套餐",
-			"name": "主廚",
 			"price": 350,
-			"class": "朗心_鱈_鮮蝦*3"
+			"name": "主廚",
+			"id": "meal014",
+			"class": "沙朗心_鱈魚_鮮蝦*3"
 		},
 		{
-			"id": "meal015",
 			"set": "多蝦蟹套餐",
-			"name": "蝦蟹",
 			"price": 350,
+			"name": "蝦蟹",
+			"id": "meal015",
 			"class": "鮮蝦*5_紅蝦*2"
 		},
 		{
-			"id": "meal016",
 			"set": "海鮮套餐",
-			"name": "海大",
 			"price": 300,
-			"class": "鱈_花蝦_蚵"
+			"name": "海大",
+			"id": "meal016",
+			"class": "鱈魚_花蝦_蚵仔"
 		},
 		{
-			"id": "meal017",
 			"set": "靈魂昇華套餐",
-			"name": "靈魂",
 			"price": 280,
-			"class": "朗心_蚵"
+			"name": "靈魂",
+			"id": "meal017",
+			"class": "沙朗心_蚵仔"
 		},
 		{
-			"id": "meal018",
 			"set": "潛能解放套餐",
-			"name": "潛能",
 			"price": 260,
-			"class": "蚵"
+			"name": "潛能",
+			"id": "meal018",
+			"class": "蚵仔"
 		},
 		{
-			"id": "meal019",
 			"set": "海陸A套餐",
+			"price": 200,
 			"name": "牛肉",
-			"price": 200,
-			"class": "牛肉_花蝦"
+			"id": "meal019",
+			"class": "牛肉片_花蝦"
 		},
 		{
-			"id": "meal020",
 			"set": "海陸A套餐",
+			"price": 200,
 			"name": "羊肉",
-			"price": 200,
-			"class": "羊肉_花蝦"
+			"id": "meal020",
+			"class": "羊肉片_花蝦"
 		},
 		{
-			"id": "meal021",
 			"set": "海陸A套餐",
-			"name": "豬肉",
 			"price": 200,
-			"class": "豬肉_花蝦"
+			"name": "豬肉",
+			"id": "meal021",
+			"class": "豬肉片_花蝦"
 		},
 		{
-			"id": "meal022",
 			"set": "海陸B套餐",
-			"name": "雞腿",
 			"price": 230,
+			"name": "雞腿",
+			"id": "meal022",
 			"class": "雞腿_花蝦"
 		},
 		{
-			"id": "meal023",
 			"set": "海陸B套餐",
-			"name": "沙朗",
 			"price": 230,
+			"name": "沙朗",
+			"id": "meal023",
 			"class": "沙朗_花蝦"
 		},
 		{
-			"id": "meal024",
 			"set": "海陸B套餐",
-			"name": "豬排",
 			"price": 230,
+			"name": "豬排",
+			"id": "meal024",
 			"class": "豬排_花蝦"
 		},
 		{
-			"id": "meal025",
 			"set": "呷霸套餐",
-			"name": "牛筋",
 			"price": 170,
+			"name": "牛筋",
+			"id": "meal025",
 			"class": "牛筋"
 		},
 		{
-			"id": "meal026",
 			"set": "呷霸套餐",
-			"name": "雞柳",
 			"price": 170,
+			"name": "雞柳",
+			"id": "meal026",
 			"class": "雞柳"
 		},
 		{
-			"id": "meal027",
 			"set": "呷霸套餐",
-			"name": "豬排",
 			"price": 170,
+			"name": "豬排",
+			"id": "meal027",
 			"class": "豬排"
 		},
 		{
-			"id": "meal028",
 			"set": "精緻特餐",
-			"name": "肋眼",
 			"price": 490,
+			"name": "肋眼",
+			"id": "meal028",
 			"class": "肋眼"
 		},
 		{
-			"id": "meal029",
 			"set": "精緻特餐",
-			"name": "紐約",
 			"price": 450,
-			"class": "紐約"
+			"name": "紐約",
+			"id": "meal029",
+			"class": "紐約克"
 		},
 		{
-			"id": "meal030",
 			"set": "精緻特餐",
-			"name": "菲力",
 			"price": 350,
+			"name": "菲力",
+			"id": "meal030",
 			"class": "菲力"
 		},
 		{
-			"id": "meal031",
 			"set": "精緻特餐",
-			"name": "雪花",
 			"price": 350,
+			"name": "雪花",
+			"id": "meal031",
 			"class": "雪花"
 		},
 		{
-			"id": "meal032",
 			"set": "精緻特餐",
-			"name": "翼板",
 			"price": 300,
+			"name": "翼板",
+			"id": "meal032",
 			"class": "翼板"
 		},
 		{
-			"id": "meal033",
 			"set": "精緻特餐",
-			"name": "牛小",
 			"price": 280,
-			"class": "牛小"
+			"name": "牛小",
+			"id": "meal033",
+			"class": "牛小排"
 		},
 		{
-			"id": "meal034",
 			"set": "精緻特餐",
-			"name": "朗心",
 			"price": 200,
-			"class": "朗心"
+			"name": "朗心",
+			"id": "meal034",
+			"class": "沙朗心"
 		},
 		{
-			"id": "meal035",
 			"set": "精緻特餐",
-			"name": "松阪",
 			"price": 250,
+			"name": "松阪",
+			"id": "meal035",
 			"class": "松阪"
 		},
 		{
-			"id": "meal036",
 			"set": "精緻特餐",
-			"name": "豬排",
 			"price": 200,
-			"class": "豬排"
-		},
-		{
-			"id": "meal037",
-			"set": "精緻特餐",
-			"name": "泰雞",
-			"price": 180,
-			"class": "雞腿"
-		},
-		{
-			"id": "meal038",
-			"set": "精緻特餐",
-			"name": "蜜雞",
-			"price": 180,
-			"class": "雞腿"
-		},
-		{
-			"id": "meal039",
-			"set": "精緻特餐",
-			"name": "起雞",
-			"price": 180,
-			"class": "雞腿"
-		},
-		{
-			"id": "meal040",
-			"set": "精緻特餐",
-			"name": "蒜雞",
-			"price": 150,
-			"class": "雞腿"
-		},
-		{
-			"id": "meal041",
-			"set": "精緻特餐",
-			"name": "黑雞",
-			"price": 150,
-			"class": "雞腿"
-		},
-		{
-			"id": "meal042",
-			"set": "精緻特餐",
-			"name": "和魷",
-			"price": 180,
-			"class": "魷"
-		},
-		{
-			"id": "meal043",
-			"set": "精緻特餐",
-			"name": "泰魷",
-			"price": 180,
-			"class": "魷"
-		},
-		{
-			"id": "meal044",
-			"set": "精緻特餐",
-			"name": "鮭魚",
-			"price": 180,
-			"class": "鮭"
-		},
-		{
-			"id": "meal045",
-			"set": "精緻特餐",
-			"name": "泰魚",
-			"price": 180,
-			"class": "鯛"
-		},
-		{
-			"id": "meal046",
-			"set": "精緻特餐",
-			"name": "鯖魚",
-			"price": 180,
-			"class": "鯖"
-		},
-		{
-			"id": "meal047",
-			"set": "精緻特餐",
-			"name": "鯛魚",
-			"price": 180,
-			"class": "鯛"
-		},
-		{
-			"id": "meal048",
-			"set": "精緻特餐",
-			"name": "鱈魚",
-			"price": 150,
-			"class": "鱈"
-		},
-		{
-			"id": "meal049",
-			"set": "精緻特餐",
-			"name": "海總",
-			"price": 180,
-			"class": "花蝦"
-		},
-		{
-			"id": "meal050",
-			"set": "精緻特餐",
-			"name": "蟹肉",
-			"price": 180,
-			"class": ""
-		},
-		{
-			"id": "meal051",
-			"set": "精緻特餐",
-			"name": "鮮蚵",
-			"price": 150,
-			"class": "蚵"
-		},
-		{
-			"id": "meal052",
-			"set": "精緻特餐",
-			"name": "花蝦",
-			"price": 150,
-			"class": "花蝦"
-		},
-		{
-			"id": "meal053",
-			"set": "精緻特餐",
 			"name": "豬排",
-			"price": 140,
+			"id": "meal036",
 			"class": "豬排"
 		},
 		{
-			"id": "meal054",
 			"set": "精緻特餐",
-			"name": "牛肉",
-			"price": 120,
-			"class": "牛肉"
+			"price": 180,
+			"name": "泰雞",
+			"id": "meal037",
+			"class": "雞腿"
 		},
 		{
-			"id": "meal055",
 			"set": "精緻特餐",
-			"name": "羊肉",
-			"price": 120,
-			"class": "羊肉"
+			"price": 180,
+			"name": "蜜雞",
+			"id": "meal038",
+			"class": "雞腿"
 		},
 		{
-			"id": "meal056",
 			"set": "精緻特餐",
-			"name": "豬肉",
-			"price": 120,
-			"class": "豬肉"
+			"price": 180,
+			"name": "起雞",
+			"id": "meal039",
+			"class": "雞腿"
 		},
 		{
-			"id": "meal057",
 			"set": "精緻特餐",
-			"name": "蔬肉",
 			"price": 150,
-			"class": "豬肉"
+			"name": "蒜雞",
+			"id": "meal040",
+			"class": "雞腿"
 		},
 		{
-			"id": "meal058",
+			"set": "精緻特餐",
+			"price": 150,
+			"name": "黑雞",
+			"id": "meal041",
+			"class": "雞腿"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "和魷",
+			"id": "meal042",
+			"class": "魷魚"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "泰魷",
+			"id": "meal043",
+			"class": "魷魚"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "鮭魚",
+			"id": "meal044",
+			"class": "鮭魚"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "泰魚",
+			"id": "meal045",
+			"class": "鯛魚"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "鯖魚",
+			"id": "meal046",
+			"class": "鯖魚"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "鯛魚",
+			"id": "meal047",
+			"class": "鯛魚"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 150,
+			"name": "鱈魚",
+			"id": "meal048",
+			"class": "鱈魚"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "海總",
+			"id": "meal049",
+			"class": "花蝦"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 180,
+			"name": "蟹肉",
+			"id": "meal050",
+			"class": ""
+		},
+		{
+			"set": "精緻特餐",
+			"price": 150,
+			"name": "鮮蚵",
+			"id": "meal051",
+			"class": "蚵仔"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 150,
+			"name": "花蝦",
+			"id": "meal052",
+			"class": "花蝦"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 140,
+			"name": "豬排",
+			"id": "meal053",
+			"class": "豬排"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 120,
+			"name": "牛肉",
+			"id": "meal054",
+			"class": "牛肉片"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 120,
+			"name": "羊肉",
+			"id": "meal055",
+			"class": "羊肉片"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 120,
+			"name": "豬肉",
+			"id": "meal056",
+			"class": "豬肉片"
+		},
+		{
+			"set": "精緻特餐",
+			"price": 150,
+			"name": "蔬肉",
+			"id": "meal057",
+			"class": "豬肉片"
+		},
+		{
 			"set": "單點",
-			"name": "荷包",
 			"price": 10,
+			"name": "荷包",
+			"id": "meal058",
 			"class": ""
 		},
 		{
-			"id": "meal059",
 			"set": "單點",
-			"name": "蔥蛋",
 			"price": 20,
+			"name": "蔥蛋",
+			"id": "meal059",
 			"class": ""
 		},
 		{
-			"id": "meal060",
 			"set": "單點",
-			"name": "塔蛋",
 			"price": 30,
+			"name": "塔蛋",
+			"id": "meal060",
 			"class": ""
 		},
 		{
-			"id": "meal061",
 			"set": "單點",
+			"price": 50,
 			"name": "脯蛋",
-			"price": 50,
+			"id": "meal061",
 			"class": ""
 		},
 		{
-			"id": "meal062",
 			"set": "單點",
+			"price": 50,
 			"name": "起捲",
-			"price": 50,
+			"id": "meal062",
 			"class": ""
 		},
 		{
-			"id": "meal063",
 			"set": "單點",
+			"price": 60,
 			"name": "繽捲",
-			"price": 60,
+			"id": "meal063",
 			"class": ""
 		},
 		{
-			"id": "meal064",
 			"set": "單點",
+			"price": 50,
 			"name": "時蔬",
-			"price": 50,
+			"id": "meal064",
 			"class": ""
 		},
 		{
-			"id": "meal065",
 			"set": "單點",
-			"name": "豆腐",
 			"price": 40,
+			"name": "豆腐",
+			"id": "meal065",
 			"class": ""
 		},
 		{
-			"id": "meal066",
 			"set": "單點",
+			"price": 60,
 			"name": "蒜菇",
-			"price": 60,
+			"id": "meal066",
 			"class": ""
 		},
 		{
-			"id": "meal067",
 			"set": "單點",
-			"name": "起菇",
 			"price": 80,
+			"name": "起菇",
+			"id": "meal067",
 			"class": ""
 		},
 		{
-			"id": "meal068",
 			"set": "單點",
-			"name": "阪燒",
 			"price": 60,
+			"name": "阪燒",
+			"id": "meal068",
 			"class": ""
 		},
 		{
-			"id": "meal069",
 			"set": "單點",
-			"name": "鮮蝦",
 			"price": 50,
+			"name": "鮮蝦",
+			"id": "meal069",
 			"class": "鮮蝦*3"
 		},
 		{
-			"id": "meal070",
 			"set": "單點",
-			"name": "NG",
 			"price": 100,
-			"class": "鱈_鮮蝦*2"
+			"name": "NG",
+			"id": "meal070",
+			"class": "鱈魚_鮮蝦*2"
 		},
 		{
-			"id": "meal071",
 			"set": "單點",
-			"name": "蒸蝦",
 			"price": 150,
+			"name": "蒸蝦",
+			"id": "meal071",
 			"class": "鮮蝦*5"
 		},
 		{
-			"id": "meal072",
 			"set": "單點",
-			"name": "蝦球",
 			"price": 120,
+			"name": "蝦球",
+			"id": "meal072",
 			"class": "鮮蝦*5"
 		},
 		{
-			"id": "meal073",
 			"set": "單點",
+			"price": 99,
 			"name": "蝦蛋",
-			"price": 99,
-			"class": "沙拉"
+			"id": "meal073",
+			"class": "龍蝦沙拉"
 		},
 		{
-			"id": "meal074",
 			"set": "單點",
+			"price": 99,
 			"name": "蝦飯",
-			"price": 99,
+			"id": "meal074",
 			"class": "紅蝦*1"
 		},
 		{
-			"id": "meal075",
 			"set": "單點",
-			"name": "焗蝦",
 			"price": 99,
+			"name": "焗蝦",
+			"id": "meal075",
 			"class": "紅蝦*1"
 		},
 		{
-			"id": "meal076",
 			"set": "二豪華餐",
-			"name": "肋眼",
 			"price": 1280,
+			"name": "肋眼",
+			"id": "meal076",
 			"class": "肋眼_雞腿"
 		},
 		{
-			"id": "meal077",
 			"set": "二豪華餐",
-			"name": "紐約克",
 			"price": 1280,
-			"class": "紐約_雞腿"
+			"name": "紐約克",
+			"id": "meal077",
+			"class": "紐約克_雞腿"
 		},
 		{
-			"id": "meal078",
 			"set": "二豪華餐",
-			"name": "羊肩",
 			"price": 1280,
+			"name": "羊肩",
+			"id": "meal078",
 			"class": "雞腿"
 		},
 		{
-			"id": "meal079",
 			"set": "單豪華餐",
-			"name": "肋眼",
 			"price": 690,
+			"name": "肋眼",
+			"id": "meal079",
 			"class": "肋眼"
 		},
 		{
-			"id": "meal080",
 			"set": "單豪華餐",
-			"name": "紐約克",
 			"price": 690,
-			"class": "紐約"
+			"name": "紐約克",
+			"id": "meal080",
+			"class": "紐約克"
 		},
 		{
-			"id": "meal081",
 			"set": "單豪華餐",
-			"name": "羊肩",
 			"price": 690,
+			"name": "羊肩",
+			"id": "meal081",
 			"class": ""
 		}
 	]

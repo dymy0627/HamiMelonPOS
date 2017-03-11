@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 
 import application.MainScene;
 import db.MySqlConnection;
-import javafx.util.Duration;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.ListProperty;
@@ -39,6 +38,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class MenuController implements Initializable {
 
@@ -204,7 +204,7 @@ public class MenuController implements Initializable {
 					Label currentNumLabel = numberLabelGroup.get(currentMealId);
 					System.out.println(currentMealId + " checked = " + isSelected);
 
-					MealBean currentMeal = MenuBuilder.getMealById(currentMealId);
+					MenuBean currentMeal = MenuBuilder.getMealById(currentMealId);
 					if (isSelected) {
 						currentNumLabel.setText(String.valueOf(1));
 						mTotalMoney += currentMeal.getPrice();
@@ -236,7 +236,7 @@ public class MenuController implements Initializable {
 			String currentMealId = ((Button) e.getSource()).getId();//
 			Label currentNumLabel = numberLabelGroup.get(currentMealId);
 
-			MealBean currentMeal = MenuBuilder.getMealById(currentMealId);//
+			MenuBean currentMeal = MenuBuilder.getMealById(currentMealId);//
 			int currentNum = Integer.parseInt(currentNumLabel.getText());
 			if (currentNum == 0) {
 				checkBoxGroup.get(currentMealId).setSelected(true);
@@ -263,7 +263,7 @@ public class MenuController implements Initializable {
 			String currentMealId = ((Button) e.getSource()).getId();
 			Label currentNumLabel = numberLabelGroup.get(currentMealId);
 
-			MealBean currentMeal = MenuBuilder.getMealById(currentMealId);
+			MenuBean currentMeal = MenuBuilder.getMealById(currentMealId);
 			int currentNum = Integer.parseInt(currentNumLabel.getText());
 			if (currentNum > 0) {
 				if (currentNum == 1) {
@@ -293,8 +293,8 @@ public class MenuController implements Initializable {
 			if (alacarteNum > 0) {
 				String currentMealId = ((Button) e.getSource()).getId();
 
-				MealBean alacarteMeal = new MealBean(currentMealId + "a");
-				MealBean chosenMeal = MenuBuilder.getMealById(currentMealId);
+				MenuBean alacarteMeal = new MenuBean(currentMealId + "a");
+				MenuBean chosenMeal = MenuBuilder.getMealById(currentMealId);
 				alacarteMeal.setName(chosenMeal.getName());
 				alacarteMeal.setSet("套餐單點");
 				alacarteMeal.setPrice(chosenMeal.getPrice() - 30);
@@ -327,8 +327,8 @@ public class MenuController implements Initializable {
 			if (otherNum > 0) {
 				String currentMealId = ((Button) e.getSource()).getId();
 
-				MealBean otherMeal = new MealBean(currentMealId + "o");
-				MealBean chosenMeal = MenuBuilder.getMealById(currentMealId);
+				MenuBean otherMeal = new MenuBean(currentMealId + "o");
+				MenuBean chosenMeal = MenuBuilder.getMealById(currentMealId);
 				otherMeal.setName(chosenMeal.getName());
 				otherMeal.setSet("套餐加點");
 				otherMeal.setPrice(chosenMeal.getPrice() + 150);
@@ -406,15 +406,15 @@ public class MenuController implements Initializable {
 		num_people = 1;
 
 		String lastSetName = "";
-		Map<String, MealBean> mealMap = MenuBuilder.getMenuMap();
+		Map<String, MenuBean> mealMap = MenuBuilder.getMenuMap();
 
 		int eachNum = 18;
-		System.out.println("eachNum = " + eachNum);
+		// System.out.println("eachNum = " + eachNum);
 
 		VBox currentVBox;
 		for (int i = 1; i <= mealMap.size(); i++) {
 			String id = "meal" + String.format("%03d", i);
-			MealBean meal = mealMap.get(id);
+			MenuBean meal = mealMap.get(id);
 			// System.out.println(i + " " +mealMap.size());
 
 			CheckBox chBox = new CheckBox();
@@ -558,12 +558,18 @@ public class MenuController implements Initializable {
 
 	@FXML
 	protected void PrintButtonAction(ActionEvent event) {
+
+		String meals = "";
 		for (String id : listItemMap.keySet()) {
 
 			ListItem listItem = listItemMap.get(id);
 
 			checkMeatClass(listItem);
 			checkSpecialMeal(listItem);
+
+			meals += listItem.getMeal().getId() + ",";
+
+			// updateStockById(String id, int reserveNumber)
 		}
 
 		for (Entry<String, Integer> id : mMealClassMap.entrySet())
@@ -575,10 +581,10 @@ public class MenuController implements Initializable {
 				"風雨:" + rain_special + " 雙人:" + pair_special + " 豪華:" + deluxe_special + " 特餐:" + chef_special);
 
 		if (mTotalMoney > 0)
-			dataBaseConnection(mConsumptionType, num_people, mTotalMoney);
+			dataBaseConnection(mConsumptionType, num_people, mTotalMoney, meals);
 	}
 
-	private void dataBaseConnection(String type, int people_num, int list_money) {
+	private void dataBaseConnection(String type, int people_num, int list_money, String meals) {
 		myProgressIndicator.setVisible(false);
 		disableMode(true);
 		new Thread(new Task<Boolean>() {
@@ -588,7 +594,7 @@ public class MenuController implements Initializable {
 				myProgressIndicator.setVisible(true);
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
-				mySqlConnection.insertListData(type, people_num, list_money);
+				mySqlConnection.insertOrderList(type, people_num, list_money, meals);
 				mySqlConnection.disconnectSql();
 				return true;
 			}
