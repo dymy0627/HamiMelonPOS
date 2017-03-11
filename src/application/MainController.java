@@ -13,8 +13,8 @@ public class MainController {
 	@FXML
 	protected void OrderButtonAction(ActionEvent event) {
 
-		// MenuBuilder.loadFromDB();
-		MenuBuilder.loadFromJson();
+		MenuBuilder.loadFromDB();
+		// MenuBuilder.loadFromJson();
 
 		showStage("/fxml/MenuStage.fxml");
 	}

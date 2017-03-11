@@ -13,7 +13,7 @@ public class ListItem {
 		return menuBean.getId();
 	}
 
-	public MenuBean getMeal() {
+	public MenuBean getMenuBean() {
 		return menuBean;
 	}
 

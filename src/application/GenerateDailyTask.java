@@ -7,7 +7,7 @@ import java.util.TimerTask;
 
 import db.MySqlConnection;
 
-public class GenerateDailyTask extends TimerTask { 
+public class GenerateDailyTask extends TimerTask {
 
 	public void run() {
 		System.out.println("殺神降臨");
@@ -17,71 +17,71 @@ public class GenerateDailyTask extends TimerTask {
 
 		String time = timeArray[0];
 
-		String insertdate = new String("insert into hamimelon.daily(teppanyaki_date)values('" + time + "')");
+		String insertdate = new String("insert into hamimelon.Daily(teppanyaki_date)values('" + time + "')");
 
 		String Turnover = new String(
-				"update hamimelon.daily set Turnover=(select sum(cost) from hamimelon.detail_list_meals where date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set Turnover=(select sum(cost) from hamimelon.Order_list where date_format(time,'%Y-%m-%d')='"
 						+ time + "')where teppanyaki_date='" + time + "'");
 
 		String Lunch_Turnover = new String(
-				"update hamimelon.daily set Lunch_Turnover=(select sum(cost) from hamimelon.detail_list_meals  where date_format(Ordering_time,'%H')<'16' and date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set Lunch_Turnover=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time + "') where teppanyaki_date='" + time + "'");
 
 		String L_Number_of_visitors = new String(
-				"update hamimelon.daily set L_Number_of_visitors=(select sum(number_of_meals) from hamimelon.detail_list_meals  where date_format(Ordering_time,'%H')<'16' and date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set L_Number_of_visitors=(select sum(people) from hamimelon.Order_list  where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time + "') where teppanyaki_date='" + time + "'");
 
 		String L_Average_consumption = new String(
-				"update hamimelon.daily set L_Average_consumption=(select TRUNCATE(sum(cost)/sum(number_of_meals),0) from hamimelon.detail_list_meals where date_format(Ordering_time,'%H')<'16' and date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set L_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time + "')where teppanyaki_date='" + time + "'");
 
 		String L_Outsourcing = new String(
-				"update hamimelon.daily set L_Outsourcing=(select count(consumption_type) from hamimelon.detail_list_meals where date_format(Ordering_time,'%H')<'16' and date_format(Ordering_time,'%Y-%m-%d')='"
-						+ time + "' and consumption_type='外帶')where teppanyaki_date='" + time + "'");
+				"update hamimelon.Daily set L_Outsourcing=(select count(type) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ time + "' and type='外帶')where teppanyaki_date='" + time + "'");
 
 		String L_delivery = new String(
-				"update hamimelon.daily set L_delivery=(select count(consumption_type) from hamimelon.detail_list_meals where date_format(Ordering_time,'%H')<'16' and date_format(Ordering_time,'%Y-%m-%d')='"
-						+ time + "' and consumption_type='外送')where teppanyaki_date='" + time + "'");
+				"update hamimelon.Daily set L_delivery=(select count(type) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ time + "' and type='外送')where teppanyaki_date='" + time + "'");
 
 		String Dinner_Turnover = new String(
-				"update hamimelon.daily set Dinner_Turnover=(select sum(cost) from hamimelon.detail_list_meals  where date_format(Ordering_time,'%H')>='16' and date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set Dinner_Turnover=(select sum(cost) from hamimelon.Order_list  where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
 						+ time + "') where teppanyaki_date='" + time + "'");
 
 		String D_Number_of_visitors = new String(
-				"update hamimelon.daily set D_Number_of_visitors=(select sum(number_of_meals) from hamimelon.detail_list_meals  where date_format(Ordering_time,'%H')>='16' and date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set D_Number_of_visitors=(select sum(people) from hamimelon.Order_list  where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
 						+ time + "') where teppanyaki_date='" + time + "'");
 
 		String D_Average_consumption = new String(
-				"update hamimelon.daily set D_Average_consumption=(select TRUNCATE(sum(cost)/sum(number_of_meals),0) from hamimelon.detail_list_meals where date_format(Ordering_time,'%H')>='16' and date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set D_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
 						+ time + "')where teppanyaki_date='" + time + "'");
 
 		String D_Outsourcing = new String(
-				"update hamimelon.daily set D_Outsourcing=(select count(consumption_type) from hamimelon.detail_list_meals where date_format(Ordering_time,'%H')>='16' and date_format(Ordering_time,'%Y-%m-%d')='"
-						+ time + "' and consumption_type='外帶')where teppanyaki_date='" + time + "'");
+				"update hamimelon.Daily set D_Outsourcing=(select count(type) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+						+ time + "' and type='外帶')where teppanyaki_date='" + time + "'");
 
 		String D_delivery = new String(
-				"update hamimelon.daily set D_delivery=(select count(consumption_type) from hamimelon.detail_list_meals where date_format(Ordering_time,'%H')>='16' and date_format(Ordering_time,'%Y-%m-%d')='"
-						+ time + "' and consumption_type='外送')where teppanyaki_date='" + time + "'");
+				"update hamimelon.Daily set D_delivery=(select count(type) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+						+ time + "' and type='外送')where teppanyaki_date='" + time + "'");
 
 		String Double_package = new String(
-				"update hamimelon.daily set Double_package=(select sum(Double_package) from hamimelon.special_meals where date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set Double_package=(select sum(Double_package) from hamimelon.special_meals where date_format(time,'%Y-%m-%d')='"
 						+ time + "') where teppanyaki_date='" + time + "'");
 
 		String Special_meals = new String(
-				"update hamimelon.daily set Special_meals=(select sum(Special_meals) from hamimelon.special_meals where date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set Special_meals=(select sum(Special_meals) from hamimelon.special_meals where date_format(time,'%Y-%m-%d')='"
 						+ time + "')where teppanyaki_date='" + time + "'");
 
 		String wind_and_rain = new String(
-				"update hamimelon.daily set wind_and_rain=(select sum(wind_and_rain) from hamimelon.special_meals where date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set wind_and_rain=(select sum(wind_and_rain) from hamimelon.special_meals where date_format(time,'%Y-%m-%d')='"
 						+ time + "')where teppanyaki_date='" + time + "'");
 
 		String total_visitors = new String(
-				"update hamimelon.daily set total_visitors=(select sum(number_of_meals) from hamimelon.detail_list_meals where date_format(Ordering_time,'%Y-%m-%d')='"
+				"update hamimelon.Daily set total_visitors=(select sum(people) from hamimelon.Order_list where date_format(time,'%Y-%m-%d')='"
 						+ time + "')where teppanyaki_date='" + time + "'");
 
 		String total_AVG_Turnover = new String(
-				"update hamimelon.daily set total_AVG_Turnover=(select sum(cost)/sum(number_of_meals) from hamimelon.detail_list_meals where date_format(Ordering_time,'%Y-%m-%d')='"
-						+ time + "' and Consumption_type='內用')where teppanyaki_date='" + time + "'");
+				"update hamimelon.Daily set total_AVG_Turnover=(select sum(cost)/sum(people) from hamimelon.Order_list where date_format(time,'%Y-%m-%d')='"
+						+ time + "' and type='內用')where teppanyaki_date='" + time + "'");
 
 		MySqlConnection mySqlConnection = new MySqlConnection();
 
