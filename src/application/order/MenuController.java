@@ -89,6 +89,8 @@ public class MenuController implements Initializable {
 	public static boolean pause;
 
 	private int rain_special, pair_special, deluxe_special, chef_special;
+	
+	private MySqlConnection mySqlConnection = new MySqlConnection();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -518,12 +520,14 @@ public class MenuController implements Initializable {
 	@FXML
 	protected void PreviousPageButtonAction(ActionEvent event) throws IOException {
 		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
-
+		mySqlConnection.disconnectSql();
 		MainScene.changeScene(mainstage);
 	}
 
 	@FXML
 	protected void PrintButtonAction(ActionEvent event) {
+		
+		mySqlConnection.connectSql();
 		String meals = "";
 		for (String id : listItemMap.keySet()) {
 
@@ -535,6 +539,7 @@ public class MenuController implements Initializable {
 				calMeatCost(menuBean.getMeatClass());
 				meals += menuBean.getId() + ",";
 			}
+			
 		}
 
 		System.out.println("-- total Meat Cost --");
@@ -549,6 +554,9 @@ public class MenuController implements Initializable {
 
 		if (mTotalMoney > 0)
 			dataBaseConnection(mConsumptionType, num_people, mTotalMoney, meals);
+		
+		
+		clearAllItem();
 	}
 
 	private void dataBaseConnection(String type, int peopleNum, int totalMoney, String meals) {
@@ -562,10 +570,8 @@ public class MenuController implements Initializable {
 			@Override
 			protected Boolean call() throws Exception {
 				myProgressIndicator.setVisible(true);
-				MySqlConnection mySqlConnection = new MySqlConnection();
-				mySqlConnection.connectSql();
 				mySqlConnection.insertOrderList(type, peopleNum, totalMoney, meals);
-				mySqlConnection.disconnectSql();
+
 				return true;
 			}
 
@@ -600,6 +606,7 @@ public class MenuController implements Initializable {
 		} else {
 			mMeatCostMap.put(meatId, meatCost);
 		}
+		mySqlConnection.updateStockById(meatId, meatCost);
 	}
 
 	private void calMeatCost(String meatClass) {
