@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 import application.MainScene;
 import db.MySqlConnection;
@@ -53,7 +54,6 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 	private ListView<PurchaseBean> purchaseListView;
 	private ObservableList<PurchaseBean> mPurchaseObservableList = FXCollections.observableArrayList();
 	private Map<Integer, PurchaseBean> mPurchaseAddMap = new HashMap<>();
-	private Map<Integer, PurchaseBean> mPurchaseDeleteMap = new HashMap<>();
 
 	@FXML
 	private TitledPane stockTitledPane;
@@ -61,6 +61,7 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 	private ListView<StockListBean> stockListView;
 	private ObservableList<StockListBean> mStockListBeanObservableList = FXCollections.observableArrayList();
 	private List<StockBean> stockArrayList;
+	private List<StockListBean> stockListArrayList = new ArrayList<StockListBean>();
 
 	@FXML
 	private ProgressIndicator myProgressIndicator;
@@ -110,7 +111,6 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 				mPurchaseObservableList.setAll(purchaseList);
 
 				List<String> purchaseNameList = new ArrayList<String>();
-				List<StockListBean> stockListArrayList = new ArrayList<StockListBean>();
 				for (StockBean stock : stockArrayList) {
 					String stockName = stock.getName();
 					int purchaseNum = 0;
@@ -119,11 +119,12 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 							purchaseNum += purchase.getQuantity();
 						}
 					}
+					int reserveNum = stock.getReserve();
 					StockListBean stockListBean = new StockListBean();
 					stockListBean.setName(stockName);
 					stockListBean.setPurchaseNum(purchaseNum);
-					stockListBean.setShippingNum(0);
-					stockListBean.setReserveNum(stock.getReserve());
+					stockListBean.setShippingNum(purchaseNum - reserveNum);
+					stockListBean.setReserveNum(reserveNum);
 					purchaseNameList.add(stock.getName());
 					stockListArrayList.add(stockListBean);
 				}
@@ -224,8 +225,6 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 			public void run() {
 				if (mPurchaseAddMap.containsKey(purchase.getId())) {
 					mPurchaseAddMap.remove(purchase.getId());
-				} else {
-					mPurchaseDeleteMap.put(purchase.getId(), purchase);
 				}
 				mPurchaseObservableList.remove(purchase);
 				System.out.println("Remove from Purchase List =" + purchase.getId());
@@ -255,7 +254,7 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 
 	@FXML
 	protected void PurchaseSaveAction(ActionEvent event) {
-		if (mPurchaseAddMap.isEmpty() && mPurchaseDeleteMap.isEmpty())
+		if (mPurchaseAddMap.isEmpty())
 			return;
 		new Thread(new Task<Boolean>() {
 
@@ -265,27 +264,46 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 			protected Boolean call() throws Exception {
 				myProgressIndicator.setVisible(true);
 				purchaseSaveButton.setDisable(true);
+
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
+
 				for (Map.Entry<Integer, PurchaseBean> entry : mPurchaseAddMap.entrySet()) {
 					PurchaseBean purchase = entry.getValue();
 					mySqlConnection.insertPurchaseData(purchase);
-					String id = "";
-					for (StockBean stock : stockArrayList) {
-						if (purchase.getName().equals(stock.getName())) {
-							id = stock.getId();
-						}
-					}
-					int reserveNum = mySqlConnection.getReserveById(id);
+
+					String meatId = MainScene.getMeatClassIdByName(purchase.getName());
+					int reserveNum = mySqlConnection.getStockReserveById(meatId);
 					System.out.println("reserveNum=" + reserveNum);
-					System.out.println("purchaseNum=" + purchase.getQuantity());
-					int updateNum = reserveNum + purchase.getQuantity();
-					mySqlConnection.updateStockById(id, updateNum);
+
+					int newPurchaseNum = purchase.getQuantity();
+					System.out.println("purchaseNum=" + newPurchaseNum);
+
+					int currentReserve = reserveNum + newPurchaseNum;
+					mySqlConnection.updateStockReserveById(meatId, currentReserve);
+
+					stockListArrayList.replaceAll(new UnaryOperator<StockListBean>() {
+						@Override
+						public StockListBean apply(StockListBean stockListBean) {
+							if (purchase.getName().equals(stockListBean.getName())) {
+								stockListBean.setReserveNum(currentReserve);
+								System.out.println("setReserveNum=" + currentReserve);
+
+								int currentPurchaseNum = stockListBean.getPurchaseNum() + newPurchaseNum;
+								stockListBean.setPurchaseNum(currentPurchaseNum);
+								System.out.println("setPurchaseNum=" + currentPurchaseNum);
+
+								int shippingNum = currentPurchaseNum - currentReserve;
+								stockListBean.setShippingNum(shippingNum);
+								System.out.println("setShippingNum=" + shippingNum);
+							}
+							return stockListBean;
+						}
+					});
 				}
-				for (Map.Entry<Integer, PurchaseBean> entry : mPurchaseDeleteMap.entrySet()) {
-					mySqlConnection.deletePurchaseData(entry.getValue());
-				}
+
 				purchaseList = mySqlConnection.selectAllPurchase();
+
 				mySqlConnection.disconnectSql();
 				return true;
 			}
@@ -296,8 +314,8 @@ public class PurchaseAndStockController implements Initializable, PurchaseListVi
 				myProgressIndicator.setVisible(false);
 				purchaseSaveButton.setDisable(false);
 				mPurchaseAddMap.clear();
-				mPurchaseDeleteMap.clear();
 				mPurchaseObservableList.setAll(purchaseList);
+				mStockListBeanObservableList.setAll(stockListArrayList);
 				System.out.println("DB Save Done!");
 			}
 

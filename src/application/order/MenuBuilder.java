@@ -12,12 +12,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import application.MainScene;
 import db.MySqlConnection;
 
 public class MenuBuilder {
 
 	private static Map<String, MenuBean> menuHashMap = new HashMap<>();
-	public static Map<String, String> meatsClassHashMap = new HashMap<>();
 
 	public static void loadFromJson() {
 		if (!menuHashMap.isEmpty()) {
@@ -57,7 +57,6 @@ public class MenuBuilder {
 		MySqlConnection mySqlConnection = new MySqlConnection();
 		mySqlConnection.connectSql();
 		menuBeanList = mySqlConnection.selectMenu();
-		meatsClassHashMap = mySqlConnection.getMeatClassHashMap();
 		mySqlConnection.disconnectSql();
 
 		System.out.println("--- meun loading start ---");
@@ -125,8 +124,8 @@ public class MenuBuilder {
 			}
 			System.out.println("meatName change= " + meatName);
 
-			for (String key : meatsClassHashMap.keySet()) {
-				if (meatName.equals(meatsClassHashMap.get(key))) {
+			for (String key : MainScene.meatsClassHashMap.keySet()) {
+				if (meatName.equals(MainScene.meatsClassHashMap.get(key))) {
 					meat_class = meat_class.replaceAll(meatName, key);
 				}
 			}
@@ -144,9 +143,9 @@ public class MenuBuilder {
 				meatId = meatId.substring(0, meatId.indexOf("*"));
 				System.out.println("meatId = " + meatId);
 			}
-			for (String key : meatsClassHashMap.keySet()) {
+			for (String key : MainScene.meatsClassHashMap.keySet()) {
 				if (meatId.equals(key)) {
-					meat_class = meat_class.replaceAll(meatId, meatsClassHashMap.get(key));
+					meat_class = meat_class.replaceAll(meatId, MainScene.meatsClassHashMap.get(key));
 					System.out.println("meat_class = " + meat_class);
 				}
 			}

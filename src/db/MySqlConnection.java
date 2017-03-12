@@ -72,13 +72,13 @@ public class MySqlConnection {
 	}
 
 	public boolean insertOrderList(String type, int people_num, int cost, String meals) {
-		String list_sql = new String("insert into hamimelon.Order_list(type,people,cost,meals)values('" + type + "','"
+		String list_sql = new String("INSERT into hamimelon.Order_list(type,people,cost,meals)values('" + type + "','"
 				+ people_num + "','" + cost + "','" + meals + "')");
 		return executeSql(list_sql);
 	}
-	
+
 	public Map<String, String> getMonthlyReport() {
-		Map<String, String> month = new HashMap<String,String>();
+		Map<String, String> month = new HashMap<String, String>();
 		String systemtime = GenerateDailyTask.getDateTime();
 		String[] timeArray = systemtime.split(" ");
 		String time = timeArray[0];
@@ -86,22 +86,25 @@ public class MySqlConnection {
 		try {
 			mStatement = mSqlConnection.createStatement();
 			/*
-			 * SELECT sum(Turnover), sum(Lunch_Turnover), sum(L_Number_of_visitors), avg(L_Average_consumption), 
-			 * sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover), sum(D_Number_of_visitors), avg(D_Average_consumption), 
-			 * sum(D_Outsourcing), sum(D_delivery), sum(Double_package), sum(Special_meals), sum(wind_and_rain), 
-			 * sum(total_visitors), sum(total_AVG_Turnover) 
-			 * FROM hamimelon.Daily
+			 * SELECT sum(Turnover), sum(Lunch_Turnover),
+			 * sum(L_Number_of_visitors), avg(L_Average_consumption),
+			 * sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover),
+			 * sum(D_Number_of_visitors), avg(D_Average_consumption),
+			 * sum(D_Outsourcing), sum(D_delivery), sum(Double_package),
+			 * sum(Special_meals), sum(wind_and_rain), sum(total_visitors),
+			 * sum(total_AVG_Turnover) FROM hamimelon.Daily
 			 *
 			 * 
 			 */
-			mResultSet = mStatement.executeQuery("SELECT sum(Turnover), sum(Lunch_Turnover), sum(L_Number_of_visitors), "
-						+ "avg(L_Average_consumption), sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover), "
-						+ "sum(D_Number_of_visitors), avg(D_Average_consumption), sum(D_Outsourcing), sum(D_delivery), "
-						+ "sum(Double_package), sum(Special_meals), sum(wind_and_rain), sum(total_visitors), "
-						+ "sum(total_AVG_Turnover) FROM hamimelon.Daily");
+			mResultSet = mStatement
+					.executeQuery("SELECT sum(Turnover), sum(Lunch_Turnover), sum(L_Number_of_visitors), "
+							+ "avg(L_Average_consumption), sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover), "
+							+ "sum(D_Number_of_visitors), avg(D_Average_consumption), sum(D_Outsourcing), sum(D_delivery), "
+							+ "sum(Double_package), sum(Special_meals), sum(wind_and_rain), sum(total_visitors), "
+							+ "sum(total_AVG_Turnover) FROM hamimelon.Daily");
 			while (mResultSet.next()) {
 
-				//day.setDailySales(mResultSet.getInt("Turnover"));
+				// day.setDailySales(mResultSet.getInt("Turnover"));
 				month.put("Turnover", mResultSet.getString("sum(Turnover)"));
 				month.put("Lunch_Turnover", mResultSet.getString("sum(Lunch_Turnover)"));
 				month.put("L_Number_of_visitors", mResultSet.getString("sum(L_Number_of_visitors)"));
@@ -117,7 +120,7 @@ public class MySqlConnection {
 				month.put("Special_meals", mResultSet.getString("sum(Special_meals)"));
 				month.put("wind_and_rain", mResultSet.getString("sum(wind_and_rain)"));
 				month.put("total_visitors", mResultSet.getString("sum(total_visitors)"));
-				
+
 			}
 		} catch (SQLException e) {
 			System.out.println("DropDB Exception :" + e.toString());
@@ -235,7 +238,7 @@ public class MySqlConnection {
 				return false;
 			mStatement = mSqlConnection.createStatement();
 			mStatement.execute(sql);
-			System.out.println("成功執行" + sql);
+			System.out.println("成功執行: " + sql);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -370,14 +373,14 @@ public class MySqlConnection {
 		return meatClassList;
 	}
 
-	public int getReserveById(String id) {
+	public int getStockReserveById(String id) {
 		try {
 			if (mSqlConnection == null)
 				return 0;
-			String sql = "select reserve_number from hamimelon.Stock WHERE id ='" + id + "'";
+			String sql = "SELECT reserve_number from hamimelon.Stock WHERE id ='" + id + "'";
 			mStatement = mSqlConnection.createStatement();
 			mResultSet = mStatement.executeQuery(sql);
-			System.out.println("成功執行" + sql);
+			System.out.println("成功執行: " + sql);
 			while (mResultSet.next()) {
 				return mResultSet.getInt("reserve_number");
 			}
@@ -430,7 +433,7 @@ public class MySqlConnection {
 		return stockList;
 	}
 
-	public boolean updateStockById(String id, int reserveNumber) {
+	public boolean updateStockReserveById(String id, int reserveNumber) {
 		// UPDATE 資料表名稱
 		// SET 欄位名稱1=欄位1的資料, 欄位名稱2=欄位2的資料,...
 		// WHERE 條件式
@@ -440,7 +443,7 @@ public class MySqlConnection {
 				return false;
 			mStatement = mSqlConnection.createStatement();
 			mStatement.execute(sql);
-			System.out.println("成功執行" + sql);
+			System.out.println("成功執行: " + sql);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -537,13 +537,6 @@ public class MenuController implements Initializable {
 			}
 		}
 
-		System.out.println("-- total Meat Cost --");
-		for (Entry<String, Integer> id : mMeatCostMap.entrySet()) {
-			System.out.println(MenuBuilder.meatsClassHashMap.get(id.getKey()) + " " + id.getValue() + " ");
-		}
-		// updateStockById(String id, int reserveNumber)
-		System.out.println("---------------------");
-
 		System.out.println(
 				"風雨:" + rain_special + " 雙人:" + pair_special + " 豪華:" + deluxe_special + " 特餐:" + chef_special);
 
@@ -564,6 +557,15 @@ public class MenuController implements Initializable {
 				myProgressIndicator.setVisible(true);
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
+				System.out.println("-- total Meat Cost --");
+				for (Entry<String, Integer> id : mMeatCostMap.entrySet()) {
+					String meatId = id.getKey();
+					int cost = id.getValue();
+					int reserve = mySqlConnection.getStockReserveById(meatId) - cost;
+					mySqlConnection.updateStockReserveById(meatId, reserve);
+					System.out.println(MainScene.meatsClassHashMap.get(meatId) + "=" + reserve);
+				}
+				System.out.println("---------------------");
 				mySqlConnection.insertOrderList(type, peopleNum, totalMoney, meals);
 				mySqlConnection.disconnectSql();
 				return true;
@@ -614,7 +616,7 @@ public class MenuController implements Initializable {
 			}
 			System.out.println("meat cost = " + meatId + "*" + meatCost);
 
-			if (MenuBuilder.meatsClassHashMap.containsKey(meatId)) {
+			if (MainScene.meatsClassHashMap.containsKey(meatId)) {
 				updateMeatCostMap(meatId, meatCost);
 			}
 		}
