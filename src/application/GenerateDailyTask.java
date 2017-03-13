@@ -33,9 +33,9 @@ public class GenerateDailyTask extends TimerTask {
 						+ time
 						+ "'), L_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time
-						+ "'), L_Outsourcing=(select count(type) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ "'), L_Outsourcing=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time
-						+ "' and type='外帶'),  L_delivery=(select count(type) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ "' and type='外帶'),  L_delivery=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time + "' and type='外送') " + "where teppanyaki_date='" + time + "'");
 
 		// String L_Number_of_visitors = new String(
@@ -69,9 +69,9 @@ public class GenerateDailyTask extends TimerTask {
 				+ time
 				+ "'), D_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
 				+ time
-				+ "'), D_Outsourcing=(select count(type) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+				+ "'), D_Outsourcing=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
 				+ time
-				+ "' and type='外帶'), D_delivery=(select count(type) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+				+ "' and type='外帶'), D_delivery=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
 				+ time + "' and type='外送') where teppanyaki_date='" + time + "'");
 
 		// String D_Number_of_visitors = new String(
