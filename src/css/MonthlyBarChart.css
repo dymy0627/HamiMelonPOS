@@ -1,0 +1,15 @@
+.default-color0.chart-bar {
+    -fx-bar-fill: #dc143c; 
+
+    }
+.default-color1.chart-bar { 
+    -fx-bar-fill: #0000ff; 
+    }
+    
+.chart-content {
+    -fx-padding: 30px;
+}
+
+.chart {
+    -fx-padding: 10px;
+}

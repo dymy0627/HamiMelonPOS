@@ -5,6 +5,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="application.report.MonthlyReportController">
@@ -16,7 +18,7 @@
 		<TitledPane animated="false" text="圖表">
 		<content>
 			<VBox fx:id = "BarChartView1" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-			AnchorPane.topAnchor="20.0" spacing="20">
+			AnchorPane.topAnchor="20.0" spacing="20" maxWidth="900" minWidth = "720">
 			
 			</VBox>
 		</content>
@@ -251,4 +253,7 @@
 			AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="320.0"
 			AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="320.0" />	
 	</children>
+	<stylesheets>
+		<URL value="@../css/MonthlyBarChart.css" />
+	</stylesheets>
 </AnchorPane>

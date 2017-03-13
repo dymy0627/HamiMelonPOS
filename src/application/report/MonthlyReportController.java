@@ -139,16 +139,17 @@ public class MonthlyReportController implements Initializable {
 	private void BarChartCreat() {
 		
 		//Result
-		String R_First = "一月";
-		String R_Second = "二月";
-		String R_Third = "三月";
+		String R_First = "本月";
+		String R_Second = "前月";
 		
 		//yAxis Content
-		final String Ribeye = "Ribeye";
-	    final String Sharon = "Sharon";
-	    final String Chicken = "Chicken";
-	    final String Pork = "Pork";
-	    final String White_shrimp = "White_shrimp";
+		final String GP_lunch = "午餐";//午餐
+		final String GP_dinner = "晚餐";//晚餐
+		final String GP_togo = "外帶";//外帶
+		final String GP_delivery = "外送";//外送
+		final String GP_pair = "雙人";//雙人
+		final String GP_special = "特餐";//特餐
+		final String GP_windfur = "楓雨";//風雨
 	    
 	    final NumberAxis xAxis = new NumberAxis();
         final CategoryAxis yAxis = new CategoryAxis();
@@ -161,30 +162,28 @@ public class MonthlyReportController implements Initializable {
  
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(R_First);       
-        series1.getData().add(new XYChart.Data(50, Ribeye));
-        series1.getData().add(new XYChart.Data(20, Sharon));
-        series1.getData().add(new XYChart.Data(10, Chicken));
-        series1.getData().add(new XYChart.Data(77.15, Pork));
-        series1.getData().add(new XYChart.Data(83, White_shrimp));      
+        series1.getData().add(new XYChart.Data(50, GP_lunch));
+        series1.getData().add(new XYChart.Data(20, GP_dinner));
+        series1.getData().add(new XYChart.Data(10, GP_togo));
+        series1.getData().add(new XYChart.Data(77.15, GP_delivery));
+        series1.getData().add(new XYChart.Data(83, GP_pair));
+        series1.getData().add(new XYChart.Data(83, GP_special));   
+        series1.getData().add(new XYChart.Data(83, GP_windfur));   
         
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName(R_Second);
-        series2.getData().add(new XYChart.Data(2, Ribeye));
-        series2.getData().add(new XYChart.Data(97, Sharon));
-        series2.getData().add(new XYChart.Data(50, Chicken));
-        series2.getData().add(new XYChart.Data(33, Pork));
-        series2.getData().add(new XYChart.Data(11, White_shrimp));  
+        series2.setName(R_Second); 
+        series2.getData().add(new XYChart.Data(50, GP_lunch));
+        series2.getData().add(new XYChart.Data(20, GP_dinner));
+        series2.getData().add(new XYChart.Data(10, GP_togo));
+        series2.getData().add(new XYChart.Data(77.15, GP_delivery));
+        series2.getData().add(new XYChart.Data(83, GP_pair));
+        series2.getData().add(new XYChart.Data(83, GP_special));   
+        series2.getData().add(new XYChart.Data(83, GP_windfur));   
         
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName(R_Third);
-        series3.getData().add(new XYChart.Data(65, Ribeye));
-        series3.getData().add(new XYChart.Data(43, Sharon));
-        series3.getData().add(new XYChart.Data(18, Chicken));
-        series3.getData().add(new XYChart.Data(15, Pork));
-        series3.getData().add(new XYChart.Data(90, White_shrimp));   
-        
-        bc.getData().addAll(series1, series2, series3);
+        bc.getData().addAll(series1, series2); bc.maxHeight(1600);bc.minHeight(1600);
         BarChartView1.getChildren().add(bc);
+        
+        //BarChartView1.getStylesheets().add("../css/background.css");
 		
 	}
 
