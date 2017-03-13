@@ -18,7 +18,7 @@
 		<TitledPane animated="false" text="圖表">
 		<content>
 			<VBox fx:id = "BarChartView1" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-			AnchorPane.topAnchor="20.0" spacing="20" maxWidth="900" minWidth = "720">
+			AnchorPane.topAnchor="20.0" spacing="20" maxWidth="900" minWidth = "900" prefHeight="550">
 			
 			</VBox>
 		</content>

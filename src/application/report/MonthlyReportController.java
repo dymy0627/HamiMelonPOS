@@ -61,7 +61,7 @@ public class MonthlyReportController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		getData();
-		BarChartCreat();
+		
 	}
 
 	private void getData() {
@@ -121,6 +121,8 @@ public class MonthlyReportController implements Initializable {
 				monthly_special_num.setText(month.get("Special_meals"));
 				monthly_wind_rain_num.setText(month.get("wind_and_rain"));
 				monthly_luxury_num.setText("0");	
+				
+				BarChartCreat();
 			}
 
 			@Override
@@ -150,7 +152,15 @@ public class MonthlyReportController implements Initializable {
 		final String GP_pair = "雙人";//雙人
 		final String GP_special = "特餐";//特餐
 		final String GP_windfur = "楓雨";//風雨
-	    
+		
+		int total_turnover = Integer.parseInt(month.get("Turnover"));
+		double lunch_persent = Double.parseDouble(month.get("Lunch_Turnover")) / total_turnover;
+		double dinner_persent = Double.parseDouble(month.get("Dinner_Turnover"))/ total_turnover;
+		double togo_persent = (Double.parseDouble(month.get("L_Outsourcing")) + Double.parseDouble(month.get("D_Outsourcing")))/ total_turnover;		
+		double delivery_persent = (Double.parseDouble(month.get("L_delivery"))+Double.parseDouble(month.get("D_delivery"))) / total_turnover;
+		
+		System.out.println("總營業額 " + total_turnover + "午餐占比 " + lunch_persent + "晚餐占比 " + dinner_persent + "外帶占比 " + togo_persent + "外送占比 " + delivery_persent);
+
 	    final NumberAxis xAxis = new NumberAxis();
         final CategoryAxis yAxis = new CategoryAxis();
         final BarChart<Number,String> bc = 
@@ -162,25 +172,30 @@ public class MonthlyReportController implements Initializable {
  
         XYChart.Series series1 = new XYChart.Series();
         series1.setName(R_First);       
-        series1.getData().add(new XYChart.Data(50, GP_lunch));
-        series1.getData().add(new XYChart.Data(20, GP_dinner));
-        series1.getData().add(new XYChart.Data(10, GP_togo));
-        series1.getData().add(new XYChart.Data(77.15, GP_delivery));
-        series1.getData().add(new XYChart.Data(83, GP_pair));
-        series1.getData().add(new XYChart.Data(83, GP_special));   
-        series1.getData().add(new XYChart.Data(83, GP_windfur));   
+        series1.getData().add(new XYChart.Data(lunch_persent, GP_lunch));
+        series1.getData().add(new XYChart.Data(dinner_persent, GP_dinner));
+        series1.getData().add(new XYChart.Data(togo_persent, GP_togo));
+        series1.getData().add(new XYChart.Data(delivery_persent, GP_delivery));
+        series1.getData().add(new XYChart.Data(0.5, GP_pair));
+        series1.getData().add(new XYChart.Data(0.8, GP_special));   
+        series1.getData().add(new XYChart.Data(0.95, GP_windfur));   
         
         XYChart.Series series2 = new XYChart.Series();
         series2.setName(R_Second); 
-        series2.getData().add(new XYChart.Data(50, GP_lunch));
-        series2.getData().add(new XYChart.Data(20, GP_dinner));
-        series2.getData().add(new XYChart.Data(10, GP_togo));
-        series2.getData().add(new XYChart.Data(77.15, GP_delivery));
-        series2.getData().add(new XYChart.Data(83, GP_pair));
-        series2.getData().add(new XYChart.Data(83, GP_special));   
-        series2.getData().add(new XYChart.Data(83, GP_windfur));   
+        series2.getData().add(new XYChart.Data(0.3, GP_lunch));
+        series2.getData().add(new XYChart.Data(0.2, GP_dinner));
+        series2.getData().add(new XYChart.Data(0.68, GP_togo));
+        series2.getData().add(new XYChart.Data(0.36, GP_delivery));
+        series2.getData().add(new XYChart.Data(.066, GP_pair));
+        series2.getData().add(new XYChart.Data(0.85, GP_special));   
+        series2.getData().add(new XYChart.Data(0.06, GP_windfur));   
         
-        bc.getData().addAll(series1, series2); bc.maxHeight(1600);bc.minHeight(1600);
+        bc.setBarGap(3);
+        bc.setCategoryGap(3);
+        bc.getData().addAll(series1, series2); 
+        bc.prefHeight(1000);
+        bc.maxHeight(1000);
+        bc.minHeight(1000);
         BarChartView1.getChildren().add(bc);
         
         //BarChartView1.getStylesheets().add("../css/background.css");

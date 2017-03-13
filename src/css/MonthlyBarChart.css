@@ -6,10 +6,11 @@
     -fx-bar-fill: #0000ff; 
     }
     
-.chart-content {
-    -fx-padding: 30px;
+.axis{
+  -fx-tick-label-font-size: 13pt;
+  -fx-font-size: 18pt;
 }
 
-.chart {
-    -fx-padding: 10px;
+.chart-title {
+  -fx-font-size: 20pt;
 }
