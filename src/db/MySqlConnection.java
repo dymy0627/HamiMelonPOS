@@ -141,6 +141,36 @@ public class MySqlConnection {
 		return month;
 	}
 
+	public String getDailyMeals(String time) {
+		String getDailyMeals = new String(
+				"SELECT group_concat(meals) todays_meal FROM hamimelon.Order_list where date_format(time,'%Y-%m-%d')='"
+						+ time + "'");
+		String mealString = "";
+		try {
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = mStatement.executeQuery(getDailyMeals);
+			while (mResultSet.next()) {
+				mealString = mResultSet.getString("todays_meal");
+			}
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			try {
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
+				}
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return mealString;
+	}
+
 	public DailyReportBean getDailyReport() {
 		DailyReportBean day = new DailyReportBean();
 		String systemtime = GenerateDailyTask.getDateTime();
@@ -524,5 +554,36 @@ public class MySqlConnection {
 			}
 		}
 		return purchaseList;
+	}
+
+	// unused
+	public int getPurchaseQuanitySumByName(String name) {
+		try {
+			String sql = "SELECT sum(t.quantity) total_quantity FROM("
+					+ "SELECT purchase.name, purchase.quantity FROM hamimelon.Purchase purchase" + ") t where t.name='"
+					+ name + "' group by t.name";
+
+			mStatement = mSqlConnection.createStatement();
+			mResultSet = mStatement.executeQuery(sql);
+			while (mResultSet.next()) {
+				return mResultSet.getInt("total_quantity");
+			}
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			try {
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
+				}
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return 0;
 	}
 }

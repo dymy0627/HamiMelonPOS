@@ -47,6 +47,31 @@ public class MenuBuilder {
 		System.out.println("--- meun loading end ---");
 	}
 
+	public static void loadFromDB(MySqlConnection mySqlConnection) {
+		if (!menuHashMap.isEmpty()) {
+			System.out.println("--- cache meun ---");
+			return;
+		}
+
+		if (mySqlConnection == null) {
+			System.out.println("no SQL Connection");
+			return;
+		}
+
+		List<MenuBean> menuBeanList;
+		menuBeanList = mySqlConnection.selectMenu();
+
+		System.out.println("--- meun loading start ---");
+		for (MenuBean menu : menuBeanList) {
+			menuHashMap.put(menu.getId(), menu);
+			System.out.println(menu.getId() + ", " + menu.getSet() + "-" + menu.getName() + ", " + menu.getPrice()
+					+ ", " + menu.getMeatClass());
+		}
+		System.out.println("--- meun loading end ---");
+
+		// writeToJsonFile(menuBeanList);
+	}
+
 	public static void loadFromDB() {
 		if (!menuHashMap.isEmpty()) {
 			System.out.println("--- cache meun ---");

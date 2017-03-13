@@ -3,6 +3,7 @@ package application;
 import java.util.HashMap;
 import java.util.Map;
 
+import application.order.MenuBuilder;
 import application.order.MenuController;
 import db.MySqlConnection;
 import javafx.application.Application;
@@ -37,6 +38,7 @@ public class MainScene extends Application {
 
 		MySqlConnection mySqlConnection = new MySqlConnection();
 		mySqlConnection.connectSql();
+		MenuBuilder.loadFromDB(mySqlConnection); // MenuBuilder.loadFromJson();
 		meatsClassHashMap = mySqlConnection.getMeatClassHashMap();
 		mySqlConnection.disconnectSql();
 

@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 
-import application.order.MenuBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +11,6 @@ public class MainController {
 
 	@FXML
 	protected void OrderButtonAction(ActionEvent event) {
-
-		MenuBuilder.loadFromDB();
-		// MenuBuilder.loadFromJson();
-
 		showStage("/fxml/MenuStage.fxml");
 	}
 
