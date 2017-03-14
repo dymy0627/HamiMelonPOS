@@ -33,6 +33,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class MonthlyReportController implements Initializable {
@@ -143,6 +144,7 @@ public class MonthlyReportController implements Initializable {
 		//Result
 		String R_First = "本月";
 		String R_Second = "前月";
+		String R_Third = "總營業額";
 		
 		//yAxis Content
 		final String GP_lunch = "午餐";//午餐
@@ -152,6 +154,7 @@ public class MonthlyReportController implements Initializable {
 		final String GP_pair = "雙人";//雙人
 		final String GP_special = "特餐";//特餐
 		final String GP_windfur = "楓雨";//風雨
+		final String GP_total = "總營業額";//風雨
 		
 		int total_turnover = Integer.parseInt(month.get("Turnover"));
 		double lunch_persent = Double.parseDouble(month.get("Lunch_Turnover")) / total_turnover;
@@ -168,35 +171,44 @@ public class MonthlyReportController implements Initializable {
         bc.setTitle("月圖報表");
         xAxis.setLabel("比例");  
         xAxis.setTickLabelRotation(90);
+        xAxis.setUpperBound(90);
+
+        //yAxis.tickLabelRotationProperty().set(90);
         yAxis.setLabel("內容");        
+        yAxis.setTickLabelGap(10);
  
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName(R_First);       
-        series1.getData().add(new XYChart.Data(lunch_persent, GP_lunch));
-        series1.getData().add(new XYChart.Data(dinner_persent, GP_dinner));
-        series1.getData().add(new XYChart.Data(togo_persent, GP_togo));
-        series1.getData().add(new XYChart.Data(delivery_persent, GP_delivery));
+        series1.setName(R_First);    
         series1.getData().add(new XYChart.Data(0.5, GP_pair));
         series1.getData().add(new XYChart.Data(0.8, GP_special));   
         series1.getData().add(new XYChart.Data(0.95, GP_windfur));   
+        series1.getData().add(new XYChart.Data(togo_persent, GP_togo));
+        series1.getData().add(new XYChart.Data(delivery_persent, GP_delivery));
+        series1.getData().add(new XYChart.Data(dinner_persent, GP_dinner));
+        series1.getData().add(new XYChart.Data(lunch_persent, GP_lunch));
+        
         
         XYChart.Series series2 = new XYChart.Series();
         series2.setName(R_Second); 
-        series2.getData().add(new XYChart.Data(0.3, GP_lunch));
-        series2.getData().add(new XYChart.Data(0.2, GP_dinner));
-        series2.getData().add(new XYChart.Data(0.68, GP_togo));
-        series2.getData().add(new XYChart.Data(0.36, GP_delivery));
         series2.getData().add(new XYChart.Data(.066, GP_pair));
         series2.getData().add(new XYChart.Data(0.85, GP_special));   
         series2.getData().add(new XYChart.Data(0.06, GP_windfur));   
+        series2.getData().add(new XYChart.Data(0.68, GP_togo));
+        series2.getData().add(new XYChart.Data(0.36, GP_delivery));
+        series2.getData().add(new XYChart.Data(0.2, GP_dinner));
+        series2.getData().add(new XYChart.Data(0.3, GP_lunch));
+        
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName(R_Third); 
+        series3.getData().add(new XYChart.Data(1.0, GP_total));
         
         bc.setBarGap(3);
         bc.setCategoryGap(3);
-        bc.getData().addAll(series1, series2); 
-        bc.prefHeight(1000);
-        bc.maxHeight(1000);
-        bc.minHeight(1000);
+        bc.getData().addAll(series1, series2, series3); 
+       
+        BarChartView1.setVgrow(bc, Priority.ALWAYS);
         BarChartView1.getChildren().add(bc);
+        
         
         //BarChartView1.getStylesheets().add("../css/background.css");
 		
