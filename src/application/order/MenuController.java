@@ -542,6 +542,8 @@ public class MenuController implements Initializable {
 
 		if (mTotalMoney > 0)
 			dataBaseConnection(mConsumptionType, num_people, mTotalMoney, meals);
+		
+		//List_QC.InsertQCData();
 	}
 
 	private void dataBaseConnection(String type, int peopleNum, int totalMoney, String meals) {

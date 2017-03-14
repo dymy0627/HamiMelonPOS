@@ -76,6 +76,12 @@ public class MySqlConnection {
 				+ people_num + "','" + cost + "','" + meals + "')");
 		return executeSql(list_sql);
 	}
+	
+	public boolean insertQCList(String type, int people_num, int cost, String meals, String time) {
+		String list_sql = new String("INSERT into hamimelon.Order_list(type,people,cost,meals,time)values('" + type + "','"
+				+ people_num + "','" + cost + "','" + meals + "','"+time+"')");
+		return executeSql(list_sql);
+	}
 
 	public Map<String, String> getMonthlyReport() {
 		Map<String, String> month = new HashMap<String, String>();

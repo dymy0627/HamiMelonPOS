@@ -1,0 +1,179 @@
+{
+	"list_qc": [
+		{
+			"type": "內用",
+			"people": 1,
+			"cost": 720,
+			"meals": "meal001",
+			"time": "2017-03-17 12:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 2,
+			"cost": 1340,
+			"meals": "meal002,meal003",
+			"time": "2017-03-17 12:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 6,
+			"cost": 1560,
+			"meals": "meal004,meal005,meal006",
+			"time": "2017-03-17 12:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 3,
+			"cost": 1290,
+			"meals": "meal028,meal029,meal030",
+			"time": "2017-03-17 12:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 580,
+			"meals": "meal034,meal036,meal038",
+			"time": "2017-03-17 12:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 540,
+			"meals": "meal046,meal047,meal049",
+			"time": "2017-03-17 12:00:00"
+		},
+		{
+			"type": "外送",
+			"people": 1,
+			"cost": 330,
+			"meals": "meal052,meal056,meal058,meal069",
+			"time": "2017-03-17 12:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 5,
+			"cost": 2060,
+			"meals": "meal028,meal029,meal030,meal031,meal032,meal072",
+			"time": "2017-03-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 2,
+			"cost": 399,
+			"meals": "meal013",
+			"time": "2017-03-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 4,
+			"cost": 1110,
+			"meals": "meal014,meal016,meal018,meal019",
+			"time": "2017-03-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 1,
+			"cost": 280,
+			"meals": "meal043,meal070",
+			"time": "2017-03-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 1,
+			"cost": 580,
+			"meals": "meal033o,meal037a",
+			"time": "2017-03-17 20:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 170,
+			"meals": "meal026",
+			"time": "2017-03-17 20:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 560,
+			"meals": "meal036,meal037,meal044",
+			"time": "2017-03-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 2,
+			"cost": 829,
+			"meals": "meal055,meal068,meal071,meal073",
+			"time": "2017-04-17 12:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 3,
+			"cost": 600,
+			"meals": "meal019,meal022,meal027",
+			"time": "2017-04-17 12:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 530,
+			"meals": "meal031,meal039",
+			"time": "2017-04-17 12:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 620,
+			"meals": "meal050,meal051,meal053,meal057",
+			"time": "2017-04-17 12:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 8,
+			"cost": 2280,
+			"meals": "meal002,meal004,meal006,meal009",
+			"time": "2017-04-17 12:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 2,
+			"cost": 399,
+			"meals": "meal013",
+			"time": "2017-04-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 5,
+			"cost": 1540,
+			"meals": "meal014,meal015,meal016,meal017,meal018",
+			"time": "2017-04-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 9,
+			"cost": 2340,
+			"meals": "meal021,meal022,meal023,meal024,meal025,meal026,meal027,meal028,meal029",
+			"time": "2017-04-17 20:00:00"
+		},
+		{
+			"type": "內用",
+			"people": 1,
+			"cost": 600,
+			"meals": "meal041a,meal045o,meal060,meal072",
+			"time": "2017-04-17 20:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 330,
+			"meals": "meal037,meal052",
+			"time": "2017-04-17 20:00:00"
+		},
+		{
+			"type": "外帶",
+			"people": 1,
+			"cost": 830,
+			"meals": "meal031,meal032,meal038",
+			"time": "2017-04-17 20:00:00"
+		}
+	]
+}
