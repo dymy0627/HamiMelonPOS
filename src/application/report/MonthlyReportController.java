@@ -21,11 +21,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import application.MainScene;
 import application.GenerateDailyTask;
 import db.MySqlConnection;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -35,6 +40,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class MonthlyReportController implements Initializable {
 
@@ -57,6 +63,8 @@ public class MonthlyReportController implements Initializable {
 	private static boolean needUpdate = false;
 	
 	private Map<String, String> month;
+	private ArrayList<XYChart.Data<Integer,String>> T_MonthData = new ArrayList<XYChart.Data<Integer,String>>();
+	private ArrayList<XYChart.Data<Integer,String>> P_MonthData = new ArrayList<XYChart.Data<Integer,String>>();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -69,7 +77,6 @@ public class MonthlyReportController implements Initializable {
 		myProgressIndicator.setVisible(false);
 		new Thread(new Task<Boolean>() {
 
-			@SuppressWarnings("unchecked")
 			@Override
 			protected Boolean call() throws Exception {
 				myProgressIndicator.setVisible(true);
@@ -138,70 +145,56 @@ public class MonthlyReportController implements Initializable {
 		}).start();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	private void BarChartCreat() {
 		
-		//Result
 		String R_First = "本月";
 		String R_Second = "前月";
 		String R_Third = "總營業額";
 		
-		//yAxis Content
-		final String GP_lunch = "午餐";//午餐
-		final String GP_dinner = "晚餐";//晚餐
-		final String GP_togo = "外帶";//外帶
-		final String GP_delivery = "外送";//外送
-		final String GP_pair = "雙人";//雙人
-		final String GP_special = "特餐";//特餐
-		final String GP_windfur = "楓雨";//風雨
-		final String GP_total = "總營業額";//風雨
-		
-		int total_turnover = Integer.parseInt(month.get("Turnover"));
-		double lunch_persent = Double.parseDouble(month.get("Lunch_Turnover")) / total_turnover;
-		double dinner_persent = Double.parseDouble(month.get("Dinner_Turnover"))/ total_turnover;
-		double togo_persent = (Double.parseDouble(month.get("L_Outsourcing")) + Double.parseDouble(month.get("D_Outsourcing")))/ total_turnover;		
-		double delivery_persent = (Double.parseDouble(month.get("L_delivery"))+Double.parseDouble(month.get("D_delivery"))) / total_turnover;
-		
-		System.out.println("總營業額 " + total_turnover + "午餐占比 " + lunch_persent + "晚餐占比 " + dinner_persent + "外帶占比 " + togo_persent + "外送占比 " + delivery_persent);
-
-	    final NumberAxis xAxis = new NumberAxis();
+		setThisMonthData();
+		setPreviousMonthData();
+	
+		final String GP_total = "總營業額";//
+		final NumberAxis xAxis = new NumberAxis();
         final CategoryAxis yAxis = new CategoryAxis();
         final BarChart<Number,String> bc = 
             new BarChart<Number,String>(xAxis,yAxis);
         bc.setTitle("月圖報表");
-        xAxis.setLabel("比例");  
         xAxis.setTickLabelRotation(90);
         xAxis.setUpperBound(90);
-
-        //yAxis.tickLabelRotationProperty().set(90);
-        yAxis.setLabel("內容");        
         yAxis.setTickLabelGap(10);
  
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName(R_First);    
-        series1.getData().add(new XYChart.Data(0.5, GP_pair));
-        series1.getData().add(new XYChart.Data(0.8, GP_special));   
-        series1.getData().add(new XYChart.Data(0.95, GP_windfur));   
-        series1.getData().add(new XYChart.Data(togo_persent, GP_togo));
-        series1.getData().add(new XYChart.Data(delivery_persent, GP_delivery));
-        series1.getData().add(new XYChart.Data(dinner_persent, GP_dinner));
-        series1.getData().add(new XYChart.Data(lunch_persent, GP_lunch));
-        
+        series1.setName(R_First);
+        for(XYChart.Data<Integer,String> i : T_MonthData){
+        	i.nodeProperty().addListener(new ChangeListener<Node>() {
+                @Override public void changed(ObservableValue<? extends Node> ov, Node oldNode, final Node node) {
+                  if (node != null) {
+                    displayLabelForData(i);
+                  } 
+                }
+              });
+        	series1.getData().add(i);
+        }
         
         XYChart.Series series2 = new XYChart.Series();
         series2.setName(R_Second); 
-        series2.getData().add(new XYChart.Data(.066, GP_pair));
-        series2.getData().add(new XYChart.Data(0.85, GP_special));   
-        series2.getData().add(new XYChart.Data(0.06, GP_windfur));   
-        series2.getData().add(new XYChart.Data(0.68, GP_togo));
-        series2.getData().add(new XYChart.Data(0.36, GP_delivery));
-        series2.getData().add(new XYChart.Data(0.2, GP_dinner));
-        series2.getData().add(new XYChart.Data(0.3, GP_lunch));
+        for(XYChart.Data<Integer,String> i : P_MonthData){
+        	i.nodeProperty().addListener(new ChangeListener<Node>() {
+                @Override public void changed(ObservableValue<? extends Node> ov, Node oldNode, final Node node) {
+                  if (node != null) {
+                    displayLabelForData(i);
+                  } 
+                }
+              });
+        	series2.getData().add(i);
+        }
         
         XYChart.Series series3 = new XYChart.Series();
         series3.setName(R_Third); 
-        series3.getData().add(new XYChart.Data(1.0, GP_total));
-        
+        series3.getData().add(new XYChart.Data(100, GP_total));
+
         bc.setBarGap(3);
         bc.setCategoryGap(3);
         bc.getData().addAll(series1, series2, series3); 
@@ -209,10 +202,73 @@ public class MonthlyReportController implements Initializable {
         BarChartView1.setVgrow(bc, Priority.ALWAYS);
         BarChartView1.getChildren().add(bc);
         
-        
-        //BarChartView1.getStylesheets().add("../css/background.css");
+	}
+
+	private void setPreviousMonthData() {
+		//yAxis Content Data
+		int total_turnover = Integer.parseInt(month.get("Turnover"));
+		int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
+		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
+		int togo_persent = (Integer.parseInt(month.get("L_Outsourcing"))*100 + Integer.parseInt(month.get("D_Outsourcing"))*100)/ total_turnover;		
+		int delivery_persent = (Integer.parseInt(month.get("L_delivery"))*100+Integer.parseInt(month.get("D_delivery"))*100) / total_turnover;
+
+		System.out.println("前月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
+
+		P_MonthData.add(new XYChart.Data<Integer, String>(10, "雙人"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(50, "特餐"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(100, "楓雨"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(togo_persent, "外帶"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(delivery_persent, "外送"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(dinner_persent, "晚餐"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(lunch_persent, "午餐"));
 		
 	}
+
+	private void setThisMonthData() {
+		//yAxis Content Data
+		int total_turnover = Integer.parseInt(month.get("Turnover"));
+		int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
+		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
+		int togo_persent = (Integer.parseInt(month.get("L_Outsourcing"))*100 + Integer.parseInt(month.get("D_Outsourcing"))*100)/ total_turnover;		
+		int delivery_persent = (Integer.parseInt(month.get("L_delivery"))*100+Integer.parseInt(month.get("D_delivery"))*100) / total_turnover;
+
+		System.out.println("本月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
+
+		T_MonthData.add(new XYChart.Data<Integer, String>(10, "雙人"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(2, "特餐"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(0, "楓雨"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(togo_persent, "外帶"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(delivery_persent, "外送"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(dinner_persent, "晚餐"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(lunch_persent, "午餐"));
+		
+	}
+
+	private void displayLabelForData(XYChart.Data<Integer,String> data) {
+		  final Node node = data.getNode();
+		  final Text dataText = new Text(data.getXValue() + "");
+		  node.parentProperty().addListener(new ChangeListener<Parent>() {
+		    public void changed(ObservableValue<? extends Parent> ov, Parent oldParent, Parent parent) {
+		      Group parentGroup = (Group) parent;
+		      parentGroup.getChildren().add(dataText);
+		    }
+		  });
+
+		  node.boundsInParentProperty().addListener(new ChangeListener<Bounds>() {
+		    @Override public void changed(ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) {
+		      dataText.setLayoutX(
+		        Math.round(
+		          bounds.getMinX() + bounds.getWidth() + dataText.prefWidth(-1)*0.3
+		        )
+		      );
+		      dataText.setLayoutY(
+		        Math.round(
+		          bounds.getMinY() - dataText.prefHeight(-1) * 0.5 + dataText.prefHeight(-1)
+		        )
+		      );
+		    }
+		  });
+		}
 
 	@FXML
 	protected void BackButtonAction(ActionEvent event) throws IOException {
