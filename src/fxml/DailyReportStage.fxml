@@ -102,6 +102,15 @@
 								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
 							</padding>
 						</Label>
+						<Label prefHeight="33.0" prefWidth="100.0" text="天氣"
+							GridPane.rowIndex="6" >
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						 <ComboBox fx:id="weather_combobox"  promptText="--" prefHeight="30.0" 
+								   prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+						
 						<Label prefHeight="40.0" prefWidth="100.0" text="風雨餐"
 							GridPane.columnIndex="2" GridPane.rowIndex="4">
 							<padding>
@@ -114,6 +123,7 @@
 								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
 							</padding>
 						</Label>
+						
 						<Label fx:id="daily_sales" prefHeight="40.0" prefWidth="100.0"
 							text="0" GridPane.columnIndex="1">
 							<padding>
@@ -197,14 +207,20 @@
 				</GridPane>
 				<Pane>
 					<children>
-						<Button onAction="#BackButtonAction" prefHeight="30.0"
-							prefWidth="150.0" text="返回" />
+						<HBox spacing = "10">
+							<children>
+								<Button onAction="#BackButtonAction" prefHeight="30.0"
+								prefWidth="150.0" text="返回" />
+								<Button onAction="#CheckButtonAction" prefHeight="30.0"
+								prefWidth="150.0" text="確認" />
+							</children>
+						</HBox>
 					</children>
 					<VBox.margin>
 						<Insets top="20.0" />
 					</VBox.margin>
 				</Pane>
-
+				
 			</children>
 			<padding>
 				<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

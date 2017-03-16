@@ -7,12 +7,15 @@ import java.util.ResourceBundle;
 import application.GenerateDailyTask;
 import application.MainScene;
 import db.MySqlConnection;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 
@@ -32,9 +35,18 @@ public class DailyReportController implements Initializable {
 	private ProgressIndicator myProgressIndicator;
 
 	private static boolean needUpdate = false;
+	
+	@FXML
+	private ComboBox<String> weather_combobox;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		weather_combobox.getItems().setAll("晴天","雨天");
+		weather_combobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> selected, String oldSelected, String newSelected) {
+				System.out.println("weatherComboBox newSelected = " + newSelected);
+			}
+		});
 		getData();
 	}
 
@@ -115,6 +127,13 @@ public class DailyReportController implements Initializable {
 
 	@FXML
 	protected void BackButtonAction(ActionEvent event) throws IOException {
+		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
+
+		MainScene.changeScene(mainstage);
+	}
+	
+	@FXML
+	protected void CheckButtonAction(ActionEvent event) throws IOException {
 		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 
 		MainScene.changeScene(mainstage);
