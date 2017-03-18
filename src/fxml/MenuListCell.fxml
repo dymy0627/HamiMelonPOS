@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<HBox fx:id="menuItem" alignment="CENTER_LEFT" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<Label fx:id="setLabel" prefWidth="70.0" text="套餐名" />
+		<Label fx:id="nameLabel" prefWidth="65.0" text="品名" wrapText="true"
+			maxWidth="100.0" />
+		<Label fx:id="priceLabel" prefWidth="25.0" text="單價" />
+		<Label fx:id="countLabel" prefWidth="25.0" text="數量" />
+		<Label fx:id="totalLabel" prefWidth="50.0" text="小計" />
+	</children>
+</HBox>

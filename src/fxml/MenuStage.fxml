@@ -26,7 +26,7 @@
 							<children>
 								<Label alignment="center" prefHeight="30.0"
 									style="-fx-font-size: 20; -fx-background-color: black; -fx-text-fill: yellow;"
-									text="      跑馬燈通知 					 現在時間 下午 09:43 " GridPane.columnIndex="0"
+									text="      跑馬燈通知       現在時間 下午 09:43 " GridPane.columnIndex="0"
 									GridPane.rowIndex="0" />
 							</children>
 						</HBox>
@@ -37,7 +37,11 @@
 									styleClass="orderTypeButton" text="內用" />
 								<ToggleButton fx:id="typeTakeOutButton"
 									mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0"
-									styleClass="orderTypeButton" text="外帶" toggleGroup="$TypeGroup" />
+									styleClass="orderTypeButton" text="外帶">
+									<toggleGroup>
+										<ToggleGroup fx:id="TypeGroup" />
+									</toggleGroup>
+								</ToggleButton>
 								<ToggleButton fx:id="typeDeliverButton"
 									mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0"
 									styleClass="orderTypeButton" text="外送" toggleGroup="$TypeGroup" />
@@ -135,45 +139,69 @@
 				</GridPane>
 			</center>
 			<right>
-				<FlowPane prefHeight="560.0" prefWidth="200.0"
-					BorderPane.alignment="CENTER" styleClass="menuRightBottom">
+				<VBox BorderPane.alignment="CENTER">
 					<children>
 						<ListView fx:id="menulist">
 							<padding>
 								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
 							</padding>
 						</ListView>
-						<AnchorPane prefHeight="40.0" prefWidth="240.0">
+						<HBox>
+							<children>
+								<Button fx:id="otherButton" mnemonicParsing="false"
+									onAction="#OtherButtonAction" prefHeight="40.0" prefWidth="60.0"
+									text="加點 ">
+									<HBox.margin>
+										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+									</HBox.margin>
+								</Button>
+								<Button fx:id="plusButton" mnemonicParsing="false"
+									onAction="#PlusButtonAction" prefHeight="40.0" prefWidth="60.0"
+									text="+">
+									<HBox.margin>
+										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+									</HBox.margin>
+								</Button>
+								<Button fx:id="minusButton" mnemonicParsing="false"
+									onAction="#MinusButtonAction" prefHeight="40.0" prefWidth="60.0"
+									text="-">
+									<HBox.margin>
+										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+									</HBox.margin>
+								</Button>
+							</children>
+						</HBox>
+						<HBox alignment="CENTER_LEFT">
 							<children>
 
-								<Label fx:id="total_money_Label" prefHeight="30.0" text="總價"
-									AnchorPane.leftAnchor="5.0" styleClass="moneyLabel">
+								<Label fx:id="total_money_Label" styleClass="moneyLabel"
+									text="總價">
 									<padding>
 										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 									</padding>
 								</Label>
 
-								<ComboBox fx:id="discount_ComboBox" prefHeight="30.0"
-									prefWidth="100.0" promptText="折扣選擇" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="4.0" />
+								<ComboBox fx:id="discount_ComboBox" prefWidth="100.0"
+									promptText="折扣選擇" />
 							</children>
-						</AnchorPane>
+						</HBox>
+						<VBox alignment="CENTER">
+							<children>
 
-						<Button fx:id="backButton" onAction="#PreviousPageButtonAction"
-							prefHeight="45.0" prefWidth="130.0" styleClass="backButton" text="返回">
-							<FlowPane.margin>
-								<Insets left="60.0" top="10.0" />
-							</FlowPane.margin>
-						</Button>
+								<Button fx:id="backButton" onAction="#PreviousPageButtonAction"
+									prefHeight="45.0" prefWidth="130.0" styleClass="backButton"
+									text="返回">
+									<VBox.margin>
+										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+									</VBox.margin>
+								</Button>
 
-						<Button fx:id="printButton" onAction="#PrintButtonAction"
-							prefHeight="45.0" prefWidth="130.0" styleClass="okButton" text="列印">
-							<FlowPane.margin>
-								<Insets left="60.0" top="10.0" />
-							</FlowPane.margin>
-						</Button>
+								<Button fx:id="printButton" onAction="#PrintButtonAction"
+									prefHeight="45.0" prefWidth="130.0" styleClass="okButton" text="列印" />
+							</children>
+						</VBox>
 					</children>
-				</FlowPane>
+				</VBox>
 			</right>
 		</BorderPane>
 		<ProgressIndicator fx:id="myProgressIndicator"
