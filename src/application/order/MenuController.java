@@ -380,7 +380,7 @@ public class MenuController implements Initializable {
 				otherMeal.setSet("精緻特餐");
 				otherMeal.setName(menu.getName() + "(加點)");
 				otherMeal.setPrice(menu.getPrice() + 150);
-				otherMeal.setMeatClass(menu.getMeatClass() + "_16_19");
+				otherMeal.setMeatClass(menu.getMeatClass() + "_16*3_19");
 				ListItem newListItem = new ListItem(otherMeal);
 
 				int index = passing_list.indexOf(currentListItem);
