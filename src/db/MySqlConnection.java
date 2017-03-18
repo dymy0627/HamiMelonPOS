@@ -592,4 +592,30 @@ public class MySqlConnection {
 		}
 		return 0;
 	}
+
+	public void updateDailyWeather(String weather) {
+		String systemtime = GenerateDailyTask.getDateTime();
+		String[] timeArray = systemtime.split(" ");
+		String time = timeArray[0];
+		String sql = "UPDATE hamimelon.Daily SET weather='" + weather + "' WHERE teppanyaki_date='" + time + "'";
+		
+		try {
+			mStatement = mSqlConnection.createStatement();
+			mStatement.execute(sql);
+			System.out.println("update weather success");
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			try {
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		
+		}
+	}
 }
