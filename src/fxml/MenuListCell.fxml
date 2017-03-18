@@ -13,7 +13,7 @@
 		<Label fx:id="setLabel" prefWidth="70.0" text="套餐名" />
 		<Label fx:id="nameLabel" prefWidth="65.0" text="品名" wrapText="true"
 			maxWidth="100.0" />
-		<Label fx:id="priceLabel" prefWidth="25.0" text="單價" />
+		<Label fx:id="priceLabel" prefWidth="35.0" text="單價" />
 		<Label fx:id="countLabel" prefWidth="25.0" text="數量" />
 		<Label fx:id="totalLabel" prefWidth="50.0" text="小計" />
 	</children>

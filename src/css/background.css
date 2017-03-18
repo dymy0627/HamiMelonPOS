@@ -1,18 +1,17 @@
 .mainBackground {
    /*-fx-background-image: url("main.jpg");
    -fx-background-size: cover; */
-   -fx-background-color:  #D2DAE5;
-   
+   -fx-background-color: #D2DAE5;
 }
 
 .menuBackground {
-	-fx-background-color: #758AA7;
+	-fx-background-color: #BBC84C; /* #758AA7; */
 }
 
 .menuBlockBackground {
-	-fx-background-color: #D2DAE5;
+	-fx-background-color: #F5E5BD; /* #D2DAE5; */ 
 }
 
 .menuRightBottom{ 
-	-fx-background-color: #F3F5F8; 
+	-fx-background-color: #F3F5F8;
 }

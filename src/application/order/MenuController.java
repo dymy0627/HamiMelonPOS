@@ -32,6 +32,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -59,11 +60,7 @@ public class MenuController implements Initializable {
 	@FXML
 	private Button plusButton, minusButton;
 
-	private Button alacarteButton = new Button();
 	private Map<String, Button> menuButtonGroup = new HashMap<>();
-
-	int alacarteNum = 0;
-	int otherNum = 0;
 
 	@FXML
 	private Label total_money_Label; // 金額
@@ -85,8 +82,6 @@ public class MenuController implements Initializable {
 	private ProgressIndicator myProgressIndicator;
 
 	public static boolean pause;
-
-	private int rain_special, pair_special, deluxe_special, chef_special;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -192,6 +187,7 @@ public class MenuController implements Initializable {
 				}
 			} else {
 				passing_list.add(listItem);
+
 				updateMenuList();
 				menulist.getSelectionModel().select(passing_list.indexOf(listItem));
 			}
@@ -201,41 +197,28 @@ public class MenuController implements Initializable {
 	private EventHandler<ActionEvent> alacarteEventHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent e) {
+			String currentMealId = ((Button) e.getSource()).getId();
+			MenuBean chosenMeal = MenuBuilder.getMealById(currentMealId);
 
-			alacarteNum++;
-			if (alacarteNum > 0) {
-				String currentMealId = ((Button) e.getSource()).getId();
+			MenuBean alacarteMeal = new MenuBean(currentMealId);
+			alacarteMeal.setName(chosenMeal.getName() + "(單點)");
+			alacarteMeal.setSet("特餐單點");
+			alacarteMeal.setPrice(chosenMeal.getPrice() - 30);
+			alacarteMeal.setMeatClass(chosenMeal.getMeatClass());
 
-				MenuBean chosenMeal = MenuBuilder.getMealById(currentMealId);
+			ListItem listItem = new ListItem(alacarteMeal);
+			passing_list.add(listItem);
 
-				MenuBean alacarteMeal = new MenuBean(currentMealId);
-				alacarteMeal.setName(chosenMeal.getName() + "(單點)");
-				alacarteMeal.setSet("特餐單點");
-				alacarteMeal.setPrice(chosenMeal.getPrice() - 30);
-				alacarteMeal.setMeatClass(chosenMeal.getMeatClass());
-
-				ListItem listItem = new ListItem(alacarteMeal);
-
-				passing_list.add(listItem);
-				updateMenuList();
-				menulist.getSelectionModel().select(passing_list.indexOf(listItem));
-			}
+			updateMenuList();
+			menulist.getSelectionModel().select(passing_list.indexOf(listItem));
 		}
 
 	};
 
 	private void clearAllItem() {
 		passing_list.clear();
-		mTotalMoney = 0;
-
-		rain_special = 0;
-		pair_special = 0;
-		deluxe_special = 0;
-		chef_special = 0;
 		mMeatCostMap.clear();
-
 		currentListItem = null;
-
 		updateMenuList();
 	}
 
@@ -250,6 +233,10 @@ public class MenuController implements Initializable {
 	}
 
 	private void disableMode(boolean disable) {
+		typeHereButton.setDisable(disable);
+		typeTakeOutButton.setDisable(disable);
+		typeDeliverButton.setDisable(disable);
+
 		peopleComboBox.setDisable(disable);
 
 		otherButton.setDisable(disable);
@@ -267,7 +254,6 @@ public class MenuController implements Initializable {
 		menu3.setFocusTraversable(!disable);
 		menu4.setMouseTransparent(disable);
 		menu4.setFocusTraversable(!disable);
-
 	}
 
 	private void menu_content_intialize() {
@@ -281,10 +267,17 @@ public class MenuController implements Initializable {
 		// System.out.println("eachNum = " + eachNum);
 
 		VBox currentVBox;
+		FlowPane flowPane = null;
 		for (int i = 1; i <= mealMap.size(); i++) {
 			String id = "meal" + String.format("%03d", i);
+
 			MenuBean meal = mealMap.get(id);
-			// System.out.println(i + " " +mealMap.size());
+			String setName = meal.getSet();
+
+			if (setName.equals("風雨餐") || setName.equals("主廚套餐") || setName.equals("多蝦蟹套餐") || setName.equals("海鮮套餐")
+					|| setName.equals("靈魂昇華套餐") || setName.equals("潛能解放套餐")) {
+				setName = "其他套餐";
+			}
 
 			Button menuButton = new Button(meal.getName());
 			menuButton.setOnAction(menuButtonEventHandler);
@@ -292,17 +285,7 @@ public class MenuController implements Initializable {
 			menuButton.setStyle("-fx-font-size: 18;");
 			menuButtonGroup.put(id, menuButton);
 
-			HBox hBox = new HBox(8);
-			hBox.setAlignment(Pos.CENTER_LEFT);
-			hBox.getChildren().add(menuButton);
-
-			String setName = meal.getSet();
 			if (setName.equals("精緻特餐")) {
-				alacarteButton = new Button("單點");
-				alacarteButton.setOnAction(alacarteEventHandler);
-				alacarteButton.setId(id);
-				alacarteButton.setStyle("-fx-font-size: 18;");
-				hBox.getChildren().add(alacarteButton);
 				currentVBox = menu3;
 			} else if (setName.equals("單點")) {
 				currentVBox = menu4;
@@ -323,9 +306,27 @@ public class MenuController implements Initializable {
 				setLabel.setStyle("-fx-font-size: 22; -fx-font-weight: bold;"); // -fx-border-color:
 				// black;
 				currentVBox.getChildren().add(setLabel);
+				flowPane = new FlowPane(12, 8);
+				flowPane.setAlignment(Pos.CENTER_LEFT);
+				currentVBox.getChildren().add(flowPane);
 			}
 
-			currentVBox.getChildren().add(hBox);
+			if (setName.equals("精緻特餐")) {
+				HBox hBox = new HBox(0);
+				hBox.setAlignment(Pos.CENTER_LEFT);
+				hBox.getChildren().add(menuButton);
+
+				Button alacarteButton = new Button("單點");
+				alacarteButton.setOnAction(alacarteEventHandler);
+				alacarteButton.setId(id);
+				alacarteButton.setStyle("-fx-font-size: 18;");
+
+				hBox.getChildren().add(alacarteButton);
+
+				flowPane.getChildren().add(hBox);
+			} else {
+				flowPane.getChildren().add(menuButton);
+			}
 		}
 	}
 
@@ -400,38 +401,42 @@ public class MenuController implements Initializable {
 
 	@FXML
 	protected void PrintButtonAction(ActionEvent event) {
-		String meals = "";
-		for (ListItem listItem : passing_list) {
-			MenuBean menuBean = listItem.getMenuBean();
 
-			for (int i = 0; i < listItem.getNumber(); i++) {
-				checkSpecialMeal(menuBean.getSet());
-				calMeatCost(menuBean.getMeatClass());
-				//System.out.println("66 "+menuBean.getMeatClass());
-				meals += menuBean.getId() + ",";
+		if (passing_list.size() != 0 && mTotalMoney != 0) {
+
+			myProgressIndicator.setVisible(false);
+			disableMode(true);
+
+			String meals = "";
+			for (ListItem listItem : passing_list) {
+				MenuBean menuBean = listItem.getMenuBean();
+
+				for (int i = 0; i < listItem.getNumber(); i++) {
+					calMeatCost(menuBean.getMeatClass());
+					meals += menuBean.getId() + ",";
+				}
 			}
-		}
 
-		System.out.println(
-				"風雨:" + rain_special + " 雙人:" + pair_special + " 豪華:" + deluxe_special + " 特餐:" + chef_special);
-
-		if (mTotalMoney > 0)
+			System.out.println("用餐型態:" + mConsumptionType + " 人數:" + num_people + " 金額:" + mTotalMoney);
 			dataBaseConnection(mConsumptionType, num_people, mTotalMoney, meals);
 
-		// List_QC.InsertQCData();
+		} else {
+			System.out.println("print failed, list size = " + passing_list.size());
+		}
+	}
+
+	// TODO
+	private void printWork() {
+		System.out.println("print work");
 	}
 
 	private void dataBaseConnection(String type, int peopleNum, int totalMoney, String meals) {
-
-		System.out.println("用餐型態:" + type + " 人數:" + peopleNum + " 金額:" + totalMoney);
-
-		myProgressIndicator.setVisible(false);
-		disableMode(true);
 		new Thread(new Task<Boolean>() {
 
 			@Override
 			protected Boolean call() throws Exception {
 				myProgressIndicator.setVisible(true);
+
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
 				System.out.println("-- total Meat Cost --");
@@ -451,26 +456,24 @@ public class MenuController implements Initializable {
 			@Override
 			protected void succeeded() {
 				super.succeeded();
-				System.out.println("Menu Insert Done!");
+				System.out.println("orderList Insert Done!");
 				myProgressIndicator.setVisible(false);
 				disableMode(false);
 
 				clearAllItem();
-
-				System.out.println("print work");
+				printWork();
 			}
 
 			@Override
 			protected void failed() {
 				super.failed();
-				System.out.println("Menu Insert Failed!");
+				System.out.println("orderList Insert Failed!");
 				myProgressIndicator.setVisible(false);
 				disableMode(false);
 
 				clearAllItem();
 			}
 		}).start();
-
 	}
 
 	private void updateMeatCostMap(String meatId, int meatCost) {
@@ -497,18 +500,6 @@ public class MenuController implements Initializable {
 				updateMeatCostMap(meatId, meatCost);
 			}
 		}
-	}
-
-	private void checkSpecialMeal(String setName) {
-		System.out.println("setName = " + setName);
-		if (setName.contains("風雨"))
-			rain_special++;
-		if (setName.contains("雙"))
-			pair_special++;
-		if (setName.contains("套餐"))
-			chef_special++;
-		if (setName.contains("豪華"))
-			deluxe_special++;
 	}
 
 }

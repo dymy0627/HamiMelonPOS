@@ -35,14 +35,14 @@ public class DailyReportController implements Initializable {
 	private ProgressIndicator myProgressIndicator;
 
 	private static boolean needUpdate = false;
-	
+
 	@FXML
 	private ComboBox<String> weather_combobox;
-	private String daily_weather="";
+	private String daily_weather = "";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		weather_combobox.getItems().setAll("晴天","雨天");
+		weather_combobox.getItems().setAll("晴天", "雨天");
 		weather_combobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> selected, String oldSelected, String newSelected) {
 				System.out.println("weatherComboBox newSelected = " + newSelected);
@@ -107,7 +107,6 @@ public class DailyReportController implements Initializable {
 				myProgressIndicator.setVisible(false);
 				label_back_door.setDisable(false);
 				needUpdate = false;
-
 				System.out.println("Load from DB Failed!");
 			}
 		}).start();
@@ -122,8 +121,6 @@ public class DailyReportController implements Initializable {
 		if (hackClick >= 6) {
 			System.out.println("BD不說");
 			needUpdate = true;
-			GenerateDailyTask GD = new GenerateDailyTask();
-			GD.run();
 			getData();
 			hackClick = 0;
 		}
@@ -135,7 +132,7 @@ public class DailyReportController implements Initializable {
 
 		MainScene.changeScene(mainstage);
 	}
-	
+
 	@FXML
 	protected void CheckButtonAction(ActionEvent event) throws IOException {
 		MySqlConnection mySqlConnection = new MySqlConnection();
