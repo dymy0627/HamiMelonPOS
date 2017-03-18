@@ -38,6 +38,7 @@ public class DailyReportController implements Initializable {
 	
 	@FXML
 	private ComboBox<String> weather_combobox;
+	private String daily_weather="";
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -45,6 +46,7 @@ public class DailyReportController implements Initializable {
 		weather_combobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue<? extends String> selected, String oldSelected, String newSelected) {
 				System.out.println("weatherComboBox newSelected = " + newSelected);
+				daily_weather = newSelected;
 			}
 		});
 		getData();
@@ -134,9 +136,10 @@ public class DailyReportController implements Initializable {
 	
 	@FXML
 	protected void CheckButtonAction(ActionEvent event) throws IOException {
-		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
-
-		MainScene.changeScene(mainstage);
+		MySqlConnection mySqlConnection = new MySqlConnection();
+		mySqlConnection.connectSql();
+		mySqlConnection.updateDailyWeather(daily_weather);
+		mySqlConnection.disconnectSql();
 	}
 
 }
