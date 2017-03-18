@@ -208,7 +208,7 @@ public class MenuController implements Initializable {
 
 				MenuBean chosenMeal = MenuBuilder.getMealById(currentMealId);
 
-				MenuBean alacarteMeal = new MenuBean(currentMealId + "a");
+				MenuBean alacarteMeal = new MenuBean(currentMealId);
 				alacarteMeal.setName(chosenMeal.getName() + "(單點)");
 				alacarteMeal.setSet("特餐單點");
 				alacarteMeal.setPrice(chosenMeal.getPrice() - 30);
@@ -374,13 +374,13 @@ public class MenuController implements Initializable {
 		if (currentListItem != null) {
 			MenuBean menu = currentListItem.getMenuBean();
 			if (menu.getSet().equals("精緻特餐") && !menu.getName().contains("(加點)")) {
-				String otherMealId = menu.getId() + "o";
+				String otherMealId = menu.getId();
 				MenuBean otherMeal = new MenuBean(otherMealId);
 
 				otherMeal.setSet("精緻特餐");
 				otherMeal.setName(menu.getName() + "(加點)");
 				otherMeal.setPrice(menu.getPrice() + 150);
-				otherMeal.setMeatClass(menu.getMeatClass() + "鱈魚_鮮蝦");
+				otherMeal.setMeatClass(menu.getMeatClass() + "_16_19");
 				ListItem newListItem = new ListItem(otherMeal);
 
 				int index = passing_list.indexOf(currentListItem);
@@ -407,6 +407,7 @@ public class MenuController implements Initializable {
 			for (int i = 0; i < listItem.getNumber(); i++) {
 				checkSpecialMeal(menuBean.getSet());
 				calMeatCost(menuBean.getMeatClass());
+				//System.out.println("66 "+menuBean.getMeatClass());
 				meals += menuBean.getId() + ",";
 			}
 		}

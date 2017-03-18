@@ -157,8 +157,10 @@ public class GenerateDailyTask extends TimerTask {
 		String[] meals = mealString.split(",");
 		for (String meal : meals) {
 			System.out.println("meal=" + meal);
-			if (!meal.isEmpty())
+			if (!meal.isEmpty()){
 				checkSpecialMeal(MenuBuilder.getMealById(meal).getSet());
+			}
+				
 		}
 		System.out.println(
 				"風雨:" + rain_special + " 雙人:" + pair_special + " 豪華:" + deluxe_special + " 特餐:" + chef_special);

@@ -122,6 +122,8 @@ public class DailyReportController implements Initializable {
 		if (hackClick >= 6) {
 			System.out.println("BD不說");
 			needUpdate = true;
+			GenerateDailyTask GD = new GenerateDailyTask();
+			GD.run();
 			getData();
 			hackClick = 0;
 		}
