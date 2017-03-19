@@ -63,6 +63,7 @@ public class MonthlyReportController implements Initializable {
 	private static boolean needUpdate = false;
 	
 	private Map<String, String> month;
+	private Map<String, String> p_month;
 	private ArrayList<XYChart.Data<Integer,String>> T_MonthData = new ArrayList<XYChart.Data<Integer,String>>();
 	private ArrayList<XYChart.Data<Integer,String>> P_MonthData = new ArrayList<XYChart.Data<Integer,String>>();
 	
@@ -88,6 +89,7 @@ public class MonthlyReportController implements Initializable {
 				MySqlConnection mySqlConnection = new MySqlConnection();
 				mySqlConnection.connectSql();
 				month = mySqlConnection.getMonthlyReport();
+				p_month = mySqlConnection.getPreviousMonthlyReport();
 				mySqlConnection.disconnectSql();
 				return true;
 			}
@@ -206,17 +208,19 @@ public class MonthlyReportController implements Initializable {
 
 	private void setPreviousMonthData() {
 		//yAxis Content Data
-		int total_turnover = Integer.parseInt(month.get("Turnover"));
-		int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
-		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
-		int togo_persent = (Integer.parseInt(month.get("L_Outsourcing"))*100 + Integer.parseInt(month.get("D_Outsourcing"))*100)/ total_turnover;		
-		int delivery_persent = (Integer.parseInt(month.get("L_delivery"))*100+Integer.parseInt(month.get("D_delivery"))*100) / total_turnover;
-
+		int total_turnover = Integer.parseInt(p_month.get("Turnover"));
+		int lunch_persent = (Integer.parseInt(p_month.get("Lunch_Turnover"))*100 / total_turnover);
+		int dinner_persent = Integer.parseInt(p_month.get("Dinner_Turnover"))*100/ total_turnover;
+		int togo_persent = (Integer.parseInt(p_month.get("L_Outsourcing"))*100 + Integer.parseInt(p_month.get("D_Outsourcing"))*100)/ total_turnover;		
+		int delivery_persent = (Integer.parseInt(p_month.get("L_delivery"))*100+Integer.parseInt(p_month.get("D_delivery"))*100) / total_turnover;
+		int paircombo_percent = Integer.parseInt(month.get("Double_package"))*100 / total_turnover;
+		int specialcombo_percent = Integer.parseInt(month.get("Special_meals"))*100 / total_turnover;
+		int windfurcombo_percent = Integer.parseInt(month.get("wind_and_rain"))*100 / total_turnover;
 		System.out.println("前月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
 
-		P_MonthData.add(new XYChart.Data<Integer, String>(10, "雙人"));
-		P_MonthData.add(new XYChart.Data<Integer, String>(50, "特餐"));
-		P_MonthData.add(new XYChart.Data<Integer, String>(100, "楓雨"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(paircombo_percent, "雙人"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(specialcombo_percent, "特餐"));
+		P_MonthData.add(new XYChart.Data<Integer, String>(windfurcombo_percent, "楓雨"));
 		P_MonthData.add(new XYChart.Data<Integer, String>(togo_persent, "外帶"));
 		P_MonthData.add(new XYChart.Data<Integer, String>(delivery_persent, "外送"));
 		P_MonthData.add(new XYChart.Data<Integer, String>(dinner_persent, "晚餐"));
@@ -231,12 +235,14 @@ public class MonthlyReportController implements Initializable {
 		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
 		int togo_persent = (Integer.parseInt(month.get("L_Outsourcing"))*100 + Integer.parseInt(month.get("D_Outsourcing"))*100)/ total_turnover;		
 		int delivery_persent = (Integer.parseInt(month.get("L_delivery"))*100+Integer.parseInt(month.get("D_delivery"))*100) / total_turnover;
-
+		int paircombo_percent = Integer.parseInt(month.get("Double_package"))*100 / total_turnover;
+		int specialcombo_percent = Integer.parseInt(month.get("Special_meals"))*100 / total_turnover;
+		int windfurcombo_percent = Integer.parseInt(month.get("wind_and_rain"))*100 / total_turnover;
 		System.out.println("本月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
 
-		T_MonthData.add(new XYChart.Data<Integer, String>(10, "雙人"));
-		T_MonthData.add(new XYChart.Data<Integer, String>(2, "特餐"));
-		T_MonthData.add(new XYChart.Data<Integer, String>(0, "楓雨"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(paircombo_percent, "雙人"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(specialcombo_percent, "特餐"));
+		T_MonthData.add(new XYChart.Data<Integer, String>(windfurcombo_percent, "楓雨"));
 		T_MonthData.add(new XYChart.Data<Integer, String>(togo_persent, "外帶"));
 		T_MonthData.add(new XYChart.Data<Integer, String>(delivery_persent, "外送"));
 		T_MonthData.add(new XYChart.Data<Integer, String>(dinner_persent, "晚餐"));

@@ -87,8 +87,9 @@ public class MySqlConnection {
 		Map<String, String> month = new HashMap<String, String>();
 		String systemtime = GenerateDailyTask.getDateTime();
 		String[] timeArray = systemtime.split(" ");
-		String time = timeArray[0];
-		System.out.println("time=" + time);
+		String[] timeArray2 = timeArray[0].split("-");
+		String time = timeArray2[1];
+		System.out.println("current month=" + time);
 		try {
 			mStatement = mSqlConnection.createStatement();
 			/*
@@ -107,25 +108,26 @@ public class MySqlConnection {
 							+ "avg(L_Average_consumption), sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover), "
 							+ "sum(D_Number_of_visitors), avg(D_Average_consumption), sum(D_Outsourcing), sum(D_delivery), "
 							+ "sum(Double_package), sum(Special_meals), sum(wind_and_rain), sum(total_visitors), "
-							+ "sum(total_AVG_Turnover) FROM hamimelon.Daily");
+							+ "sum(total_AVG_Turnover) FROM hamimelon.Daily WHERE date_format(teppanyaki_date,'%m')= '"+time+"' ");
 			while (mResultSet.next()) {
 
 				// day.setDailySales(mResultSet.getInt("Turnover"));
-				month.put("Turnover", mResultSet.getString("sum(Turnover)"));
-				month.put("Lunch_Turnover", mResultSet.getString("sum(Lunch_Turnover)"));
-				month.put("L_Number_of_visitors", mResultSet.getString("sum(L_Number_of_visitors)"));
-				month.put("L_Average_consumption", mResultSet.getString("avg(L_Average_consumption)"));
-				month.put("L_Outsourcing", mResultSet.getString("sum(L_Outsourcing)"));
-				month.put("L_delivery", mResultSet.getString("sum(L_delivery)"));
-				month.put("Dinner_Turnover", mResultSet.getString("sum(Dinner_Turnover)"));
-				month.put("D_Number_of_visitors", mResultSet.getString("sum(D_Number_of_visitors)"));
-				month.put("D_Average_consumption", mResultSet.getString("avg(D_Average_consumption)"));
-				month.put("D_Outsourcing", mResultSet.getString("sum(D_Outsourcing)"));
-				month.put("D_delivery", mResultSet.getString("sum(D_delivery)"));
-				month.put("Double_package", mResultSet.getString("sum(Double_package)"));
-				month.put("Special_meals", mResultSet.getString("sum(Special_meals)"));
-				month.put("wind_and_rain", mResultSet.getString("sum(wind_and_rain)"));
-				month.put("total_visitors", mResultSet.getString("sum(total_visitors)"));
+				month.put("Turnover", (mResultSet.getString("sum(Turnover)") != null)?mResultSet.getString("sum(Turnover)"):"0");
+				month.put("Lunch_Turnover", (mResultSet.getString("sum(Lunch_Turnover)") != null)?mResultSet.getString("sum(Lunch_Turnover)"):"0");
+				month.put("L_Number_of_visitors", (mResultSet.getString("sum(L_Number_of_visitors)") != null)?mResultSet.getString("sum(L_Number_of_visitors)"):"0");
+				month.put("L_Average_consumption", (mResultSet.getString("avg(L_Average_consumption)") != null) ? mResultSet.getString("avg(L_Average_consumption)") : "0");
+				month.put("L_Outsourcing", (mResultSet.getString("sum(L_Outsourcing)") != null) ? mResultSet.getString("sum(L_Outsourcing)"):"0");
+				month.put("L_delivery", (mResultSet.getString("sum(L_delivery)") != null)?mResultSet.getString("sum(L_delivery)"):"0");
+				month.put("Dinner_Turnover", (mResultSet.getString("sum(Dinner_Turnover)")!=null)?mResultSet.getString("sum(Dinner_Turnover)"):"0");
+				month.put("D_Number_of_visitors", (mResultSet.getString("sum(D_Number_of_visitors)") != null)? mResultSet.getString("sum(D_Number_of_visitors)") : "0");
+				month.put("D_Average_consumption", (mResultSet.getString("avg(D_Average_consumption)") != null)? mResultSet.getString("avg(D_Average_consumption)") : "0");
+				month.put("D_Outsourcing", (mResultSet.getString("sum(D_Outsourcing)") != null)?mResultSet.getString("sum(D_Outsourcing)"):"0");
+				month.put("D_delivery", (mResultSet.getString("sum(D_delivery)") != null)? mResultSet.getString("sum(D_delivery)") : "0");
+				month.put("Double_package", (mResultSet.getString("sum(Double_package)") != null)? mResultSet.getString("sum(Double_package)") : "0");
+				month.put("Special_meals", (mResultSet.getString("sum(Special_meals)") != null) ? mResultSet.getString("sum(Special_meals)") : "0");
+				month.put("wind_and_rain", (mResultSet.getString("sum(wind_and_rain)") != null) ? mResultSet.getString("sum(wind_and_rain)") : "0");
+				month.put("total_visitors", (mResultSet.getString("sum(total_visitors)") != null) ? mResultSet.getString("sum(total_visitors)") : "0");
+
 
 			}
 		} catch (SQLException e) {
@@ -617,5 +619,72 @@ public class MySqlConnection {
 			}
 		
 		}
+	}
+
+	public Map<String, String> getPreviousMonthlyReport() {
+		Map<String, String> month = new HashMap<String, String>();
+		String systemtime = GenerateDailyTask.getDateTime();
+		String[] timeArray = systemtime.split(" ");
+		String[] timeArray2 = timeArray[0].split("-");
+		String time = timeArray2[1];
+		int previous_month = Integer.parseInt(time)-1;
+		String previous_month_trans = (previous_month > 10) ? String.valueOf(previous_month) : "0"+String.valueOf(previous_month);
+		System.out.println("previous month=" + previous_month_trans);
+		try {
+			mStatement = mSqlConnection.createStatement();
+			/*
+			 * SELECT sum(Turnover), sum(Lunch_Turnover),
+			 * sum(L_Number_of_visitors), avg(L_Average_consumption),
+			 * sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover),
+			 * sum(D_Number_of_visitors), avg(D_Average_consumption),
+			 * sum(D_Outsourcing), sum(D_delivery), sum(Double_package),
+			 * sum(Special_meals), sum(wind_and_rain), sum(total_visitors),
+			 * sum(total_AVG_Turnover) FROM hamimelon.Daily
+			 *
+			 * 
+			 */
+			mResultSet = mStatement
+					.executeQuery("SELECT sum(Turnover), sum(Lunch_Turnover), sum(L_Number_of_visitors), "
+							+ "avg(L_Average_consumption), sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover), "
+							+ "sum(D_Number_of_visitors), avg(D_Average_consumption), sum(D_Outsourcing), sum(D_delivery), "
+							+ "sum(Double_package), sum(Special_meals), sum(wind_and_rain), sum(total_visitors), "
+							+ "sum(total_AVG_Turnover) FROM hamimelon.Daily WHERE date_format(teppanyaki_date,'%m')= '"+ previous_month_trans +"'");
+			while (mResultSet.next()) {
+
+				// day.setDailySales(mResultSet.getInt("Turnover"));
+				month.put("Turnover", (mResultSet.getString("sum(Turnover)") != null)?mResultSet.getString("sum(Turnover)"):"0");
+				month.put("Lunch_Turnover", (mResultSet.getString("sum(Lunch_Turnover)") != null)?mResultSet.getString("sum(Lunch_Turnover)"):"0");
+				month.put("L_Number_of_visitors", (mResultSet.getString("sum(L_Number_of_visitors)") != null)?mResultSet.getString("sum(L_Number_of_visitors)"):"0");
+				month.put("L_Average_consumption", (mResultSet.getString("avg(L_Average_consumption)") != null) ? mResultSet.getString("avg(L_Average_consumption)") : "0");
+				month.put("L_Outsourcing", (mResultSet.getString("sum(L_Outsourcing)") != null) ? mResultSet.getString("sum(L_Outsourcing)"):"0");
+				month.put("L_delivery", (mResultSet.getString("sum(L_delivery)") != null)?mResultSet.getString("sum(L_delivery)"):"0");
+				month.put("Dinner_Turnover", (mResultSet.getString("sum(Dinner_Turnover)")!=null)?mResultSet.getString("sum(Dinner_Turnover)"):"0");
+				month.put("D_Number_of_visitors", (mResultSet.getString("sum(D_Number_of_visitors)") != null)? mResultSet.getString("sum(D_Number_of_visitors)") : "0");
+				month.put("D_Average_consumption", (mResultSet.getString("avg(D_Average_consumption)") != null)? mResultSet.getString("avg(D_Average_consumption)") : "0");
+				month.put("D_Outsourcing", (mResultSet.getString("sum(D_Outsourcing)") != null)?mResultSet.getString("sum(D_Outsourcing)"):"0");
+				month.put("D_delivery", (mResultSet.getString("sum(D_delivery)") != null)? mResultSet.getString("sum(D_delivery)") : "0");
+				month.put("Double_package", (mResultSet.getString("sum(Double_package)") != null)? mResultSet.getString("sum(Double_package)") : "0");
+				month.put("Special_meals", (mResultSet.getString("sum(Special_meals)") != null) ? mResultSet.getString("sum(Special_meals)") : "0");
+				month.put("wind_and_rain", (mResultSet.getString("sum(wind_and_rain)") != null) ? mResultSet.getString("sum(wind_and_rain)") : "0");
+				month.put("total_visitors", (mResultSet.getString("sum(total_visitors)") != null) ? mResultSet.getString("sum(total_visitors)") : "0");
+
+			}
+		} catch (SQLException e) {
+			System.out.println("DropDB Exception :" + e.toString());
+		} finally {
+			try {
+				if (mResultSet != null) {
+					mResultSet.close();
+					mResultSet = null;
+				}
+				if (mStatement != null) {
+					mStatement.close();
+					mStatement = null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Close Exception :" + e.toString());
+			}
+		}
+		return month;
 	}
 }
