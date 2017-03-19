@@ -20,16 +20,26 @@
 				<URL value="@../css/background.css" />
 			</stylesheets>
 			<top>
-				<VBox prefWidth="100.0" BorderPane.alignment="CENTER">
+				<VBox BorderPane.alignment="CENTER">
 					<children>
-						<HBox style="-fx-background-color: black;">
+						<AnchorPane style="-fx-background-color: black;">
 							<children>
 								<Label alignment="center" prefHeight="30.0"
 									style="-fx-font-size: 20; -fx-background-color: black; -fx-text-fill: yellow;"
-									text="      跑馬燈通知       現在時間 下午 09:43 " GridPane.columnIndex="0"
-									GridPane.rowIndex="0" />
+									text="通知" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0"
+									AnchorPane.topAnchor="2.0" />
+								<HBox AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="10.0"
+									AnchorPane.topAnchor="2.0">
+									<children>
+										<Label fx:id="currentTimeLabel" alignment="center"
+											prefHeight="30.0"
+											style="-fx-font-size: 20; -fx-background-color: black; -fx-text-fill: yellow;"
+											text="2017/3/19 下午 09:43 " GridPane.columnIndex="0"
+											GridPane.rowIndex="0" />
+									</children>
+								</HBox>
 							</children>
-						</HBox>
+						</AnchorPane>
 						<HBox>
 							<children>
 								<ToggleButton fx:id="typeHereButton"
@@ -67,50 +77,69 @@
 				</VBox>
 			</top>
 			<right>
-				<VBox styleClass="menuRightBottom" BorderPane.alignment="CENTER">
+				<VBox minWidth="320.0" styleClass="menuRightBottom"
+					BorderPane.alignment="CENTER">
 					<children>
 						<ListView fx:id="menulist">
 							<padding>
 								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
 							</padding>
 						</ListView>
-						<HBox>
+						<AnchorPane>
 							<children>
-								<Button fx:id="otherButton" mnemonicParsing="false"
-									onAction="#OtherButtonAction" prefHeight="40.0" prefWidth="60.0"
-									text="加點 ">
-									<HBox.margin>
-										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-									</HBox.margin>
-								</Button>
-								<Button fx:id="plusButton" mnemonicParsing="false"
-									onAction="#PlusButtonAction" prefHeight="40.0" prefWidth="60.0"
-									text="+">
-									<HBox.margin>
-										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-									</HBox.margin>
-								</Button>
-								<Button fx:id="minusButton" mnemonicParsing="false"
-									onAction="#MinusButtonAction" prefHeight="40.0" prefWidth="60.0"
-									text="-">
-									<HBox.margin>
-										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-									</HBox.margin>
-								</Button>
-							</children>
-						</HBox>
-						<HBox alignment="CENTER_LEFT">
-							<children>
+								<HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0"
+									AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+									<children>
 
-								<Label fx:id="total_money_Label" styleClass="moneyLabel"
-									text="總價">
-									<padding>
-										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-									</padding>
-								</Label>
+										<Label styleClass="moneyLabel" text="總價">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+										<Label fx:id="total_money_Label" styleClass="moneyLabel"
+											text="0">
+											<padding>
+												<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+											</padding>
+										</Label>
+									</children>
+								</HBox>
 
 								<ComboBox fx:id="discount_ComboBox" prefWidth="100.0"
-									promptText="折扣選擇" />
+									promptText="折扣選擇" AnchorPane.bottomAnchor="10.0"
+									AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+							</children>
+						</AnchorPane>
+						<HBox alignment="CENTER_LEFT"
+							style="-fx-border-color: #BBC84C; -fx-background-color: #F5E5BD; -fx-border-width: 4px;">
+							<children>
+								<Button fx:id="otherButton" mnemonicParsing="false"
+									onAction="#OtherButtonAction" styleClass="updateButton" text="加點 ">
+									<HBox.margin>
+										<Insets bottom="10.0" left="8.0" right="2.0" top="10.0" />
+									</HBox.margin>
+									<padding>
+										<Insets bottom="9.0" left="10.0" right="10.0" top="8.0" />
+									</padding>
+								</Button>
+								<Button fx:id="plusButton" mnemonicParsing="false"
+									onAction="#PlusButtonAction" styleClass="plusButton" text="+">
+									<HBox.margin>
+										<Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
+									</HBox.margin>
+									<padding>
+										<Insets bottom="2.0" left="16.0" right="16.0" top="2.0" />
+									</padding>
+								</Button>
+								<Button fx:id="minusButton" mnemonicParsing="false"
+									onAction="#MinusButtonAction" styleClass="minusButton" text="-">
+									<HBox.margin>
+										<Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
+									</HBox.margin>
+									<padding>
+										<Insets bottom="2.0" left="19.0" right="20.0" top="2.0" />
+									</padding>
+								</Button>
 							</children>
 						</HBox>
 						<VBox alignment="CENTER">

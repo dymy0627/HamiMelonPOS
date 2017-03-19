@@ -1,8 +1,13 @@
 package application.order;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +16,7 @@ import java.util.ResourceBundle;
 
 import application.MainScene;
 import db.MySqlConnection;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -67,6 +73,9 @@ public class MenuController implements Initializable {
 	private int mTotalMoney = 0;
 
 	@FXML
+	private Label currentTimeLabel;
+
+	@FXML
 	private ComboBox<String> discount_ComboBox;
 
 	@FXML
@@ -83,8 +92,36 @@ public class MenuController implements Initializable {
 
 	public static boolean pause;
 
+	private DateFormat timeFormat = new SimpleDateFormat("hh:mm");
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy/M/dd");
+
+	private static boolean timeStart = true;
+	private Thread mTimeThread = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			System.out.println("timeStart=" + timeStart);
+			while (timeStart) {
+				Calendar calendar = Calendar.getInstance();
+				String am_pm = (calendar.get(Calendar.HOUR_OF_DAY) < 12) ? "上午" : "下午";
+				Platform.runLater(() -> {
+					currentTimeLabel.setText(dateFormat.format(calendar.getTime()) + " " + am_pm + " "
+							+ timeFormat.format(calendar.getTime()));
+				});
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	});
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		timeStart = true;
+		mTimeThread.start();
 
 		menu_content_intialize();
 
@@ -229,7 +266,7 @@ public class MenuController implements Initializable {
 		}
 		mMenuListObservableList.setAll(passing_list);
 
-		total_money_Label.setText("總價  " + Integer.toString(mTotalMoney));
+		total_money_Label.setText(Integer.toString(mTotalMoney));
 	}
 
 	private void disableMode(boolean disable) {
@@ -266,6 +303,13 @@ public class MenuController implements Initializable {
 		int eachNum = 18;
 		// System.out.println("eachNum = " + eachNum);
 
+		URL url = null;
+		try {
+			url = new File("src/css/button.css").toURI().toURL();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+
 		VBox currentVBox;
 		FlowPane flowPane = null;
 		for (int i = 1; i <= mealMap.size(); i++) {
@@ -278,12 +322,6 @@ public class MenuController implements Initializable {
 					|| setName.equals("靈魂昇華套餐") || setName.equals("潛能解放套餐")) {
 				setName = "其他套餐";
 			}
-
-			Button menuButton = new Button(meal.getName());
-			menuButton.setOnAction(menuButtonEventHandler);
-			menuButton.setId(id);
-			menuButton.setStyle("-fx-font-size: 18;");
-			menuButtonGroup.put(id, menuButton);
 
 			if (setName.equals("精緻特餐")) {
 				currentVBox = menu3;
@@ -299,6 +337,13 @@ public class MenuController implements Initializable {
 					currentVBox = menu2;
 				}
 			}
+			currentVBox.getStylesheets().add(url.toExternalForm());
+
+			Button menuButton = new Button(meal.getName());
+			menuButton.setOnAction(menuButtonEventHandler);
+			menuButton.setId(id);
+			menuButton.getStyleClass().add("menuButton");
+			menuButtonGroup.put(id, menuButton);
 
 			if (!setName.equals(lastSetName)) {
 				lastSetName = setName;
@@ -319,7 +364,7 @@ public class MenuController implements Initializable {
 				Button alacarteButton = new Button("單點");
 				alacarteButton.setOnAction(alacarteEventHandler);
 				alacarteButton.setId(id);
-				alacarteButton.setStyle("-fx-font-size: 18;");
+				alacarteButton.getStyleClass().add("singleButton");
 
 				hBox.getChildren().add(alacarteButton);
 
@@ -395,6 +440,7 @@ public class MenuController implements Initializable {
 
 	@FXML
 	protected void PreviousPageButtonAction(ActionEvent event) throws IOException {
+		timeStart = false;
 		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 		MainScene.changeScene(mainstage);
 	}
