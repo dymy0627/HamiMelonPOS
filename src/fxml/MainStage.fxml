@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<TilePane alignment="center" prefHeight = "1.7976931348623157E308" prefTileHeight="140" prefTileWidth="500" 
+<TilePane alignment="center" prefHeight = "1.7976931348623157E308" prefTileHeight="220" prefTileWidth="500" 
 	vgap="40.0" orientation = "vertical" prefColumns = "1"
 	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController"
 	styleClass="mainBackground" >
 
 	<children>
-		<Button onAction="#OrderButtonAction" prefHeight="140.0" prefWidth="500.0" styleClass="mainButton" text="點餐"/>
+		<Button onAction="#OrderButtonAction" prefHeight="220.0" prefWidth="500.0" styleClass="mainButton" text="點餐"/>
 
-		<Button onAction="#PurchaseButtonAction" prefHeight="140.0" prefWidth="500.0" styleClass="mainButton" text="進貨與庫存管理"/>
+		<Button onAction="#PurchaseButtonAction" prefHeight="220.0" prefWidth="500.0" styleClass="mainButton" text="進貨與庫存管理"/>
 
-		<Button onAction="#DailyButtonAction" prefHeight="140.0" prefWidth="500.0" styleClass="mainButton" text="日報"/>
+		<Button onAction="#DailyButtonAction" prefHeight="220.0" prefWidth="500.0" styleClass="mainButton" text="日報"/>
 
-		<Button onAction="#MonthlyButtonAction" prefHeight="140.0" prefWidth="500.0" styleClass="mainButton" text="月報"/>
+		<Button onAction="#MonthlyButtonAction" prefHeight="220.0" prefWidth="500.0" styleClass="mainButton" text="月報"/>
 	</children>
 	
 	<stylesheets>

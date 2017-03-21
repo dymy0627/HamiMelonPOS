@@ -106,7 +106,9 @@ public class MonthlyReportController implements Initializable {
 				// L_Average_consumption int(11)
 				// D_Average_consumption int(11)
 				
-				monthly_sales.setText(month.get("Turnover"));
+				int all_turnover = Integer.parseInt(month.get("Turnover"))+Integer.parseInt(month.get("L_Outsourcing")) + Integer.parseInt(month.get("D_Outsourcing"))
+									+Integer.parseInt(month.get("L_delivery"))+Integer.parseInt(month.get("D_delivery"));
+				monthly_sales.setText(String.valueOf(all_turnover));
 				
 				int month_inside = Integer.parseInt(month.get("Lunch_Turnover")) + Integer.parseInt(month.get("Dinner_Turnover"));
 				monthly_inside_sales.setText(Integer.toString(month_inside));
@@ -208,15 +210,22 @@ public class MonthlyReportController implements Initializable {
 
 	private void setPreviousMonthData() {
 		//yAxis Content Data
-		int total_turnover = Integer.parseInt(p_month.get("Turnover"));
-		int lunch_persent = (Integer.parseInt(p_month.get("Lunch_Turnover"))*100 / total_turnover);
-		int dinner_persent = Integer.parseInt(p_month.get("Dinner_Turnover"))*100/ total_turnover;
-		int togo_persent = (Integer.parseInt(p_month.get("L_Outsourcing"))*100 + Integer.parseInt(p_month.get("D_Outsourcing"))*100)/ total_turnover;		
-		int delivery_persent = (Integer.parseInt(p_month.get("L_delivery"))*100+Integer.parseInt(p_month.get("D_delivery"))*100) / total_turnover;
+		int all_togo = Integer.parseInt(month.get("L_Outsourcing"))+Integer.parseInt(month.get("D_Outsourcing"));
+		int all_delivery = Integer.parseInt(month.get("L_delivery"))+Integer.parseInt(month.get("D_delivery"));
+		
+		int total_turnover = Integer.parseInt(month.get("Turnover"))+all_togo+all_delivery;
+		
+		int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
+		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
+		
+		int togo_persent = (all_togo*100)/ total_turnover;		
+		int delivery_persent = (all_delivery*100) / total_turnover;
+		
 		int paircombo_percent = Integer.parseInt(month.get("Double_package"))*100 / total_turnover;
 		int specialcombo_percent = Integer.parseInt(month.get("Special_meals"))*100 / total_turnover;
 		int windfurcombo_percent = Integer.parseInt(month.get("wind_and_rain"))*100 / total_turnover;
-		System.out.println("前月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
+		
+		System.out.println("本月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
 
 		P_MonthData.add(new XYChart.Data<Integer, String>(paircombo_percent, "雙人"));
 		P_MonthData.add(new XYChart.Data<Integer, String>(specialcombo_percent, "特餐"));
@@ -228,16 +237,22 @@ public class MonthlyReportController implements Initializable {
 		
 	}
 
-	private void setThisMonthData() {
-		//yAxis Content Data
-		int total_turnover = Integer.parseInt(month.get("Turnover"));
+	private void setThisMonthData() {//yAxis Content Data
+		int all_togo = Integer.parseInt(month.get("L_Outsourcing"))+Integer.parseInt(month.get("D_Outsourcing"));
+		int all_delivery = Integer.parseInt(month.get("L_delivery"))+Integer.parseInt(month.get("D_delivery"));
+		
+		int total_turnover = Integer.parseInt(month.get("Turnover"))+all_togo+all_delivery;
+		
 		int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
 		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
-		int togo_persent = (Integer.parseInt(month.get("L_Outsourcing"))*100 + Integer.parseInt(month.get("D_Outsourcing"))*100)/ total_turnover;		
-		int delivery_persent = (Integer.parseInt(month.get("L_delivery"))*100+Integer.parseInt(month.get("D_delivery"))*100) / total_turnover;
+		
+		int togo_persent = (all_togo*100)/ total_turnover;		
+		int delivery_persent = (all_delivery*100) / total_turnover;
+		
 		int paircombo_percent = Integer.parseInt(month.get("Double_package"))*100 / total_turnover;
 		int specialcombo_percent = Integer.parseInt(month.get("Special_meals"))*100 / total_turnover;
 		int windfurcombo_percent = Integer.parseInt(month.get("wind_and_rain"))*100 / total_turnover;
+		
 		System.out.println("本月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
 
 		T_MonthData.add(new XYChart.Data<Integer, String>(paircombo_percent, "雙人"));

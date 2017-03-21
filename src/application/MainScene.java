@@ -55,7 +55,7 @@ public class MainScene extends Application {
 
 	public static void changeScene(Parent root) {
 
-		Scene mainScene = new Scene(root, 1024, 720);
+		Scene mainScene = new Scene(root, 1280, 1024);
 
 		mainStage.setScene(mainScene);
 		mainStage.setTitle(POS_NAME);
