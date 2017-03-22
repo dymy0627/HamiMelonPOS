@@ -108,7 +108,7 @@ public class MonthlyReportController implements Initializable {
 				
 				int all_turnover = Integer.parseInt(month.get("Turnover"))+Integer.parseInt(month.get("L_Outsourcing")) + Integer.parseInt(month.get("D_Outsourcing"))
 									+Integer.parseInt(month.get("L_delivery"))+Integer.parseInt(month.get("D_delivery"));
-				monthly_sales.setText(String.valueOf(all_turnover));
+				monthly_sales.setText(month.get("Turnover"));
 				
 				int month_inside = Integer.parseInt(month.get("Lunch_Turnover")) + Integer.parseInt(month.get("Dinner_Turnover"));
 				monthly_inside_sales.setText(Integer.toString(month_inside));
@@ -241,7 +241,7 @@ public class MonthlyReportController implements Initializable {
 		int all_togo = Integer.parseInt(month.get("L_Outsourcing"))+Integer.parseInt(month.get("D_Outsourcing"));
 		int all_delivery = Integer.parseInt(month.get("L_delivery"))+Integer.parseInt(month.get("D_delivery"));
 		
-		int total_turnover = Integer.parseInt(month.get("Turnover"))+all_togo+all_delivery;
+		int total_turnover = Integer.parseInt(month.get("Turnover"));
 		
 		int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
 		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;

@@ -29,7 +29,7 @@ public class GenerateDailyTask extends TimerTask {
 		String updateLunchSQL = new String(
 				"UPDATE hamimelon.Daily SET Lunch_Turnover=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time
-						+ "'), L_Number_of_visitors=(select sum(people) from hamimelon.Order_list  where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ "' and type='內用'), L_Number_of_visitors=(select sum(people) from hamimelon.Order_list  where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time
 						+ "'), L_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
 						+ time
