@@ -319,11 +319,11 @@ public class MonthlyReportController implements Initializable {
 		String[] timeArray = systemtime.split("-");
 		String time = timeArray[0]+"-"+timeArray[1];
 		
-		data.put(1, new Object[] {"","","上月營業額","","","同期營業額"});
+		data.put(1, new Object[] {"","","本月營業額","",""});
 		workbook.getSheetAt(0).addMergedRegion(new CellRangeAddress(0, 0, 2, 4));
 		workbook.getSheetAt(0).addMergedRegion(new CellRangeAddress(0, 0, 5, 6));
 		
-		data.put(2, new Object[] {time, "","午餐", "晚餐","合計","總計","差額"});
+		data.put(2, new Object[] {time, "","午餐", "晚餐","合計"});
         for(int m = 1; m <= 31 ; m++){
         	
         	T_Calendar.set(Integer.parseInt(timeArray[0]),Integer.parseInt(timeArray[1])-1,m);
