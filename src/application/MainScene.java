@@ -38,7 +38,8 @@ public class MainScene extends Application {
 
 		MySqlConnection mySqlConnection = new MySqlConnection();
 		mySqlConnection.connectSql();
-		MenuBuilder.loadFromDB(mySqlConnection); // MenuBuilder.loadFromJson();
+		MenuBuilder.loadFromDB(mySqlConnection); 
+		//MenuBuilder.loadFromJson();
 		meatsClassHashMap = mySqlConnection.getMeatClassHashMap();
 		mySqlConnection.disconnectSql();
 

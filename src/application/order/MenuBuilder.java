@@ -20,6 +20,8 @@ public class MenuBuilder {
 	private static Map<String, MenuBean> menuHashMap = new HashMap<>();
 
 	public static void loadFromJson() {
+		//MySqlConnection mySqlConnection = new MySqlConnection();
+		//mySqlConnection.connectSql();
 		if (!menuHashMap.isEmpty()) {
 			System.out.println("--- cache meun ---");
 			return;
@@ -37,10 +39,15 @@ public class MenuBuilder {
 				menu.setName((String) jsonObj.get("name"));
 				menu.setPrice(((Long) jsonObj.get("price")).intValue());
 				menu.setMeatClass((String) jsonObj.get("class"));
+				
+				// insert to DB.
+				//insertMenuToDB(mySqlConnection, menu);
+
 				menuHashMap.put(id, menu);
 				System.out.println(id + ", " + menu.getSet() + "-" + menu.getName() + ", " + menu.getPrice() + ", "
 						+ menu.getMeatClass());
 			}
+			//mySqlConnection.disconnectSql();
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
