@@ -27,6 +27,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -326,7 +327,9 @@ public class MenuController implements Initializable {
 			if (setName.equals("精緻特餐")) {
 				currentVBox = menu3;
 			} else if (setName.equals("單點")) {
-				currentVBox = menu4;
+				currentVBox = menu2;
+			} else if (setName.equals("呷霸套餐")) {
+				currentVBox = menu1;
 			} else {
 				if (i <= eachNum) {
 					currentVBox = menu1;
@@ -342,16 +345,43 @@ public class MenuController implements Initializable {
 			Button menuButton = new Button(meal.getName());
 			menuButton.setOnAction(menuButtonEventHandler);
 			menuButton.setId(id);
+			menuButton.setPrefWidth(90);
+			menuButton.setPrefHeight(40);
 			menuButton.getStyleClass().add("menuButton");
+			if (!setName.equals("單點") && !setName.equals("其他套餐")) {
+				if (meal.getName().contains("牛") || meal.getName().contains("翼板") || meal.getName().contains("沙朗")
+						|| meal.getName().contains("朗心") || meal.getName().contains("雪花")
+						|| meal.getName().contains("紐約") || meal.getName().contains("菲力")
+						|| meal.getName().contains("肋眼")) {
+					menuButton.setStyle("-fx-background-color: #FF5151;");
+
+				} else if (meal.getName().contains("雞")) {
+					menuButton.setStyle("-fx-background-color: #FFEEDD; -fx-text-fill: black;");
+
+				} else if (meal.getName().contains("豬") || meal.getName().contains("松阪")) {
+					menuButton.setStyle("-fx-background-color: #EAC100; -fx-text-fill: black;");
+
+				} else if (meal.getName().contains("魚") || meal.getName().contains("魷") || meal.getName().contains("蝦")
+						|| meal.getName().contains("蟹") || meal.getName().contains("海總")
+						|| meal.getName().contains("蚵")) {
+					menuButton.setStyle("-fx-background-color: #0066CC;");
+
+				} else if (meal.getName().contains("羊")) {
+					menuButton.setStyle("-fx-background-color: #9F5000;");
+
+				}
+			}
 			menuButtonGroup.put(id, menuButton);
 
 			if (!setName.equals(lastSetName)) {
 				lastSetName = setName;
 				Label setLabel = new Label(setName);
-				setLabel.setStyle("-fx-font-size: 22; -fx-font-weight: bold;"); // -fx-border-color:
+				setLabel.setStyle("-fx-font-size: 24; -fx-font-weight: bold;"); // -fx-border-color:
+				setLabel.setPadding(new Insets(0, 0, -16, 0));
 				// black;
 				currentVBox.getChildren().add(setLabel);
-				flowPane = new FlowPane(12, 8);
+				currentVBox.setAlignment(Pos.TOP_LEFT);
+				flowPane = new FlowPane(4, 6);
 				flowPane.setAlignment(Pos.CENTER_LEFT);
 				currentVBox.getChildren().add(flowPane);
 			}
@@ -365,6 +395,7 @@ public class MenuController implements Initializable {
 				alacarteButton.setOnAction(alacarteEventHandler);
 				alacarteButton.setId(id);
 				alacarteButton.getStyleClass().add("singleButton");
+				alacarteButton.setPrefHeight(40);
 
 				hBox.getChildren().add(alacarteButton);
 

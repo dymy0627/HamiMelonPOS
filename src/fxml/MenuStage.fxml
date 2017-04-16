@@ -43,27 +43,41 @@
 						<HBox>
 							<children>
 								<ToggleButton fx:id="typeHereButton"
-									mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0"
-									styleClass="orderTypeButton" text="內用" />
+									mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
+									styleClass="orderTypeButton" text="內用">
+									<font>
+										<Font size="20.0" />
+									</font>
+								</ToggleButton>
 								<ToggleButton fx:id="typeTakeOutButton"
-									mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0"
+									mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
 									styleClass="orderTypeButton" text="外帶">
 									<toggleGroup>
 										<ToggleGroup fx:id="TypeGroup" />
 									</toggleGroup>
+									<font>
+										<Font size="20.0" />
+									</font>
 								</ToggleButton>
 								<ToggleButton fx:id="typeDeliverButton"
-									mnemonicParsing="false" prefHeight="30.0" prefWidth="85.0"
-									styleClass="orderTypeButton" text="外送" toggleGroup="$TypeGroup" />
+									mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
+									styleClass="orderTypeButton" text="外送" toggleGroup="$TypeGroup">
+									<font>
+										<Font size="20.0" />
+									</font>
+								</ToggleButton>
 
-								<HBox>
+								<HBox alignment="CENTER_LEFT">
 									<children>
 
-										<Label alignment="center" prefHeight="30.0" prefWidth="50.0"
+										<Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0"
 											text="人數">
 											<HBox.margin>
 												<Insets left="50.0" />
 											</HBox.margin>
+											<font>
+												<Font size="16.0" />
+											</font>
 										</Label>
 
 										<ComboBox fx:id="peopleComboBox" prefHeight="30.0"
@@ -114,7 +128,8 @@
 							style="-fx-border-color: #BBC84C; -fx-background-color: #F5E5BD; -fx-border-width: 4px;">
 							<children>
 								<Button fx:id="otherButton" mnemonicParsing="false"
-									onAction="#OtherButtonAction" styleClass="updateButton" text="加點 ">
+									onAction="#OtherButtonAction" prefHeight="50.0" prefWidth="80.0"
+									styleClass="updateButton" text="加點 ">
 									<HBox.margin>
 										<Insets bottom="10.0" left="8.0" right="2.0" top="10.0" />
 									</HBox.margin>
@@ -123,7 +138,8 @@
 									</padding>
 								</Button>
 								<Button fx:id="plusButton" mnemonicParsing="false"
-									onAction="#PlusButtonAction" styleClass="plusButton" text="+">
+									onAction="#PlusButtonAction" prefHeight="50.0" prefWidth="80.0"
+									styleClass="plusButton" text="+">
 									<HBox.margin>
 										<Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
 									</HBox.margin>
@@ -132,7 +148,8 @@
 									</padding>
 								</Button>
 								<Button fx:id="minusButton" mnemonicParsing="false"
-									onAction="#MinusButtonAction" styleClass="minusButton" text="-">
+									onAction="#MinusButtonAction" prefHeight="50.0" prefWidth="80.0"
+									styleClass="minusButton" text="-">
 									<HBox.margin>
 										<Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
 									</HBox.margin>
@@ -146,15 +163,22 @@
 							<children>
 
 								<Button fx:id="backButton" onAction="#PreviousPageButtonAction"
-									prefHeight="45.0" prefWidth="130.0" styleClass="backButton"
-									text="返回">
+									prefHeight="70.0" prefWidth="140.0" styleClass="backButton"
+									text="首頁">
 									<VBox.margin>
 										<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 									</VBox.margin>
+									<font>
+										<Font size="20.0" />
+									</font>
 								</Button>
 
 								<Button fx:id="printButton" onAction="#PrintButtonAction"
-									prefHeight="45.0" prefWidth="130.0" styleClass="okButton" text="列印" />
+									prefHeight="70.0" prefWidth="140.0" styleClass="okButton" text="列印">
+									<font>
+										<Font size="20.0" />
+									</font>
+								</Button>
 							</children>
 						</VBox>
 					</children>
@@ -191,18 +215,6 @@
 							hbarPolicy="NEVER" styleClass="menuBlockBackground" vbarPolicy="NEVER">
 							<content>
 								<VBox fx:id="menu3" alignment="TOP_CENTER" spacing="20"
-									styleClass="menuBlockBackground">
-								</VBox>
-							</content>
-							<padding>
-								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-							</padding>
-						</ScrollPane>
-
-						<ScrollPane fitToHeight="true" fitToWidth="true"
-							hbarPolicy="NEVER" styleClass="menuBlockBackground" vbarPolicy="NEVER">
-							<content>
-								<VBox fx:id="menu4" alignment="TOP_CENTER" spacing="20"
 									styleClass="menuBlockBackground">
 								</VBox>
 							</content>

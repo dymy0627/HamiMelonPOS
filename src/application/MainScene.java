@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class MainScene extends Application {
 
 	private static final String POS_NAME = "HamiMelonPOS";
-	private static final boolean ENABLE_FULLSCREEN = false;
+	private static final boolean ENABLE_FULLSCREEN = true;
 
 	private static Stage mainStage;
 	private static boolean firstIn = true;
@@ -56,7 +56,7 @@ public class MainScene extends Application {
 
 	public static void changeScene(Parent root) {
 
-		Scene mainScene = new Scene(root, 1280, 1024);
+		Scene mainScene = new Scene(root, 1280, 768);
 
 		mainStage.setScene(mainScene);
 		mainStage.setTitle(POS_NAME);

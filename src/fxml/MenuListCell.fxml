@@ -12,8 +12,8 @@
 	<children>
 		<Label fx:id="setLabel" prefWidth="80.0" style=" -fx-font-size: 16px;"
 			text="套餐名" />
-		<Label fx:id="nameLabel" alignment="CENTER_LEFT" prefWidth="85.0"
-			style=" -fx-font-size: 16px;" text="品名">
+		<Label fx:id="nameLabel" alignment="CENTER_LEFT" prefWidth="100.0"
+			style=" -fx-font-size: 14px;" text="品名">
 			<padding>
 				<Insets left="5.0" />
 			</padding>
@@ -22,7 +22,7 @@
 			style=" -fx-font-size: 16px;" text="單價" />
 		<Label fx:id="countLabel" prefWidth="35.0" style=" -fx-font-size: 16px;"
 			text="數量" />
-		<Label fx:id="totalLabel" alignment="CENTER_RIGHT" prefWidth="55.0"
+		<Label fx:id="totalLabel" alignment="CENTER_RIGHT" prefWidth="50.0"
 			style=" -fx-font-size: 16px;" text="小計">
 			<padding>
 				<Insets right="5.0" />
