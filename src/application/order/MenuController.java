@@ -290,8 +290,6 @@ public class MenuController implements Initializable {
 		menu2.setFocusTraversable(!disable);
 		menu3.setMouseTransparent(disable);
 		menu3.setFocusTraversable(!disable);
-		menu4.setMouseTransparent(disable);
-		menu4.setFocusTraversable(!disable);
 	}
 
 	private void menu_content_intialize() {

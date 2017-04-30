@@ -62,7 +62,7 @@ public class MainScene extends Application {
 		mainStage.setTitle(POS_NAME);
 
 		mainStage.setFullScreen(ENABLE_FULLSCREEN);
-		mainStage.setFullScreenExitHint(firstIn ? "千萬不要按 ESC 以離開全螢幕" : "");
+		mainStage.setFullScreenExitHint(firstIn ? "按 ESC 以離開全螢幕" : "");
 		mainStage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.ESCAPE, KeyCombination.CONTROL_ANY));
 
 		mainStage.show();
