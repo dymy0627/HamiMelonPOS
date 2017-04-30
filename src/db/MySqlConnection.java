@@ -107,7 +107,7 @@ public class MySqlConnection {
 					.executeQuery("SELECT sum(Turnover), sum(Lunch_Turnover), sum(L_Number_of_visitors), "
 							+ "avg(L_Average_consumption), sum(L_Outsourcing), sum(L_delivery), sum(Dinner_Turnover), "
 							+ "sum(D_Number_of_visitors), avg(D_Average_consumption), sum(D_Outsourcing), sum(D_delivery), "
-							+ "sum(Double_package), sum(Special_meals), sum(wind_and_rain), sum(total_visitors), "
+							+ "sum(Double_package_Turnover), sum(Special_meals_Turnover), sum(windrain_Turnover), sum(total_visitors), "
 							+ "sum(total_AVG_Turnover) FROM hamimelon.Daily WHERE date_format(teppanyaki_date,'%m')= '"+time+"' ");
 			while (mResultSet.next()) {
 
@@ -123,9 +123,9 @@ public class MySqlConnection {
 				month.put("D_Average_consumption", (mResultSet.getString("avg(D_Average_consumption)") != null)? mResultSet.getString("avg(D_Average_consumption)") : "0");
 				month.put("D_Outsourcing", (mResultSet.getString("sum(D_Outsourcing)") != null)?mResultSet.getString("sum(D_Outsourcing)"):"0");
 				month.put("D_delivery", (mResultSet.getString("sum(D_delivery)") != null)? mResultSet.getString("sum(D_delivery)") : "0");
-				month.put("Double_package", (mResultSet.getString("sum(Double_package)") != null)? mResultSet.getString("sum(Double_package)") : "0");
-				month.put("Special_meals", (mResultSet.getString("sum(Special_meals)") != null) ? mResultSet.getString("sum(Special_meals)") : "0");
-				month.put("wind_and_rain", (mResultSet.getString("sum(wind_and_rain)") != null) ? mResultSet.getString("sum(wind_and_rain)") : "0");
+				month.put("Double_package", (mResultSet.getString("sum(Double_package_Turnover)") != null)? mResultSet.getString("sum(Double_package_Turnover)") : "0");
+				month.put("Special_meals", (mResultSet.getString("sum(Special_meals_Turnover)") != null) ? mResultSet.getString("sum(Special_meals_Turnover)") : "0");
+				month.put("wind_and_rain", (mResultSet.getString("sum(windrain_Turnover)") != null) ? mResultSet.getString("sum(windrain_Turnover)") : "0");
 				month.put("total_visitors", (mResultSet.getString("sum(total_visitors)") != null) ? mResultSet.getString("sum(total_visitors)") : "0");
 
 

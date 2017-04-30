@@ -5,12 +5,14 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.TimerTask;
 
+import application.order.MenuBean;
 import application.order.MenuBuilder;
 import db.MySqlConnection;
 
 public class GenerateDailyTask extends TimerTask {
 
 	private int rain_special, pair_special, deluxe_special, chef_special;
+	private int rain_special_turnover, pair_special_turnover, chef_special_turnover;
 
 	public void run() {
 		System.out.println("殺神降臨");
@@ -113,7 +115,9 @@ public class GenerateDailyTask extends TimerTask {
 
 		String updateSetsSQL = new String(
 				"UPDATE hamimelon.Daily set Double_package='" + pair_special + "',Special_meals='" + chef_special
-						+ "',wind_and_rain='" + rain_special + "' where teppanyaki_date='" + time + "'");
+				+ "',wind_and_rain='" + rain_special + "' ,Double_package_Turnover='" + pair_special_turnover
+				+ "',Special_meals_Turnover='" + chef_special_turnover + "',windrain_turnover='" + rain_special_turnover +
+				"'where teppanyaki_date='" + time + "'");
 
 		Statement st = null;
 		try {
@@ -158,7 +162,7 @@ public class GenerateDailyTask extends TimerTask {
 		for (String meal : meals) {
 			System.out.println("meal=" + meal);
 			if (!meal.isEmpty()){
-				checkSpecialMeal(MenuBuilder.getMealById(meal).getSet());
+				checkSpecialMeal(MenuBuilder.getMealById(meal));
 			}
 				
 		}
@@ -166,16 +170,27 @@ public class GenerateDailyTask extends TimerTask {
 				"風雨:" + rain_special + " 雙人:" + pair_special + " 豪華:" + deluxe_special + " 特餐:" + chef_special);
 	}
 
-	private void checkSpecialMeal(String setName) {
+	private void checkSpecialMeal(MenuBean checkMeal) {
+		
+		String setName = checkMeal.getSet();
 		System.out.println("setName = " + setName);
-		if (setName.contains("風雨"))
+		
+		if (setName.contains("風雨")){
 			rain_special++;
-		else if (setName.contains("雙"))
+			rain_special_turnover += checkMeal.getPrice();
+		}
+		else if (setName.contains("雙")){
 			pair_special++;
-		else if (setName.contains("套餐"))
+			pair_special_turnover += checkMeal.getPrice();
+		}
+		else if (setName.contains("套餐")){
 			chef_special++;
+			chef_special_turnover += checkMeal.getPrice();
+		}
 		else if (setName.contains("豪華"))
 			deluxe_special++;
+		
+		System.out.println("rain_special = " + rain_special_turnover);
 	}
 
 	public static String getDateTime() { // 無參數=傳回現在時間
