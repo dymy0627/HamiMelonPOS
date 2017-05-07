@@ -2,34 +2,34 @@ package application.report;
 
 public class DailyReportBean {
 
-	int dailySales, lunchSales, dinnerSales;
+	int dailyTurnover, lunchTurnover, dinnerTurnover;
 
 	int insideSales, outsideSales, deliverSales, totalNum, avgSales;
 
 	int doubleNum, specialNum, windAndRainNum, luxuryNum;
 
-	public int getDailySales() {
-		return dailySales;
+	public int getDailyTurnover() {
+		return dailyTurnover;
 	}
 
-	public void setDailySales(int dailySales) {
-		this.dailySales = dailySales;
+	public void setDailyTurnover(int dailyTurnover) {
+		this.dailyTurnover = dailyTurnover;
 	}
 
-	public int getLunchSales() {
-		return lunchSales;
+	public int getLunchTurnover() {
+		return lunchTurnover;
 	}
 
-	public void setLunchSales(int lunchSales) {
-		this.lunchSales = lunchSales;
+	public void setLunchTurnover(int lunchTurnover) {
+		this.lunchTurnover = lunchTurnover;
 	}
 
-	public int getDinnerSales() {
-		return dinnerSales;
+	public int getDinnerTurnover() {
+		return dinnerTurnover;
 	}
 
-	public void setDinnerSales(int dinnerSales) {
-		this.dinnerSales = dinnerSales;
+	public void setDinnerTurnover(int dinnerTurnover) {
+		this.dinnerTurnover = dinnerTurnover;
 	}
 
 	public int getInsideSales() {

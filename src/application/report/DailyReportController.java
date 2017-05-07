@@ -89,16 +89,14 @@ public class DailyReportController implements Initializable {
 				}
 			}
 		});
-
-		turnoverRadioButton.setSelected(true);
 	}
 
 	private void creatTurnOverPieChart() {
 		pieChartPane.getChildren().clear();
 
 		final LabelPieChart chart = new LabelPieChart();
-		addPieChartData(chart, "午餐", dayBean.getLunchSales());
-		addPieChartData(chart, "晚餐", dayBean.getDinnerSales());
+		addPieChartData(chart, "午餐", dayBean.getLunchTurnover());
+		addPieChartData(chart, "晚餐", dayBean.getDinnerTurnover());
 		chart.setTitle("營業額時段比");
 
 		pieChartPane.getChildren().add(chart);
@@ -161,9 +159,9 @@ public class DailyReportController implements Initializable {
 
 				System.out.println("Load from DB Done!");
 
-				daily_sales.setText(String.valueOf(dayBean.getDailySales()));
-				daily_lunch_sales.setText(String.valueOf(dayBean.getLunchSales()));
-				daily_dinner_sales.setText(String.valueOf(dayBean.getDinnerSales()));
+				daily_sales.setText(String.valueOf(dayBean.getDailyTurnover()));
+				daily_lunch_sales.setText(String.valueOf(dayBean.getLunchTurnover()));
+				daily_dinner_sales.setText(String.valueOf(dayBean.getDinnerTurnover()));
 
 				daily_inside_sales.setText(String.valueOf(dayBean.getInsideSales()));
 				daily_outside_sales.setText(String.valueOf(dayBean.getOutsideSales()));
@@ -176,6 +174,8 @@ public class DailyReportController implements Initializable {
 				daily_special_num.setText(String.valueOf(dayBean.getSpecialNum()));
 				daily_wind_rain_num.setText(String.valueOf(dayBean.getWindAndRainNum()));
 				daily_luxury_num.setText(String.valueOf(dayBean.getLuxuryNum()));
+
+				turnoverRadioButton.setSelected(true);
 			}
 
 			@Override
