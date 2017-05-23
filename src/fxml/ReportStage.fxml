@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.report.ReportController">
+	<children>
+		
+	<VBox fx:id = "ReportView" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+			AnchorPane.topAnchor="20.0" spacing="20">
+	<children>	
+		<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+				AnchorPane.topAnchor="20.0" spacing="20">
+				
+			<ToggleButton fx:id="DailyButton"
+				mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
+				text="日報">
+				<font>
+					<Font size="20.0" />
+				</font>
+			</ToggleButton>
+			
+			<ToggleButton fx:id="MonthlyButton"
+				mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
+				text="月報">
+				<font>
+					<Font size="20.0" />
+				</font>
+			</ToggleButton>
+			
+		</HBox>
+	
+		
+		<VBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+				AnchorPane.topAnchor="20.0" spacing="20">
+			
+		</VBox>
+		
+	</children>
+	</VBox>
+	<ProgressIndicator fx:id="myProgressIndicator"
+			maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+			minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0"
+			AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="320.0"
+			AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="320.0" />	
+	</children>
+	<stylesheets>
+		<URL value="@../css/MonthlyBarChart.css" />
+	</stylesheets>
+</AnchorPane>

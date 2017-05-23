@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.report.ReportController">
+	<children>
+		
+	<VBox fx:id = "ReportView" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+			AnchorPane.topAnchor="20.0" spacing="20">
+	<children>	
+		
+		<TitledPane animated="false" text="圖表">
+		<content>
+			
+		</content>
+		</TitledPane>
+		
+		<TitledPane animated="false" text="表格">
+		<content>
+			
+		</content>
+		</TitledPane>
+		
+		<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+				AnchorPane.topAnchor="20.0" spacing="20">
+			
+		</HBox>
+		
+	</children>
+	</VBox>
+	
+	</children>
+	
+</AnchorPane>
