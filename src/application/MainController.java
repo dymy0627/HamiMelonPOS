@@ -26,8 +26,8 @@ public class MainController {
 
 	@FXML
 	protected void MonthlyButtonAction(ActionEvent event) {
-		showStage("/fxml/MonthlyReportStage.fxml");
-		//showStage("/fxml/ReportStage.fxml");
+		//showStage("/fxml/MonthlyReportStage.fxml");
+		showStage("/fxml/ReportStage.fxml");
 	}
 
 	private void showStage(String filePath) {

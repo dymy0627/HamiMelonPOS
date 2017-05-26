@@ -8,17 +8,15 @@
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	>
-	<children>
-		
-	<VBox fx:id = "ReportView" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-			AnchorPane.topAnchor="20.0" spacing="20">
+<VBox  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="application.report.ReportController" 
+		 AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+				AnchorPane.topAnchor="20.0" spacing="20">
 	<children>	
 		
 		<TitledPane animated="false" text="圖表">
 		<content>
-			
+			<Label text="Daily Chart"/>
 		</content>
 		</TitledPane>
 		
@@ -218,14 +216,5 @@
 		</content>
 		</TitledPane>
 		
-		<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-				AnchorPane.topAnchor="20.0" spacing="20">
-			
-		</HBox>
-		
 	</children>
-	</VBox>
-	
-	</children>
-	
-</AnchorPane>
+</VBox>

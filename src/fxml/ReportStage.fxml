@@ -12,7 +12,7 @@
 	fx:controller="application.report.ReportController">
 	<children>
 		
-	<VBox fx:id = "ReportView" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+	<VBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
 			AnchorPane.topAnchor="20.0" spacing="20">
 	<children>	
 		<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
@@ -36,11 +36,11 @@
 			
 		</HBox>
 		
-		<AnchorPane	fx:id="ReportContainer"
+		<VBox	fx:id="ReportContainer"
 			AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
 			AnchorPane.topAnchor="20.0" >
 			
-		</AnchorPane>
+		</VBox>
 		
 	</children>
 	</VBox>
