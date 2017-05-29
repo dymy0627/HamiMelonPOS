@@ -8,34 +8,211 @@
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="application.report.ReportController">
-	<children>
-		
-	<VBox fx:id = "ReportView" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-			AnchorPane.topAnchor="20.0" spacing="20">
+<VBox prefHeight="800.0" prefWidth="1200.0" spacing="20" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.report.MonthlyViewController" >
 	<children>	
 		
 		<TitledPane animated="false" text="圖表">
 		<content>
-			
+			<VBox fx:id = "BarChartView1" spacing="20" maxWidth="900" minWidth = "900" prefHeight="550">
+			</VBox>
 		</content>
 		</TitledPane>
 		
 		<TitledPane animated="false" text="表格">
 		<content>
+			<VBox fx:id = "TableView1" spacing="20" prefHeight="280" >
+				<Label text="本月營業明細" fx:id="label_back_door" >
+					<VBox.margin>
+						<Insets bottom="10.0" right="10.0" top="10.0" />
+					</VBox.margin>
+				</Label>
+				<GridPane gridLinesVisible="true" style="-fx-background-color: white">
+					<columnConstraints>
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="80.0"
+							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"
+							prefWidth="120.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="80.0"
+							prefWidth="100.0" />
+						<ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"
+							prefWidth="120.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+						<RowConstraints minHeight="10.0" prefHeight="30.0"
+							vgrow="SOMETIMES" />
+					</rowConstraints>
+					<children>
+						<Label prefHeight="40.0" prefWidth="150.0" text="月來客數(內用)"
+							GridPane.columnIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="月營業額">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="午餐(月)"
+							GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="晚餐(月)"
+							GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="內用(月)"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="雙人套餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="月客單價(內用)"
+							GridPane.columnIndex="2" GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="特餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="外帶金額(月)"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="外送金額(月)"
+							GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="風雨餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label prefHeight="40.0" prefWidth="150.0" text="豪華餐(月)"
+							GridPane.columnIndex="2" GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_sales" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_lunch_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_dinner_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_inside_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_outside_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_deliver_sales" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="1"
+							GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_total_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_avg_sales" prefHeight="40.0" prefWidth="150.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_double_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_special_num" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="3"
+							GridPane.rowIndex="3">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_wind_rain_num" prefHeight="40.0"
+							prefWidth="100.0" text="0" GridPane.columnIndex="3"
+							GridPane.rowIndex="4">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+						<Label fx:id="monthly_luxury_num" prefHeight="40.0" prefWidth="100.0"
+							text="0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</Label>
+					</children>
+				</GridPane>
 			
+			</VBox>
 		</content>
 		</TitledPane>
 		
-		<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-				AnchorPane.topAnchor="20.0" spacing="20">
-			
-		</HBox>
-		
-	</children>
-	</VBox>
-	
 	</children>
 	
-</AnchorPane>
+	<stylesheets>
+		<URL value="@../css/MonthlyBarChart.css" />
+	</stylesheets>
+</VBox>

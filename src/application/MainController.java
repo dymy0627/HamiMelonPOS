@@ -25,7 +25,7 @@ public class MainController {
 	}
 
 	@FXML
-	protected void MonthlyButtonAction(ActionEvent event) {
+	protected void ReportButtonAction(ActionEvent event) {
 		//showStage("/fxml/MonthlyReportStage.fxml");
 		showStage("/fxml/ReportStage.fxml");
 	}

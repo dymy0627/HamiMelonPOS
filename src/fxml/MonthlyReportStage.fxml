@@ -12,7 +12,7 @@
 	fx:controller="application.report.MonthlyReportController">
 	<children>
 		
-	<VBox fx:id = "MonthlyReportView" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+	<VBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
 			AnchorPane.topAnchor="20.0" spacing="20">
 	<children>	
 		<TitledPane animated="false" text="圖表">

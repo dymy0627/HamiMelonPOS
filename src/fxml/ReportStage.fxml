@@ -8,6 +8,7 @@
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 
+<!-- fx:controller="application.report.ReportController" -->
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="application.report.ReportController">
 	<children>
@@ -34,23 +35,24 @@
 				</font>
 			</ToggleButton>
 			
+			<Button onAction="#BackButtonAction" prefHeight="30.0"
+									prefWidth="150.0" text="返回" />
+			
 		</HBox>
-		
-		<VBox	fx:id="ReportContainer"
+
+		<Pane	fx:id="ReportContainer"  
 			AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
 			AnchorPane.topAnchor="20.0" >
 			
-		</VBox>
+		</Pane>
 		
 	</children>
 	</VBox>
+	
+	</children>
 	<ProgressIndicator fx:id="myProgressIndicator"
 			maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
 			minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0"
 			AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="320.0"
 			AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="320.0" />	
-	</children>
-	<stylesheets>
-		<URL value="@../css/MonthlyBarChart.css" />
-	</stylesheets>
 </AnchorPane>

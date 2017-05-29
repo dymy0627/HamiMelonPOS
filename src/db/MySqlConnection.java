@@ -200,6 +200,7 @@ public class MySqlConnection {
 		String[] timeArray = systemtime.split(" ");
 		String time = timeArray[0];
 		System.out.println("time=" + time);
+		//System.out.println("66");
 		return selectDailyReportFromOrderList(time);
 	}
 
@@ -209,7 +210,7 @@ public class MySqlConnection {
 			mStatement = mSqlConnection.createStatement();
 			mResultSet = mStatement.executeQuery("SELECT * FROM hamimelon.Daily where teppanyaki_date='" + time + "'");
 			while (mResultSet.next()) {
-
+				System.out.println("66");
 				day.setDailyTurnover(mResultSet.getInt("Turnover"));
 				int dailyOutsideSales = mResultSet.getInt("L_Outsourcing") + mResultSet.getInt("D_Outsourcing");
 				int dailyDeliverSales = mResultSet.getInt("L_delivery") + mResultSet.getInt("D_delivery");
@@ -226,9 +227,9 @@ public class MySqlConnection {
 				day.setTotalNum(dailyTotalNum);
 				int avgSales = dailyInsideSales / (dailyTotalNum > 0 ? dailyTotalNum : 1);
 				day.setAvgSales(avgSales);
-				day.setDoubleNum(mResultSet.getInt("Double_Package"));
-				day.setSpecialNum(mResultSet.getInt("Special_meals"));
-				day.setWindAndRainNum(mResultSet.getInt("wind_and_rain"));
+				day.setDoubleNum(mResultSet.getInt("Double_Package_Turnover"));
+				day.setSpecialNum(mResultSet.getInt("Special_meals_Turnover"));
+				day.setWindAndRainNum(mResultSet.getInt("windrain_Turnover"));
 				day.setLuxuryNum(0);
 			}
 		} catch (SQLException e) {

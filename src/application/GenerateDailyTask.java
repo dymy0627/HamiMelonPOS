@@ -62,8 +62,8 @@ public class GenerateDailyTask extends TimerTask {
 
 		String updateSetsSQL = new String(
 				"UPDATE hamimelon.Daily SET Double_package='" + pair_special + "',Special_meals='" + chef_special
-						+ "',wind_and_rain='" + rain_special + "' ,Double_package_Turnover='" + pair_special_turnover
-						+ "',Special_meals_Turnover='" + chef_special_turnover + "',windrain_turnover='"
+						+ "',wind_and_rain='" + rain_special + "',Double_Package_Turnover='" + pair_special_turnover
+						+ "',Special_meals_Turnover='" + chef_special_turnover + "',windrain_Turnover='"
 						+ rain_special_turnover + "'where teppanyaki_date='" + time + "'");
 
 		Statement st = null;
@@ -121,7 +121,9 @@ public class GenerateDailyTask extends TimerTask {
 		} else if (setName.contains("豪華"))
 			deluxe_special++;
 
-		System.out.println("rain_special = " + rain_special_turnover);
+		System.out.println(rain_special_turnover);
+		System.out.println(pair_special_turnover);
+		System.out.println(chef_special_turnover);
 	}
 
 	public static String getDateTime() { // 無參數=傳回現在時間

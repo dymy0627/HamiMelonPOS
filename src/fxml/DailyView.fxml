@@ -8,15 +8,29 @@
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 
-<VBox  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-		fx:controller="application.report.ReportController" 
-		 AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-				AnchorPane.topAnchor="20.0" spacing="20">
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+		prefHeight="800.0" prefWidth="1200.0"  spacing="20" fx:controller="application.report.DailyViewController">
 	<children>	
 		
 		<TitledPane animated="false" text="圖表">
 		<content>
-			<Label text="Daily Chart"/>
+			<VBox prefHeight="470.0" prefWidth="400.0" spacing = "20">
+					<children>
+						<HBox alignment="CENTER" prefHeight="20.0" prefWidth="500.0" spacing = "50">
+							<children>
+								<RadioButton fx:id="turnoverRadioButton"
+									mnemonicParsing="false" text="營業額時段比" />
+								<RadioButton fx:id="typeRadioButton"
+									mnemonicParsing="false" text="用餐型態比" />
+								<RadioButton fx:id="setRadioButton" mnemonicParsing="false"
+									text="套餐比" />
+							</children>
+						</HBox>
+						<HBox alignment="CENTER">
+							<Pane fx:id="pieChartPane" />
+						</HBox>
+					</children>
+			</VBox>
 		</content>
 		</TitledPane>
 		
@@ -216,5 +230,8 @@
 		</content>
 		</TitledPane>
 		
+		<Button fx:id = "CheckButton" onAction="#CheckButtonAction" prefHeight="30.0"
+		prefWidth="150.0" text="確認" />
 	</children>
+	
 </VBox>
