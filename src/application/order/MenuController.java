@@ -2,6 +2,7 @@ package application.order;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -15,6 +16,7 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
 import application.MainScene;
+import application.print.PrinterService;
 import db.MySqlConnection;
 import db.bean.CartListBean;
 import db.bean.MenuBean;
@@ -483,6 +485,7 @@ public class MenuController implements Initializable {
 
 			myProgressIndicator.setVisible(false);
 			disableMode(true);
+			String ListContent = "";
 
 			String meals = "";
 			for (CartListBean listItem : passing_list) {
@@ -491,11 +494,13 @@ public class MenuController implements Initializable {
 				for (int i = 0; i < listItem.getNumber(); i++) {
 					calMeatCost(menuBean.getMeatClass());
 					meals += menuBean.getId() + ",";
+					ListContent += menuBean.getName() + "\t" + listItem.getNumber()+ "\n";
 				}
 			}
 
 			System.out.println("用餐型態:" + mConsumptionType + " 人數:" + num_people + " 金額:" + mTotalMoney);
-			dataBaseConnection(mConsumptionType, num_people, mTotalMoney, meals);
+			ListContent += mConsumptionType + "\t" + String.valueOf(num_people) + "\t" + String.valueOf(mTotalMoney) + "\n";
+			dataBaseConnection(mConsumptionType, num_people, mTotalMoney, meals, ListContent);			
 
 		} else {
 			System.out.println("print failed, list size = " + passing_list.size());
@@ -503,11 +508,18 @@ public class MenuController implements Initializable {
 	}
 
 	// TODO
-	private void printWork() {
+	private void printWork(String ListContent) {
 		System.out.println("print work");
+		PrinterService printerService = new PrinterService();
+		
+		System.out.println(printerService.getPrinters());
+ 
+		//printerService.printBytes("BP-T3", ListContent.getBytes());
+		printerService.printBytes("BP-T3", ListContent);
+	
 	}
 
-	private void dataBaseConnection(String type, int peopleNum, int totalMoney, String meals) {
+	private void dataBaseConnection(String type, int peopleNum, int totalMoney, String meals, String ListContent) {
 		new Thread(new Task<Boolean>() {
 
 			@Override
@@ -538,7 +550,7 @@ public class MenuController implements Initializable {
 				disableMode(false);
 
 				clearAllItem();
-				printWork();
+				printWork(ListContent);
 			}
 
 			@Override

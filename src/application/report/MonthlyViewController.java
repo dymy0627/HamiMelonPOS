@@ -159,15 +159,28 @@ public class MonthlyViewController implements Initializable{
 		
 		int total_turnover = Integer.parseInt(month.get("Turnover")) + all_togo + all_delivery;
 		
-		int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
-		int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
+		if(total_turnover != 0){
+			int lunch_persent = (Integer.parseInt(month.get("Lunch_Turnover"))*100 / total_turnover);
+			int dinner_persent = Integer.parseInt(month.get("Dinner_Turnover"))*100/ total_turnover;
+			
+			int togo_persent = (all_togo*100)/ total_turnover;		
+			int delivery_persent = (all_delivery*100) / total_turnover;
+			
+			int paircombo_percent = Integer.parseInt(month.get("Double_package"))*100 / total_turnover;
+			int specialcombo_percent = Integer.parseInt(month.get("Special_meals"))*100 / total_turnover;
+			int windfurcombo_percent = Integer.parseInt(month.get("wind_and_rain"))*100 / total_turnover;
+		}else{
+			int lunch_persent = 0;
+			int dinner_persent = 0;
+			
+			int togo_persent = 0;		
+			int delivery_persent = 0;
+			
+			int paircombo_percent = 0;
+			int specialcombo_percent = 0;
+			int windfurcombo_percent = 0;
+		}
 		
-		int togo_persent = (all_togo*100)/ total_turnover;		
-		int delivery_persent = (all_delivery*100) / total_turnover;
-		
-		int paircombo_percent = Integer.parseInt(month.get("Double_package"))*100 / total_turnover;
-		int specialcombo_percent = Integer.parseInt(month.get("Special_meals"))*100 / total_turnover;
-		int windfurcombo_percent = Integer.parseInt(month.get("wind_and_rain"))*100 / total_turnover;
 		
 		System.out.println("本月總營業額 " + total_turnover + " 午餐占比 " + lunch_persent + " 晚餐占比 " + dinner_persent + " 外帶占比 " + togo_persent + " 外送占比 " + delivery_persent);
 
