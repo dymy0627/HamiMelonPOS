@@ -1,4 +1,4 @@
-package application.order;
+package db.bean;
 
 public class MenuBean {
 	private String id;

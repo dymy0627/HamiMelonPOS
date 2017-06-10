@@ -1,14 +1,14 @@
-package application;
+package application.report;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.TimerTask;
 
-import application.order.MenuBean;
 import application.order.MenuBuilder;
-import application.report.DailyReportBean;
 import db.MySqlConnection;
+import db.bean.DailyReportBean;
+import db.bean.MenuBean;
 
 public class GenerateDailyTask extends TimerTask {
 

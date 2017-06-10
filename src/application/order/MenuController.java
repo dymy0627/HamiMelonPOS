@@ -16,6 +16,8 @@ import java.util.ResourceBundle;
 
 import application.MainScene;
 import db.MySqlConnection;
+import db.bean.CartListBean;
+import db.bean.MenuBean;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -80,11 +82,11 @@ public class MenuController implements Initializable {
 	private ComboBox<String> discount_ComboBox;
 
 	@FXML
-	private ListView<ListItem> menulist;
-	private static ListItem currentListItem;
+	private ListView<CartListBean> menulist;
+	private static CartListBean currentListItem;
 
-	private ObservableList<ListItem> mMenuListObservableList = FXCollections.observableArrayList();
-	private List<ListItem> passing_list = new ArrayList<>();
+	private ObservableList<CartListBean> mMenuListObservableList = FXCollections.observableArrayList();
+	private List<CartListBean> passing_list = new ArrayList<>();
 
 	private static Map<String, Integer> mMeatCostMap = new HashMap<>();
 
@@ -192,15 +194,15 @@ public class MenuController implements Initializable {
 		});
 
 		menulist.setItems(mMenuListObservableList);
-		menulist.setCellFactory(new Callback<ListView<ListItem>, ListCell<ListItem>>() {
+		menulist.setCellFactory(new Callback<ListView<CartListBean>, ListCell<CartListBean>>() {
 			@Override
-			public ListCell<ListItem> call(ListView<ListItem> parms) {
+			public ListCell<CartListBean> call(ListView<CartListBean> parms) {
 				return new MenuListViewCell();
 			}
 		});
-		menulist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ListItem>() {
+		menulist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<CartListBean>() {
 			@Override
-			public void changed(ObservableValue<? extends ListItem> observable, ListItem oldValue, ListItem newValue) {
+			public void changed(ObservableValue<? extends CartListBean> observable, CartListBean oldValue, CartListBean newValue) {
 				if (newValue != null) {
 					currentListItem = newValue;
 					System.out.println("Selected = " + newValue.getMenuBean().getName());
@@ -214,7 +216,7 @@ public class MenuController implements Initializable {
 		@Override
 		public void handle(ActionEvent e) {
 			String currentMealId = ((Button) e.getSource()).getId();
-			ListItem listItem = new ListItem(MenuBuilder.getMealById(currentMealId));
+			CartListBean listItem = new CartListBean(MenuBuilder.getMealById(currentMealId));
 
 			if (currentListItem != null
 					&& listItem.getMenuBean().getName() == currentListItem.getMenuBean().getName()) {
@@ -244,7 +246,7 @@ public class MenuController implements Initializable {
 			alacarteMeal.setPrice(chosenMeal.getPrice() - 30);
 			alacarteMeal.setMeatClass(chosenMeal.getMeatClass());
 
-			ListItem listItem = new ListItem(alacarteMeal);
+			CartListBean listItem = new CartListBean(alacarteMeal);
 			passing_list.add(listItem);
 
 			updateMenuList();
@@ -262,7 +264,7 @@ public class MenuController implements Initializable {
 
 	private void updateMenuList() {
 		mTotalMoney = 0;
-		for (ListItem item : passing_list) {
+		for (CartListBean item : passing_list) {
 			mTotalMoney += item.getMenuBean().getPrice() * item.getNumber();
 		}
 		mMenuListObservableList.setAll(passing_list);
@@ -456,7 +458,7 @@ public class MenuController implements Initializable {
 				otherMeal.setName(menu.getName() + "(加點)");
 				otherMeal.setPrice(menu.getPrice() + 150);
 				otherMeal.setMeatClass(menu.getMeatClass() + "_16*3_19");
-				ListItem newListItem = new ListItem(otherMeal);
+				CartListBean newListItem = new CartListBean(otherMeal);
 
 				int index = passing_list.indexOf(currentListItem);
 				passing_list.remove(currentListItem);
@@ -483,7 +485,7 @@ public class MenuController implements Initializable {
 			disableMode(true);
 
 			String meals = "";
-			for (ListItem listItem : passing_list) {
+			for (CartListBean listItem : passing_list) {
 				MenuBean menuBean = listItem.getMenuBean();
 
 				for (int i = 0; i < listItem.getNumber(); i++) {

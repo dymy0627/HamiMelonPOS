@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.GenerateDailyTask;
 import application.MainScene;
 import db.MySqlConnection;
+import db.bean.DailyReportBean;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;

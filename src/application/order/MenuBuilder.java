@@ -14,6 +14,7 @@ import org.json.simple.parser.ParseException;
 
 import application.MainScene;
 import db.MySqlConnection;
+import db.bean.MenuBean;
 
 public class MenuBuilder {
 

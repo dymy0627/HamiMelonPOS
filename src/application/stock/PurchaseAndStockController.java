@@ -13,6 +13,9 @@ import java.util.function.UnaryOperator;
 
 import application.MainScene;
 import db.MySqlConnection;
+import db.bean.PurchaseBean;
+import db.bean.StockBean;
+import db.bean.StockListBean;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

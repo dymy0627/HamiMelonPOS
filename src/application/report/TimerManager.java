@@ -1,4 +1,4 @@
-package application;
+package application.report;
 
 import java.util.Calendar;
 import java.util.Date;

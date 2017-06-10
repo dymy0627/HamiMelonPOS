@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import application.GenerateDailyTask;
-import application.order.MenuBean;
-import application.report.DailyReportBean;
-import application.stock.PurchaseBean;
-import application.stock.StockBean;
+import application.report.GenerateDailyTask;
+import db.bean.DailyReportBean;
+import db.bean.MenuBean;
+import db.bean.PurchaseBean;
+import db.bean.StockBean;
 
 public class MySqlConnection {
 

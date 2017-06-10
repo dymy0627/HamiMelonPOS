@@ -2,6 +2,7 @@ package application.stock;
 
 import java.io.IOException;
 
+import db.bean.PurchaseBean;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

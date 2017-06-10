@@ -2,6 +2,7 @@ package application.stock;
 
 import java.io.IOException;
 
+import db.bean.StockListBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

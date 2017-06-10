@@ -1,10 +1,10 @@
-package application.order;
+package db.bean;
 
-public class ListItem {
+public class CartListBean {
 	private MenuBean menuBean;
 	private int number = 0;
 
-	public ListItem(MenuBean menuBean) {
+	public CartListBean(MenuBean menuBean) {
 		this.menuBean = menuBean;
 		this.number = 1;
 	}

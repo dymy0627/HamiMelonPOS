@@ -1,4 +1,4 @@
-package application.report;
+package db.bean;
 
 public class DailyReportBean {
 

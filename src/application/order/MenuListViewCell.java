@@ -2,13 +2,15 @@ package application.order;
 
 import java.io.IOException;
 
+import db.bean.CartListBean;
+import db.bean.MenuBean;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 
-public class MenuListViewCell extends ListCell<ListItem> {
+public class MenuListViewCell extends ListCell<CartListBean> {
 
 	@FXML
 	private HBox menuItem;
@@ -27,7 +29,7 @@ public class MenuListViewCell extends ListCell<ListItem> {
 	private FXMLLoader mFXMLLoader;
 
 	@Override
-	protected void updateItem(ListItem listItem, boolean empty) {
+	protected void updateItem(CartListBean listItem, boolean empty) {
 		super.updateItem(listItem, empty);
 		if (empty || listItem == null) {
 			setText(null);

@@ -1,4 +1,4 @@
-package application.stock;
+package db.bean;
 
 public class StockBean {
 	private String id;

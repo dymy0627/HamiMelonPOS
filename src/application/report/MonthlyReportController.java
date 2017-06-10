@@ -19,7 +19,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import application.MainScene;
-import application.GenerateDailyTask;
 import db.MySqlConnection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
