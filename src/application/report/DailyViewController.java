@@ -2,10 +2,9 @@ package application.report;
 
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
-import application.MainScene;
 import db.MySqlConnection;
 import db.bean.DailyReportBean;
 import javafx.beans.value.ChangeListener;
@@ -13,10 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -26,20 +22,20 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 
-public class DailyViewController implements Initializable{
-	
-	//FXML Object Def.
+public class DailyViewController implements Initializable {
+
+	// FXML Object Def.
 	@FXML
 	private Label daily_sales, daily_lunch_sales, daily_dinner_sales;
 	@FXML
 	private Label daily_inside_sales, daily_outside_sales, daily_deliver_sales, daily_total_num, daily_avg_sales;
 	@FXML
 	private Label daily_double_num, daily_special_num, daily_wind_rain_num, daily_luxury_num;
-	
+
 	@FXML
 	private ComboBox<String> weather_combobox;
 	private String daily_weather = "";
-	
+
 	@FXML
 	private Pane pieChartPane;
 
@@ -51,37 +47,22 @@ public class DailyViewController implements Initializable{
 	private RadioButton setRadioButton;
 	@FXML
 	private Button CheckButton;
-	
+
 	@FXML
-	protected void CheckButtonAction(ActionEvent event) throws IOException {
-		mySqlConnection.updateDailyWeather(daily_weather);
-		//Report Updated Sql Connect Close
-		mySqlConnection.disconnectSql();
-	}
-	
-	//Controll Object Def.
-	private DailyReportBean dayBean;
-	private MySqlConnection mySqlConnection;
-	
+	private Label label_back_door;
+	// Controll Object Def.
+
+	private int hackClick = 0;
+	private static boolean needUpdate = false;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		//Connect Sql
-		mySqlConnection = new MySqlConnection();
-		mySqlConnection.connectSql();
-
-		
-		//DailyReportContent Controll
+		// DailyReportContent Controll
+		loadDailyReport();
 		DailyWeatherReport();
-		
-		DailyBusinessTable();
-		
-		DailyBusinessGraphic();
-		turnoverRadioButton.setSelected(true);
 	}
 
 	private void DailyWeatherReport() {
-		
 		CheckButton.setDisable(true);
 		weather_combobox.getItems().setAll("晴天", "雨天");
 		weather_combobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -91,12 +72,77 @@ public class DailyViewController implements Initializable{
 				CheckButton.setDisable(false);
 			}
 		});
-		
 	}
-	
-	private void DailyBusinessTable() {
-		
-		dayBean = mySqlConnection.getDailyReport();
+
+	@FXML
+	protected void BackDoorAction() throws IOException {
+		hackClick++;
+		System.out.println("BD" + hackClick);
+		if (hackClick >= 6) {
+			System.out.println("BD不說");
+			needUpdate = true;
+			loadDailyReport();
+			hackClick = 0;
+		}
+	}
+
+	@FXML
+	protected void CheckButtonAction(ActionEvent event) throws IOException {
+		MySqlConnection sqlConnection = new MySqlConnection();
+		sqlConnection.connectSql();
+		sqlConnection.updateDailyWeather(daily_weather);
+		sqlConnection.disconnectSql();
+	}
+
+	private void loadDailyReport() {
+		new Thread(new Task<DailyReportBean>() {
+
+			@Override
+			protected DailyReportBean call() throws Exception {
+				// myProgressIndicator.setVisible(true);
+				label_back_door.setDisable(true);
+
+				if (needUpdate)
+					new GenerateDailyTask().run();
+
+				MySqlConnection sqlConnection = new MySqlConnection();
+				sqlConnection.connectSql();
+				DailyReportBean dailyReportBean = sqlConnection
+						.selectDailyReportFromOrderList(GenerateDailyTask.getTodayDate());
+				sqlConnection.disconnectSql();
+				return dailyReportBean;
+			}
+
+			@Override
+			protected void succeeded() {
+				super.succeeded();
+				// myProgressIndicator.setVisible(false);
+				needUpdate = false;
+				label_back_door.setDisable(false);
+				System.out.println("Load from DB Done!");
+				try {
+					DailyReportBean dayBean = get();
+					setDailyBusinessTable(dayBean);
+					setDailyBusinessGraphic(dayBean);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			protected void failed() {
+				super.failed();
+				// myProgressIndicator.setVisible(false);
+				label_back_door.setDisable(false);
+				needUpdate = false;
+				System.out.println("Load from DB Failed!");
+			}
+		}).start();
+	}
+
+	private void setDailyBusinessTable(DailyReportBean dayBean) {
 		daily_sales.setText(String.valueOf(dayBean.getDailyTurnover()));
 		daily_lunch_sales.setText(String.valueOf(dayBean.getLunchTurnover()));
 		daily_dinner_sales.setText(String.valueOf(dayBean.getDinnerTurnover()));
@@ -112,11 +158,10 @@ public class DailyViewController implements Initializable{
 		daily_special_num.setText(String.valueOf(dayBean.getSpecialNum()));
 		daily_wind_rain_num.setText(String.valueOf(dayBean.getWindAndRainNum()));
 		daily_luxury_num.setText(String.valueOf(dayBean.getLuxuryNum()));
-
 	}
 
-	private void DailyBusinessGraphic() {
-		
+	private void setDailyBusinessGraphic(DailyReportBean dayBean) {
+
 		final ToggleGroup group = new ToggleGroup();
 		turnoverRadioButton.setToggleGroup(group);
 		turnoverRadioButton.setUserData("1");
@@ -124,7 +169,7 @@ public class DailyViewController implements Initializable{
 		typeRadioButton.setUserData("2");
 		setRadioButton.setToggleGroup(group);
 		setRadioButton.setUserData("3");
-		
+
 		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
 				if (group.getSelectedToggle() != null) {
@@ -139,7 +184,6 @@ public class DailyViewController implements Initializable{
 			}
 
 			private void creatTurnOverPieChart() {
-				
 				pieChartPane.getChildren().clear();
 
 				final LabelPieChart chart = new LabelPieChart();
@@ -149,9 +193,8 @@ public class DailyViewController implements Initializable{
 
 				pieChartPane.getChildren().add(chart);
 			}
-			
+
 			private void creatTypePieChart() {
-				
 				pieChartPane.getChildren().clear();
 
 				final LabelPieChart chart = new LabelPieChart();
@@ -162,9 +205,8 @@ public class DailyViewController implements Initializable{
 
 				pieChartPane.getChildren().add(chart);
 			}
-			
+
 			private void creatSetPieChart() {
-				
 				pieChartPane.getChildren().clear();
 
 				final LabelPieChart chart = new LabelPieChart();
@@ -175,11 +217,13 @@ public class DailyViewController implements Initializable{
 
 				pieChartPane.getChildren().add(chart);
 			}
-			
+
 			public void addPieChartData(LabelPieChart pChart, String name, double value) {
 				final Data data = new Data(name, value);
 				pChart.getData().add(data);
 			}
-		});		
+		});
+
+		turnoverRadioButton.setSelected(true);
 	}
 }

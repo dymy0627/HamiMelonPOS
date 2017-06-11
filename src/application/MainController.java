@@ -20,23 +20,14 @@ public class MainController {
 	}
 
 	@FXML
-	protected void DailyButtonAction(ActionEvent event) {
-		showStage("/fxml/DailyReportStage.fxml");
-	}
-
-	@FXML
 	protected void ReportButtonAction(ActionEvent event) {
-		//showStage("/fxml/MonthlyReportStage.fxml");
 		showStage("/fxml/ReportStage.fxml");
 	}
 
 	private void showStage(String filePath) {
 		try {
-			// def fxml loader
 			Parent root = FXMLLoader.load(getClass().getResource(filePath));
-
 			MainScene.changeScene(root);
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -12,59 +12,57 @@ import db.bean.MenuBean;
 
 public class GenerateDailyTask extends TimerTask {
 
-	private int rain_special, pair_special, deluxe_special, chef_special;
 	private int rain_special_turnover, pair_special_turnover, chef_special_turnover;
 
 	public void run() {
 		System.out.println("殺神降臨");
-		String systemtime = getDateTime();
-		System.out.println("現在時間" + getDateTime()); // 輸出 現在時間
-		String[] timeArray = systemtime.split(" ");
-		String time = timeArray[0];
+		String todayDate = getTodayDate(); // 輸出 現在時間
+		System.out.println("今天日期 " + todayDate);
 
 		MySqlConnection mySqlConnection = new MySqlConnection();
 		mySqlConnection.connectSql();
-		DailyReportBean dailyBean = mySqlConnection.selectDailyReportFromOrderList(time);
+		DailyReportBean dailyBean = mySqlConnection.selectDailyReportFromOrderList(todayDate);
 
-		String insertdate = new String("INSERT INTO hamimelon.Daily(teppanyaki_date)values('" + time + "')");
+		String insertdate = new String("INSERT INTO hamimelon.Daily(teppanyaki_date)values('" + todayDate + "')");
 
 		String updateTurnoverSQL = new String("UPDATE hamimelon.Daily SET Turnover='" + dailyBean.getDailyTurnover()
-				+ "' where teppanyaki_date='" + time + "'");
+				+ "' where teppanyaki_date='" + todayDate + "'");
 
-		String updateLunchSQL = new String("UPDATE hamimelon.Daily SET "//
-				+ "Lunch_Turnover='" + dailyBean.getLunchTurnover() + "', "
-				+ "L_Number_of_visitors=(select sum(people) from hamimelon.Order_list  where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
-				+ time + "'), "
-				+ "L_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
-				+ time + "'), "
-				+ "L_Outsourcing=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
-				+ time + "' and type='外帶'), "
-				+ " L_delivery=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
-				+ time + "' and type='外送') where teppanyaki_date='" + time + "'");
+		String updateLunchSQL = new String(
+				"UPDATE hamimelon.Daily SET Lunch_Turnover='" + dailyBean.getLunchTurnover() + "'"
+						+ ", L_Number_of_visitors=(select sum(people) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "')"
+						+ ", L_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "')"
+						+ ", L_Outsourcing=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "' and type='外帶')"
+						+ ", L_delivery=(select sum(cost) from hamimelon.Order_list	 where date_format(time,'%H')<'16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "' and type='外送')" + " where teppanyaki_date='" + todayDate + "'");
 
-		String updateDinnerSQL = new String("UPDATE hamimelon.Daily SET Dinner_Turnover='" + dailyBean.getDinnerTurnover()
-				+ "', D_Number_of_visitors=(select sum(people) from hamimelon.Order_list  where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
-				+ time
-				+ "'), D_Average_consumption=(select TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
-				+ time
-				+ "'), D_Outsourcing=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
-				+ time
-				+ "' and type='外帶'), D_delivery=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
-				+ time + "' and type='外送') where teppanyaki_date='" + time + "'");
+		String updateDinnerSQL = new String(
+				"UPDATE hamimelon.Daily SET Dinner_Turnover='" + dailyBean.getDinnerTurnover() + "'"
+						+ ", D_Number_of_visitors=(select sum(people) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "')"
+						+ ", D_Average_consumption=(select	 TRUNCATE(sum(cost)/sum(people),0) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "')"
+						+ ", D_Outsourcing=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "' and type='外帶')"
+						+ ", D_delivery=(select sum(cost) from hamimelon.Order_list where date_format(time,'%H')>='16' and date_format(time,'%Y-%m-%d')='"
+						+ todayDate + "' and type='外送')" + " where teppanyaki_date='" + todayDate + "'");
 
 		String updateTotalVisitorsSQL = new String("UPDATE hamimelon.Daily SET total_visitors='"
-				+ dailyBean.getTotalNum() + "' WHERE teppanyaki_date='" + time + "'");
+				+ dailyBean.getTotalNum() + "' WHERE teppanyaki_date='" + todayDate + "'");
 
 		String updateAvgTurnoverSQL = new String("UPDATE hamimelon.Daily SET total_AVG_Turnover='"
-				+ dailyBean.getAvgSales() + "' WHERE teppanyaki_date='" + time + "'");
+				+ dailyBean.getAvgSales() + "' WHERE teppanyaki_date='" + todayDate + "'");
 
-		calAllSetNumber(mySqlConnection.getDailyMeals(time));
+		calAllSetTurnover(mySqlConnection.getDailyMeals(todayDate));
 
-		String updateSetsSQL = new String(
-				"UPDATE hamimelon.Daily SET Double_package='" + pair_special + "',Special_meals='" + chef_special
-						+ "',wind_and_rain='" + rain_special + "',Double_Package_Turnover='" + pair_special_turnover
-						+ "',Special_meals_Turnover='" + chef_special_turnover + "',windrain_Turnover='"
-						+ rain_special_turnover + "'where teppanyaki_date='" + time + "'");
+		String updateSetsSQL = new String("UPDATE hamimelon.Daily SET Double_package='" + dailyBean.getDoubleNum()
+				+ "',Special_meals='" + dailyBean.getSpecialNum() + "',wind_and_rain='" + dailyBean.getWindAndRainNum()
+				+ "',Double_Package_Turnover='" + pair_special_turnover + "',Special_meals_Turnover='"
+				+ chef_special_turnover + "',windrain_Turnover='" + rain_special_turnover + "'where teppanyaki_date='"
+				+ todayDate + "'");
 
 		Statement st = null;
 		try {
@@ -91,39 +89,32 @@ public class GenerateDailyTask extends TimerTask {
 		mySqlConnection.disconnectSql();
 	}
 
-	private void calAllSetNumber(String mealString) {
+	private void calAllSetTurnover(String mealString) {
+		System.out.println("mealString=" + mealString);
 		String[] meals = mealString.split(",");
 		for (String meal : meals) {
 			System.out.println("meal=" + meal);
 			if (!meal.isEmpty()) {
-				checkSpecialMeal(MenuBuilder.getMealById(meal));
+				calSpecialMealTurnover(MenuBuilder.getMealById(meal));
 			}
+		}
+	}
+
+	private void calSpecialMealTurnover(MenuBean checkMeal) {
+		String setName = checkMeal.getSet();
+		int setPrice = checkMeal.getPrice();
+		System.out.println("setName = " + setName + ", setPrice = " + setPrice);
+		if (setName.contains("風雨")) {
+			rain_special_turnover += setPrice;
+		} else if (setName.contains("雙")) {
+			pair_special_turnover += setPrice;
+		} else if (setName.contains("套餐")) {
+			chef_special_turnover += setPrice;
+		} else if (setName.contains("豪華")) {
 
 		}
 		System.out.println(
-				"風雨:" + rain_special + " 雙人:" + pair_special + " 豪華:" + deluxe_special + " 特餐:" + chef_special);
-	}
-
-	private void checkSpecialMeal(MenuBean checkMeal) {
-
-		String setName = checkMeal.getSet();
-		System.out.println("setName = " + setName);
-
-		if (setName.contains("風雨")) {
-			rain_special++;
-			rain_special_turnover += checkMeal.getPrice();
-		} else if (setName.contains("雙")) {
-			pair_special++;
-			pair_special_turnover += checkMeal.getPrice();
-		} else if (setName.contains("套餐")) {
-			chef_special++;
-			chef_special_turnover += checkMeal.getPrice();
-		} else if (setName.contains("豪華"))
-			deluxe_special++;
-
-		System.out.println(rain_special_turnover);
-		System.out.println(pair_special_turnover);
-		System.out.println(chef_special_turnover);
+				"風雨$:" + rain_special_turnover + " 雙人$:" + pair_special_turnover + " 特餐$:" + chef_special_turnover);
 	}
 
 	public static String getDateTime() { // 無參數=傳回現在時間
@@ -135,6 +126,17 @@ public class GenerateDailyTask extends TimerTask {
 		Calendar c = Calendar.getInstance();
 		c.set(Y, --M, D, H, m, S); // 傳進來的實際月份要減 1
 		return getYMDHMS(c);
+	}
+
+	public static String getTodayDate() {
+		String systemtime = getDateTime();
+		String[] timeArray = systemtime.split(" ");
+		return timeArray[0];
+	}
+
+	public static String getTodayDateMonth() {
+		String[] timeArray2 = getTodayDate().split("-");
+		return timeArray2[1];
 	}
 
 	public static String getYMDHMS(Calendar c) { // 輸出格式製作
