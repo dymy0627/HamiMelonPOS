@@ -78,6 +78,17 @@
 												<Insets left="5.0" />
 											</HBox.margin>
 										</Button>
+										<HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity"
+											minHeight="-Infinity" prefHeight="50.0">
+											<children>
+												<Button mnemonicParsing="false" onAction="#LeaveButtonAction"
+													prefHeight="36.0" prefWidth="64.0" text="離開">
+													<HBox.margin>
+														<Insets left="15.0" />
+													</HBox.margin>
+												</Button>
+											</children>
+										</HBox>
 									</children>
 								</HBox>
 								<HBox prefHeight="40.0">
@@ -157,17 +168,7 @@
 						</VBox>
 					</content>
 				</TitledPane>
-				<HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity"
-					minHeight="-Infinity" prefHeight="50.0">
-					<children>
-						<Button mnemonicParsing="false" onAction="#LeaveButtonAction"
-							prefHeight="36.0" prefWidth="64.0" text="離開">
-							<HBox.margin>
-								<Insets left="15.0" />
-							</HBox.margin>
-						</Button>
-					</children>
-				</HBox>
+				
 			</children>
 		</VBox>
 		<ProgressIndicator fx:id="myProgressIndicator"

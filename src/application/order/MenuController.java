@@ -47,6 +47,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import jssc.SerialPortException;
 
 public class MenuController implements Initializable {
 
@@ -508,14 +509,15 @@ public class MenuController implements Initializable {
 	}
 
 	// TODO
-	private void printWork(String ListContent) {
+	private void printWork(String ListContent) throws UnsupportedEncodingException, SerialPortException {
 		System.out.println("print work");
 		PrinterService printerService = new PrinterService();
 		
-		System.out.println(printerService.getPrinters());
+		printerService.initialCom("COM5");
+		printerService.Print(ListContent);
  
 		//printerService.printBytes("BP-T3", ListContent.getBytes());
-		printerService.printBytes("BP-T3", ListContent);
+		
 	
 	}
 
@@ -550,7 +552,12 @@ public class MenuController implements Initializable {
 				disableMode(false);
 
 				clearAllItem();
-				printWork(ListContent);
+				try {
+					printWork(ListContent);
+				} catch (UnsupportedEncodingException | SerialPortException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 
 			@Override

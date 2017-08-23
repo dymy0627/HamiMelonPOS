@@ -21,7 +21,7 @@
 		
 		<TitledPane animated="false" text="表格">
 		<content>
-			<VBox fx:id = "TableView1" spacing="20" prefHeight="280" >
+			<VBox fx:id = "TableView1" spacing="20" prefHeight="400" >
 				<Label text="本月營業明細" fx:id="label_back_door" >
 					<VBox.margin>
 						<Insets bottom="10.0" right="10.0" top="10.0" />

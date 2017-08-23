@@ -175,6 +175,7 @@ public class DailyViewController implements Initializable {
 				if (group.getSelectedToggle() != null) {
 					if (group.getSelectedToggle().getUserData().toString().equals("1")) {
 						creatTurnOverPieChart();
+						//System.out.println("111");
 					} else if (group.getSelectedToggle().getUserData().toString().equals("2")) {
 						creatTypePieChart();
 					} else if (group.getSelectedToggle().getUserData().toString().equals("3")) {

@@ -9,18 +9,18 @@
 <?import java.net.*?>
 
 <!-- fx:controller="application.report.ReportController" -->
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="application.report.ReportController">
 	<children>
 		
-	<VBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-			AnchorPane.topAnchor="20.0" spacing="20">
+	<VBox fillWidth="true" AnchorPane.leftAnchor="300.0" 
+			AnchorPane.topAnchor="70.0"  spacing="20">
 	<children>	
-		<HBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-				AnchorPane.topAnchor="20.0" spacing="20">
+		<HBox spacing="20">
 				
 			<ToggleButton fx:id="DailyButton"
-				mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
+				mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0"
 				text="日報" >
 				<font>
 					<Font size="20.0" />
@@ -28,21 +28,22 @@
 			</ToggleButton>
 			
 			<ToggleButton fx:id="MonthlyButton"
-				mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0"
+				mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0"
 				text="月報" >
 				<font>
 					<Font size="20.0" />
 				</font>
 			</ToggleButton>
 			
-			<Button onAction="#BackButtonAction" prefHeight="30.0"
+			<Pane HBox.hgrow="ALWAYS" />
+			<Button onAction="#ExportButtonAction" prefHeight="60.0"
+									prefWidth="150.0" text="匯出" />
+			<Button onAction="#BackButtonAction" prefHeight="60.0"
 									prefWidth="150.0" text="返回" />
 			
 		</HBox>
 
-		<Pane	fx:id="ReportContainer"  
-			AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-			AnchorPane.topAnchor="20.0" >
+		<Pane fx:id="ReportContainer" HBox.hgrow="ALWAYS">
 			
 		</Pane>
 		

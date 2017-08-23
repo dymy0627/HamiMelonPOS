@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 
-<VBox prefHeight="800.0" prefWidth="1200.0" spacing="20"
+<VBox prefHeight="800.0" prefWidth="1200.0" spacing="20" alignment="CENTER"
 	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
 	fx:controller="application.report.DailyViewController">
 	<children>
@@ -40,7 +40,7 @@
 
 		<TitledPane animated="false" text="表格">
 			<content>
-				<VBox prefHeight="200.0" prefWidth="100.0">
+				<VBox prefHeight="400.0" prefWidth="100.0">
 					<children>
 						<Label fx:id="label_back_door" onMouseClicked="#BackDoorAction"
 							text="本日營業明細">

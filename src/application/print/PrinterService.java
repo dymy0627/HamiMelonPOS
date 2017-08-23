@@ -1,78 +1,72 @@
 package application.print;
 
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.util.ArrayList;
-import java.util.List;
- 
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.ServiceUI;
-import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import jssc.*;
  
 public class PrinterService{
 	
-	public List<String> getPrinters(){
+	SerialPort serialPort;
+	
+	String Gs = Character.toString((char)0x1D);
+    String V1 = "V1";
+    String CutPaper = Gs+V1;
+    
+    String ESC = Character.toString((char)0x1B);
+    String J1 = "J1";
+    String FeedPaper = ESC+J1;
+    
+    String LF = Character.toString((char)0x0A);
+	
+	public PrinterService(){
 		
-		DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-		PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
+		String[] portNames = SerialPortList.getPortNames();
 		
-		PrintService printServices[] = PrintServiceLookup.lookupPrintServices(
-				flavor, pras);
-		
-		List<String> printerList = new ArrayList<String>();
-		for(PrintService printerService: printServices){
-			printerList.add( printerService.getName());
+		if (portNames.length == 0) {
+		    System.out.println("There are no serial-ports :( You can use an emulator, such ad VSPE, to create a virtual serial port.");
+		    System.out.println("Press Enter to exit...");
+		    try {
+		        System.in.read();
+		    } catch (IOException e) {
+		         // TODO Auto-generated catch block
+		          e.printStackTrace();
+		    }
+		    return;
 		}
 		
-		return printerList;
-	}
- 
-	public void printBytes(String printerName, String list_content) {
-		
-		//Especificamos el tipo de dato a imprimir
-	    //Tipo: bytes; Subtipo: autodetectado
-	    DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
-	    
-	    PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-	    
-	    PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);
-	    PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-	    
-	    //PrintService service = findPrintService(printerName, printService);
-	    
-	    //PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();
-	    //PrintService service = ServiceUI.printDialog(null, 700, 200, printService, defaultService, flavor, pras);
-	      
-	    
-	    try { 
-	    	byte[] bytes = list_content.getBytes();
-	    	Doc doc = new SimpleDoc(bytes,flavor,null);
-	    	DocPrintJob job = service.createPrintJob(); 
-	    	job.print(doc, null);
-	    	
-	    } catch (Exception er) {
-	      JOptionPane.showMessageDialog(null,"Error al imprimir: " + er.getMessage());
-	    }
-	  }
-	private PrintService findPrintService(String printerName,
-			PrintService[] services) {
-		for (PrintService service : services) {
-			if (service.getName().equalsIgnoreCase(printerName)) {
-				return service;
-			}
+		for (int i = 0; i < portNames.length; i++){
+		    System.out.println(portNames[i]);
+		 
 		}
- 
-		return null;
 	}
+	
+	public void initialCom(String portName){
+		 serialPort = new SerialPort(portName);
+		 try {
+			 serialPort.openPort();
+
+		     serialPort.setParams(SerialPort.BAUDRATE_19200,
+		                          SerialPort.DATABITS_8,
+		                          SerialPort.STOPBITS_1,
+		                          SerialPort.PARITY_NONE);
+		 }
+		 catch (SerialPortException ex) {
+		     System.out.println("There are an error on writing string to port т: " + ex);
+		 }
+	}
+	
+	public void Print(String listContent) throws UnsupportedEncodingException, SerialPortException{
+		
+		serialPort.writeBytes(listContent.getBytes("GB18030"));
+		
+        serialPort.writeBytes(LF.getBytes("GB2312"));
+        serialPort.writeBytes(LF.getBytes("GB2312"));
+        serialPort.writeBytes(LF.getBytes("GB2312"));
+        serialPort.writeBytes(LF.getBytes("GB2312"));
+        serialPort.writeBytes(LF.getBytes("GB2312"));
+        serialPort.writeBytes(CutPaper.getBytes("GB2312"));
+        serialPort.closePort();
+	}
+
 }

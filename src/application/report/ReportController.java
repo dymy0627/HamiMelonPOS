@@ -82,4 +82,9 @@ public class ReportController implements Initializable {
 		Parent mainstage = FXMLLoader.load(getClass().getResource("/fxml/MainStage.fxml"));
 		MainScene.changeScene(mainstage);
 	}
+	
+	@FXML
+	protected void ExportButtonAction(ActionEvent event) throws IOException {
+		
+	}
 }
