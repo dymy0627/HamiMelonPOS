@@ -516,9 +516,6 @@ public class MenuController implements Initializable {
 		printerService.initialCom("COM5");
 		printerService.Print(ListContent);
  
-		//printerService.printBytes("BP-T3", ListContent.getBytes());
-		
-	
 	}
 
 	private void dataBaseConnection(String type, int peopleNum, int totalMoney, String meals, String ListContent) {

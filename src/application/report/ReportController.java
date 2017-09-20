@@ -2,11 +2,16 @@ package application.report;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import application.MainScene;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -14,6 +19,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
@@ -92,6 +99,51 @@ public class ReportController implements Initializable {
 	
 	@FXML
 	protected void ExportButtonAction(ActionEvent event) throws IOException {
+		Calendar T_Calendar = Calendar.getInstance();
+		Alert ExCSV_Alert = new Alert(AlertType.INFORMATION);
+		String systemtime = LocalDateTime.now().toString();
+		String[] timeArray = systemtime.split("-");
+		String time = timeArray[0]+"-"+timeArray[1];
 		
+		//export csv file 
+		PrintWriter Ex_CSV = new PrintWriter(new File(time +"報表.csv"));
+		StringBuilder CSV_Builder = new StringBuilder();
+		
+		CSV_Builder.append("");
+		CSV_Builder.append(',');
+		CSV_Builder.append("午餐");
+		CSV_Builder.append(',');
+		CSV_Builder.append("晚餐");
+		CSV_Builder.append(',');
+		CSV_Builder.append("日總");
+		CSV_Builder.append('\n');
+		//Report Format: 日期,午餐營業額,晚餐營業額,日總營業額
+		for(int CursorDay = 1 ; CursorDay <= 31 ; CursorDay++){
+			
+			T_Calendar.set(Integer.parseInt(timeArray[0]),Integer.parseInt(timeArray[1]),CursorDay);
+        	int day = T_Calendar.getTime().getDay()==0?7:T_Calendar.getTime().getDay();
+        	int lunch_total = 66;
+        	int dinner_total = 66;
+        	int day_total = lunch_total + dinner_total;
+			
+        	CSV_Builder.append(timeArray[0]+"-"+timeArray[1]+"-"+String.valueOf(CursorDay));
+        	CSV_Builder.append(',');
+        	CSV_Builder.append(String.valueOf(lunch_total));
+        	CSV_Builder.append(',');
+        	CSV_Builder.append(String.valueOf(dinner_total));
+        	CSV_Builder.append(',');
+        	CSV_Builder.append(String.valueOf(day_total));
+        	
+        	CSV_Builder.append("\n");	
+		}
+		
+        Ex_CSV.write(CSV_Builder.toString());
+        Ex_CSV.close();
+        
+        ExCSV_Alert.setTitle("通知");
+        ExCSV_Alert.setHeaderText(null);
+        ExCSV_Alert.setContentText("報表輸出成功");
+        ExCSV_Alert.showAndWait();
+        
 	}
 }

@@ -60,6 +60,7 @@ public class PrinterService{
 		
 		serialPort.writeBytes(listContent.getBytes("GB18030"));
 		
+		//print enough line feed make cut paper position correct
         serialPort.writeBytes(LF.getBytes("GB2312"));
         serialPort.writeBytes(LF.getBytes("GB2312"));
         serialPort.writeBytes(LF.getBytes("GB2312"));
